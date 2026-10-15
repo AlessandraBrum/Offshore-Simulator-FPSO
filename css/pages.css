@@ -1,0 +1,15 @@
+/* ==========================================================================
+   START: EXTRA PAGES (about.html and devlog.html)
+   Uses the colors, fonts and spacing from style.css. Mobile first.
+   ========================================================================== */
+.oc-page__header{padding:var(--space-4)}
+.oc-page__back{display:inline-flex;align-items:center;min-height:44px;font-weight:600}
+.oc-page{max-width:720px;margin:0 auto;padding:var(--space-4) var(--space-4) 64px}
+.oc-page__title{margin:var(--space-2) 0 var(--space-5);font-family:var(--font-display);font-size:40px;line-height:44px;color:var(--text)}
+.oc-page p{max-width:65ch;margin:0 0 var(--space-4);color:var(--text)}
+.oc-page__entry{padding:var(--space-4) 0;border-top:1px solid var(--border)}
+.oc-page__entry-title{margin:0 0 var(--space-2);font-size:20px;line-height:28px;color:var(--brand)}
+@media (min-width:768px){.oc-page__title{font-size:56px;line-height:60px}}
+/* ==========================================================================
+   END: EXTRA PAGES
+   ========================================================================== */
