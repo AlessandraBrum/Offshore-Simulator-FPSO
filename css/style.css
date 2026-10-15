@@ -772,6 +772,11 @@ a.oc-btn--link:hover{border-color:var(--brand);color:var(--brand)}
 .oc-nav-toggle__icon::before,.oc-nav-toggle__icon::after{content:"";position:absolute;left:0}
 .oc-nav-toggle__icon::before{top:-6px}
 .oc-nav-toggle__icon::after{top:6px}
+/* Every box inside the bar measures its width including padding and border,
+   so nothing grows past the panel edge on any page. */
+.oc-a11ybar,.oc-a11ybar *,.oc-a11ybar *::before,.oc-a11ybar *::after{box-sizing:border-box}
+.oc-a11ybar__panel .oc-volume{min-width:0;max-width:100%}
+.oc-a11ybar__panel .oc-volume__input{min-width:0}
 .oc-a11ybar__panel{box-sizing:border-box;position:fixed;top:0;right:0;bottom:0;z-index:70;display:flex;flex-direction:column;gap:var(--space-5);width:min(340px,88vw);padding:var(--space-4);overflow-y:auto;background:var(--surface);border-left:4px solid var(--brand);box-shadow:-12px 0 32px rgba(0,0,0,.55);transform:translateX(100%);visibility:hidden;transition:transform .3s ease,visibility 0s linear .3s}
 .oc-a11ybar__panel.is-open{transform:none;visibility:visible;transition:transform .3s ease}
 .oc-nav-close{align-self:flex-end}
