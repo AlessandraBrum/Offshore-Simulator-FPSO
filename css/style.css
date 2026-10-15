@@ -1,0 +1,750 @@
+/* ==========================================================================
+   OFFSHORE SIMULATOR · v1.1 · css/style.css
+   Organization (every block has a START and an END):
+     0. Fonts (local files in the fonts/ folder, no external servers)
+     1. Design system tokens (colors, spacing, radii, gradients, fonts)
+     2. Components (header, buttons, indicators, diagram, camera…)
+     3. Page (base, station layout, footer)
+   Contrast: every text/background pair was measured at 7:1 or more (AAA).
+   Motion: the system's "Reduce motion" setting always turns everything off.
+   ========================================================================== */
+
+/* ==========================================================================
+   START: 0. FONTS
+   The fonts live in the fonts/ folder and are published with the game, so
+   the browser never contacts an external server (the player's IP address
+   is not shared with third parties). License: SIL Open Font License 1.1,
+   copies in fonts/OFL-*.txt. "latin" subset, which covers all of English
+   and Portuguese.
+   ========================================================================== */
+@font-face{font-family:"IBM Plex Sans";font-style:normal;font-weight:400;font-display:swap;src:url("../fonts/ibm-plex-sans-latin-400-normal.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Sans";font-style:normal;font-weight:500;font-display:swap;src:url("../fonts/ibm-plex-sans-latin-500-normal.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Sans";font-style:normal;font-weight:600;font-display:swap;src:url("../fonts/ibm-plex-sans-latin-600-normal.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Mono";font-style:normal;font-weight:400;font-display:swap;src:url("../fonts/ibm-plex-mono-latin-400-normal.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Mono";font-style:normal;font-weight:500;font-display:swap;src:url("../fonts/ibm-plex-mono-latin-500-normal.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Mono";font-style:normal;font-weight:600;font-display:swap;src:url("../fonts/ibm-plex-mono-latin-600-normal.woff2") format("woff2")}
+@font-face{font-family:"Big Shoulders Stencil Display";font-style:normal;font-weight:700;font-display:swap;src:url("../fonts/big-shoulders-stencil-display-latin-700-normal.woff2") format("woff2")}
+@font-face{font-family:"Big Shoulders Stencil Display";font-style:normal;font-weight:800;font-display:swap;src:url("../fonts/big-shoulders-stencil-display-latin-800-normal.woff2") format("woff2")}
+/* ==========================================================================
+   END: 0. FONTS
+   ========================================================================== */
+
+/* ==========================================================================
+   START: 1. TOKENS
+   ========================================================================== */
+[hidden]{display:none!important}
+:root{
+  --bg:#0a1219;
+  --surface:#101b24;
+  --card:#131f29;
+  --elevated:#1b2b38;
+  --hover:#25384a;
+  --border:#3a4b58;
+  --border-strong:#8a9aa6;
+  --accent:#5795b8;
+  --accent-text:#9cc8e2;
+  --on-accent:#0a1219;
+  --text:#e8f1f7;
+  --text-2:#c3d4e0;
+  --text-3:#bccfdc;
+  --ok-bg:#123c32;
+  --ok-text:#a6ebc9;
+  --ok-border:#397c62;
+  --bad-bg:#4a2028;
+  --bad-text:#fbc4ca;
+  --bad-border:#a54a55;
+  --focus:#ffd23f;
+  --brand:#ff9f4a;        /* safety orange: interface highlight · 9:1 on --bg */
+  --rust:#9a6440;         /* rust: panel borders (strokes only, 3:1) */
+  --space-1:4px;
+  --space-2:8px;
+  --space-3:12px;
+  --space-4:16px;
+  --space-5:24px;
+  --space-6:32px;
+  --radius-sm:4px;
+  --radius-md:6px;
+  --radius-lg:10px;
+  --shadow-panel:0 1px 2px rgba(0, 0, 0, 0.45);
+  --touch-target:44px;
+  --focus-width:3px;
+  --content-max:1440px;
+  --gradient-page:radial-gradient(ellipse 60% 45% at 92% -10%, rgba(255,159,74,.10) 0%, transparent 70%), radial-gradient(ellipse 60% 50% at -5% 105%, #142231 0%, transparent 70%);
+  --gradient-header:linear-gradient(180deg, #16232e 0%, #0d161e 100%);
+  --gradient-panel:linear-gradient(160deg, #1f2e3a 0%, #16222c 45%, #111b24 100%);
+  --gradient-diagram:radial-gradient(ellipse 90% 80% at 50% 0%, #1b2c39 0%, #0c161e 75%);
+  --gradient-ok:linear-gradient(150deg, #154638 0%, #123c32 55%, #0e3028 100%);
+  --gradient-bad:linear-gradient(150deg, #552530 0%, #4a2028 55%, #3d1a21 100%);
+  --font-sans:"IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display:"Big Shoulders Stencil Display", Impact, "Arial Narrow", sans-serif;
+  --font-mono:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
+}
+/* ==========================================================================
+   END: 1. TOKENS
+   ========================================================================== */
+
+/* ==========================================================================
+   START: 2. COMPONENTS
+   ========================================================================== */
+/* ----- START: Component base ----- */
+/* Offshore Simulator — component styles. Depends only on tokens.css (variables --bg, --card, --ok-bg...). */
+.oc-root{background:var(--gradient-page),var(--bg);background-attachment:fixed;color:var(--text);font-family:var(--font-sans);font-size:16px;line-height:26px}
+.oc-root *,.oc-root *::before,.oc-root *::after{box-sizing:border-box}
+.oc-root :where(button,input,summary,a,[tabindex]):focus-visible{outline:var(--focus-width) solid var(--focus);outline-offset:3px}
+.oc-num{font-family:var(--font-mono);font-variant-numeric:tabular-nums}
+.oc-label{font-size:14px;line-height:20px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-3)}
+.oc-sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+/* ----- END: Component base ----- */
+
+/* ----- START: Panel ----- */
+/* Panel */
+.oc-panel{background:var(--gradient-panel);border:1px solid var(--border);border-radius:var(--radius-lg);padding:var(--space-5);box-shadow:var(--shadow-panel);min-width:0}
+.oc-panel__head{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:var(--space-2);margin-bottom:var(--space-4)}
+.oc-panel__title{margin:0;font-size:20px;line-height:28px;font-weight:600;color:var(--text)}
+/* ----- END: Panel ----- */
+
+/* ----- START: Button ----- */
+/* Button */
+.oc-btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--space-2);min-height:var(--touch-target);padding:0 var(--space-4);border:1px solid var(--border-strong);border-radius:var(--radius-md);background:var(--elevated);color:var(--text);font:600 16px/24px var(--font-sans);cursor:pointer}
+.oc-btn:hover{background:var(--hover)}
+.oc-btn[aria-pressed="true"]{border:2px solid var(--accent-text)}
+.oc-btn[aria-disabled="true"]{color:var(--text-3);border-color:var(--border);cursor:not-allowed}
+.oc-btn[aria-disabled="true"]:hover{background:var(--elevated)}
+.oc-btn__state{font-weight:400;color:var(--text-2)}
+.oc-btn--primary{background:var(--accent-text);border-color:var(--accent-text);color:var(--on-accent)}
+.oc-btn--primary:hover{background:var(--text-2);border-color:var(--text-2)}
+.oc-btn:disabled{color:var(--text-3);border-color:var(--border);background:var(--elevated);cursor:not-allowed}
+/* ----- END: Button ----- */
+
+/* ----- START: Tag (neutral information) ----- */
+/* Tag (neutral information) */
+.oc-tag{display:inline-flex;align-items:center;gap:var(--space-1);padding:2px var(--space-2);border:1px solid var(--border-strong);border-radius:var(--radius-sm);font-size:14px;line-height:20px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-2);white-space:nowrap}
+/* ----- END: Tag (neutral information) ----- */
+
+/* ----- START: StatusBadge ----- */
+/* StatusBadge: the state comes from data-state, and the text always spells out the state */
+.oc-badge{display:inline-flex;align-items:center;gap:var(--space-1);padding:2px var(--space-2);border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--elevated);color:var(--text-2);font-size:14px;line-height:20px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+.oc-badge[data-state="ok"]{background:var(--ok-bg);border-color:var(--ok-border);color:var(--ok-text)}
+.oc-badge[data-state="bad"]{background:var(--bad-bg);border-color:var(--bad-border);color:var(--bad-text)}
+/* ----- END: StatusBadge ----- */
+
+/* ----- START: OperationalHeader ----- */
+/* OperationalHeader */
+.oc-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:var(--space-4);padding:var(--space-3) var(--space-4);background:var(--gradient-header);border-bottom:1px solid var(--border)}
+.oc-header__brand{display:flex;flex-direction:column;gap:2px;min-width:0}
+.oc-header__name{margin:0;font-size:22px;line-height:28px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text)}
+.oc-header__name em{font-style:normal;color:var(--accent-text)}
+.oc-header__meta{display:flex;align-items:center;flex-wrap:wrap;gap:var(--space-2)}
+/* ----- END: OperationalHeader ----- */
+
+/* ----- START: IndicatorCard ----- */
+/* IndicatorCard */
+.oc-indicators{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-4)}
+.oc-indicator{min-width:0;padding:var(--space-4);border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--card);transition:background-color .2s ease,border-color .2s ease}
+.oc-indicator[data-state="ok"]{background:var(--gradient-ok);border-color:var(--ok-border)}
+.oc-indicator[data-state="bad"]{background:var(--gradient-bad);border-color:var(--bad-border)}
+.oc-indicator__name{margin:0;font-size:16px;line-height:24px;font-weight:600;color:var(--text-2)}
+.oc-indicator__value{display:flex;align-items:baseline;gap:var(--space-1);margin:var(--space-3) 0;font-family:var(--font-mono);font-variant-numeric:tabular-nums;font-size:40px;line-height:44px;font-weight:600;color:var(--text);overflow-wrap:anywhere}
+.oc-indicator__unit{font-size:15px;line-height:22px;font-weight:400;color:var(--text-3)}
+.oc-indicator[data-state="ok"] .oc-indicator__value{color:var(--ok-text)}
+.oc-indicator[data-state="bad"] .oc-indicator__value{color:var(--bad-text)}
+.oc-indicator[data-state="ok"] .oc-indicator__unit{color:var(--ok-text)}
+.oc-indicator[data-state="bad"] .oc-indicator__unit{color:var(--bad-text)}
+.oc-indicator__status{margin:0;display:flex;align-items:center;gap:var(--space-1);font-size:15px;line-height:22px;font-weight:600;color:var(--text-2)}
+.oc-indicator[data-state="ok"] .oc-indicator__status{color:var(--ok-text)}
+.oc-indicator[data-state="bad"] .oc-indicator__status{color:var(--bad-text)}
+.oc-indicator__target{margin:var(--space-1) 0 0;font-size:15px;line-height:22px;color:var(--text-3)}
+.oc-indicator[data-state="ok"] .oc-indicator__target,.oc-indicator[data-state="bad"] .oc-indicator__target{color:var(--text-2)}
+@media (max-width:430px){
+  .oc-indicators{gap:var(--space-2)}
+  .oc-indicator{padding:var(--space-3)}
+  .oc-indicator__value{font-size:28px;line-height:32px}
+  .oc-indicator__unit{font-size:14px}
+}
+/* ----- END: IndicatorCard ----- */
+
+/* ----- START: RangeControl ----- */
+/* RangeControl */
+.oc-range{display:grid;gap:var(--space-2)}
+.oc-range__row{display:flex;justify-content:space-between;align-items:baseline;gap:var(--space-4)}
+.oc-range__label{font-size:16px;line-height:26px;font-weight:600;color:var(--text)}
+.oc-range__value{font-family:var(--font-mono);font-variant-numeric:tabular-nums;font-size:20px;line-height:24px;font-weight:600;color:var(--accent-text)}
+.oc-range__input{width:100%;min-height:var(--touch-target);margin:0;accent-color:var(--accent);background:transparent;cursor:pointer}
+.oc-range__ends{display:flex;justify-content:space-between;gap:var(--space-2);font-size:15px;line-height:22px;color:var(--text-3)}
+.oc-range__effect{margin:0;font-size:15px;line-height:22px;color:var(--text-2)}
+/* ----- END: RangeControl ----- */
+
+/* ----- START: DiagnosticPanel ----- */
+/* DiagnosticPanel */
+.oc-diag{display:grid;gap:var(--space-3)}
+.oc-diag__state{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:var(--space-2)}
+.oc-diag__message{margin:0;color:var(--text)}
+.oc-diag__list{margin:0;padding:0;list-style:none;display:grid;gap:var(--space-2)}
+.oc-diag__item{display:flex;gap:var(--space-2);align-items:flex-start;padding:var(--space-3);border:1px solid var(--border);border-radius:var(--radius-md);background:var(--elevated);font-size:16px;line-height:24px}
+.oc-diag__item[data-state="ok"]{background:var(--gradient-ok);border-color:var(--ok-border);color:var(--ok-text)}
+.oc-diag__item[data-state="bad"]{background:var(--gradient-bad);border-color:var(--bad-border);color:var(--bad-text)}
+.oc-diag__log{margin:0;padding:0;list-style:none;border-top:1px solid var(--border)}
+.oc-diag__log li{display:flex;gap:var(--space-3);padding:var(--space-2) 0;border-bottom:1px solid var(--border);font-size:15px;line-height:22px;color:var(--text-2)}
+.oc-diag__log time{font-family:var(--font-mono);font-variant-numeric:tabular-nums;color:var(--text-3)}
+/* ----- END: DiagnosticPanel ----- */
+
+/* ----- START: NarrationPanel ----- */
+/* NarrationPanel */
+.oc-narr{display:grid;gap:var(--space-3)}
+.oc-narr__actions{display:flex;flex-wrap:wrap;gap:var(--space-2)}
+.oc-narr__feedback{margin:0;font-size:15px;line-height:22px;color:var(--text-2)}
+.oc-narr__summary{padding:var(--space-4);border:1px solid var(--border);border-radius:var(--radius-md);background:var(--surface)}
+.oc-narr__summary h4{margin:0 0 var(--space-2);font-size:16px;line-height:24px;font-weight:600;color:var(--text)}
+.oc-narr__summary p{margin:0;font-size:16px;line-height:26px;color:var(--text-2)}
+/* ----- END: NarrationPanel ----- */
+
+/* ----- START: ProcessDiagram (SVG) ----- */
+/* ProcessDiagram (SVG) */
+.oc-diagram{display:block;width:100%;height:auto;background:radial-gradient(circle,rgba(116,145,166,.16) 1px,transparent 1.6px) 0 0/24px 24px,var(--gradient-diagram);border:1px solid var(--border);border-radius:var(--radius-lg)}
+.oc-diagram text{font-family:var(--font-sans);fill:var(--text-2);font-size:16px}
+.oc-diagram .oc-d-title{fill:var(--text);font-weight:600;font-size:17px}
+.oc-diagram .oc-d-read{font-family:var(--font-mono);fill:var(--text);font-size:16px;font-weight:500}
+.oc-diagram .oc-d-pipe{fill:none;stroke:var(--accent);stroke-width:6;stroke-linecap:round}
+.oc-diagram .oc-d-pipe-edge{fill:none;stroke:var(--surface);stroke-width:2}
+.oc-diagram .oc-d-flow{fill:none;stroke:var(--text);stroke-opacity:.8;stroke-width:2;stroke-dasharray:2 14;stroke-linecap:round;animation:oc-flow 1.2s linear infinite}
+.oc-diagram .oc-d-equip{fill:var(--elevated);stroke:var(--border-strong);stroke-width:2}
+.oc-diagram .oc-d-liquid{fill:var(--accent);fill-opacity:.55}
+.oc-diagram [data-equip]{cursor:pointer}
+.oc-diagram [data-equip]:focus{outline:none}
+.oc-diagram [data-equip]:focus-visible .oc-d-equip,.oc-diagram [data-equip][data-selected="true"] .oc-d-equip{stroke:var(--focus);stroke-width:3}
+.oc-diagram .oc-d-sensor{fill:var(--card);stroke:var(--border-strong);stroke-width:2}
+.oc-diagram [data-state="ok"] .oc-d-sensor{fill:var(--ok-bg);stroke:var(--ok-border)}
+.oc-diagram [data-state="bad"] .oc-d-sensor{fill:var(--bad-bg);stroke:var(--bad-border)}
+.oc-diagram [data-state="ok"] .oc-d-read{fill:var(--ok-text)}
+.oc-diagram [data-state="bad"] .oc-d-read{fill:var(--bad-text)}
+@keyframes oc-flow{to{stroke-dashoffset:-16}}
+/* ----- END: ProcessDiagram (SVG) ----- */
+
+/* ----- START: ProcessDiagram ----- */
+/* ProcessDiagram: landscape by default; portrait only on a narrow portrait screen. The height never exceeds the screen, so the flow diagram is always shown in full */
+.oc-diagram--portrait{display:none}
+.oc-diagram--landscape{width:min(100%, calc((100vh - 48px) * 760 / 270));width:min(100%, calc((100dvh - 48px) * 760 / 270));margin-inline:auto}
+.oc-diagram.is-idle .oc-d-flow{animation:none;opacity:0}
+.oc-diagram .oc-d-fluid{fill:var(--accent-text);font-style:italic;font-size:16px}
+@media (orientation:portrait) and (max-width:760px){
+  .oc-diagram--landscape{display:none}
+  .oc-diagram--portrait{display:block;width:min(100%, 420px, calc((100vh - 48px) * 360 / 540));width:min(100%, 420px, calc((100dvh - 48px) * 360 / 540));margin-inline:auto}
+}
+/* ----- END: ProcessDiagram ----- */
+
+/* ----- START: ValveCloseUp ----- */
+/* ValveCloseUp: close-up camera of the inside of the valve */
+.oc-cam{position:relative;overflow:hidden;border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--gradient-diagram)}
+.oc-cam__canvas{display:block;width:100%;aspect-ratio:2/1;max-height:calc(100vh - 140px);max-height:calc(100dvh - 140px)}
+.oc-cam__hud{display:flex;justify-content:space-between;gap:var(--space-2);flex-wrap:wrap;padding:var(--space-3);border-bottom:1px solid var(--border)}
+.oc-cam__hud .oc-tag{background:rgba(9,17,27,.72)}
+.oc-cam__foot{display:flex;gap:var(--space-2);flex-wrap:wrap;padding:var(--space-3);border-top:1px solid var(--border)}
+.oc-cam__caption{margin:var(--space-3) 0 0;font-size:16px;line-height:24px;color:var(--text-2)}
+@media (max-width:760px){.oc-cam__canvas{aspect-ratio:4/3}}
+/* ----- END: ValveCloseUp ----- */
+
+/* ----- START: About the operation (collapsed topics) ----- */
+/* Optional reference: each topic is a native details/summary (opens with
+   a click, a tap, Enter or Space). Mobile first: drawing above the
+   text; from 900px up, side by side. */
+.oc-guide{display:grid;gap:var(--space-5)}
+.oc-guide__head{display:grid;gap:var(--space-2)}
+.oc-guide__lead{margin:0;color:var(--text-2);max-width:80ch}
+.oc-guide__lead strong{color:var(--text)}
+.oc-guide__group{display:grid;gap:var(--space-2)}
+.oc-guide__group-title{margin:0 0 var(--space-1);font:800 26px/30px var(--font-display);letter-spacing:.03em;text-transform:uppercase;color:var(--brand)}
+.oc-topic{border:1px solid var(--border);border-radius:var(--radius-md);background:var(--surface)}
+.oc-topic>summary{display:flex;align-items:center;gap:var(--space-3);min-height:var(--touch-target);padding:var(--space-2) var(--space-4);font-size:18px;line-height:26px;font-weight:600;color:var(--text);cursor:pointer;list-style:none}
+.oc-topic>summary::-webkit-details-marker{display:none}
+.oc-topic>summary::before{content:"+";flex:none;display:inline-grid;place-items:center;width:28px;height:28px;border:2px solid var(--brand);border-radius:var(--radius-sm);font:700 20px/1 var(--font-mono);color:var(--brand)}
+.oc-topic[open]>summary::before{content:"−"}
+.oc-topic[open]>summary{border-bottom:1px solid var(--border)}
+.oc-topic>summary:hover{background:var(--elevated)}
+.oc-topic__body{display:grid;gap:var(--space-4);padding:var(--space-4);align-items:center}
+.oc-topic__fig{margin:0;padding:var(--space-4);border:1px solid var(--border);border-radius:var(--radius-lg);background:radial-gradient(circle,rgba(116,145,166,.16) 1px,transparent 1.6px) 0 0/24px 24px,var(--gradient-diagram)}
+.oc-topic__fig svg{display:block;width:100%;max-width:440px;height:auto;margin-inline:auto;overflow:visible}
+.oc-topic__text p{margin:0;font-size:17px;line-height:28px;color:var(--text-2);max-width:62ch}
+@media (max-width:599px){.oc-topic__body{padding:var(--space-3)}.oc-topic__fig{padding:var(--space-2)}}
+@media (min-width:900px){.oc-topic__body{grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:var(--space-6)}}
+.oc-guide .intro-note{margin:0;font-size:15px;line-height:22px;color:var(--text-3)}
+
+/* Illustrations (SVG). Text at 16 units or larger, so it does not
+   end up too small on a phone. CSS animations only: the Motion
+   rules (further down) stop all of them. */
+.oc-topic__fig text{font-family:var(--font-sans);font-size:17px;fill:var(--text-2)}
+.oc-topic__fig .tv-strong{fill:var(--text);font-weight:600}
+.oc-topic__fig .tv-muted{fill:var(--text-3)}
+.oc-topic__fig .tv-tag{font-family:var(--font-mono);font-weight:600;letter-spacing:0;fill:var(--accent-text)}
+.oc-topic__fig .tv-tag--hot{fill:var(--focus)}
+.tv-node rect{fill:var(--elevated);stroke:var(--border-strong);stroke-width:2}
+.tv-node text{fill:var(--text);font-weight:600}
+.tv-node--hot rect{stroke:var(--accent-text)}
+.tv-pipe{fill:none;stroke:var(--accent);stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
+.tv-pipe--thin{stroke-width:4}
+.tv-flow,.tv-signal-flow{fill:none;stroke:var(--text);stroke-width:2;stroke-dasharray:2 12;stroke-linecap:round;animation:oc-flow 1.2s linear infinite}
+.tv-signal{fill:none;stroke:var(--border-strong);stroke-width:2;stroke-dasharray:8 6}
+.tv-signal-flow{stroke:var(--focus);stroke-dasharray:3 40;animation-duration:1.6s}
+.tv-bracket{fill:none;stroke:var(--focus);stroke-width:2;stroke-dasharray:6 6}
+.tv-wall{fill:none;stroke:var(--border-strong);stroke-width:2}
+.tv-line,.tv-axis,.tv-axis-head{fill:none;stroke:var(--border-strong);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.tv-liquid,.tv-oil{fill:var(--accent);fill-opacity:.35}
+.tv-water{fill:var(--accent);fill-opacity:.7}
+.tv-bubble{fill:var(--text);fill-opacity:.85;animation:oc-rise 2.4s ease-in infinite}
+.tv-d1{animation-delay:-.5s}.tv-d2{animation-delay:-1s}.tv-d3{animation-delay:-1.5s}.tv-d4{animation-delay:-2s}
+@keyframes oc-rise{from{transform:translateY(0);opacity:0}15%{opacity:1}to{transform:translateY(-110px);opacity:0}}
+#topico-4 .tv-bubble{animation-name:oc-rise-short}
+@keyframes oc-rise-short{from{transform:translateY(0);opacity:0}20%{opacity:1}to{transform:translateY(-40px);opacity:0}}
+.tv-bar{transform-box:fill-box;transform-origin:left center}
+.tv-bar--main{fill:var(--accent)}
+.tv-bar--rest{fill:var(--accent-text);fill-opacity:.55}
+.oc-topic[open] .tv-bar{animation:oc-grow .9s ease-out both}
+.oc-topic[open] .tv-bar--rest{animation-delay:.5s}
+@keyframes oc-grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.tv-chip rect{fill:var(--elevated);stroke:var(--border-strong)}
+.tv-chip text{fill:var(--text);font-family:var(--font-mono)}
+.tv-chip--bad rect{fill:var(--bad-bg);stroke:var(--bad-border)}
+.tv-chip--bad text{fill:var(--bad-text)}
+.tv-tower{fill:none;stroke:var(--border-strong);stroke-width:2;stroke-linecap:round}
+.tv-psv{fill:var(--elevated);stroke:var(--border-strong);stroke-width:2;stroke-linejoin:round}
+.tv-flame{transform-box:fill-box;transform-origin:50% 100%;animation:oc-flicker 1.4s ease-in-out infinite alternate}
+.tv-flame__outer{fill:var(--focus)}
+.tv-flame__inner{fill:var(--bg)}
+@keyframes oc-flicker{from{transform:scale(1,1)}to{transform:scale(.92,1.08)}}
+.tv-ring{fill:none;stroke:var(--border);stroke-width:6}
+.tv-ring-flow{fill:none;stroke:var(--accent-text);stroke-width:3;stroke-dasharray:4 14;stroke-linecap:round;animation:oc-flow 1.2s linear infinite}
+.tv-bubble-tag circle{fill:var(--card);stroke:var(--border-strong);stroke-width:2}
+.tv-bubble-tag text{fill:var(--text);font-family:var(--font-mono);font-weight:600}
+/* ----- END: About the operation ----- */
+
+/* ----- START: Legend ----- */
+/* Legend: caption below each animated drawing */
+.oc-legend{margin:var(--space-4) 0 0;padding:var(--space-4);border:1px solid var(--border);border-radius:var(--radius-md);background:rgba(9,17,27,.35)}
+.oc-legend__title{margin:0 0 var(--space-3);font-size:14px;line-height:20px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-3)}
+.oc-legend__list{margin:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-3) var(--space-5)}
+.oc-legend__item{min-width:0}
+.oc-legend__item dt{display:flex;align-items:center;gap:var(--space-3);font-size:15px;line-height:22px;font-weight:600;color:var(--text)}
+.oc-legend__item svg{flex:none;display:block;width:36px;height:28px}
+.oc-legend__item dd{margin:2px 0 0 48px;font-size:15px;line-height:22px;color:var(--text-2)}
+@media (max-width:760px){.oc-legend__list{grid-template-columns:minmax(0,1fr)}}
+/* ----- END: Legend ----- */
+
+/* ----- START: AccessibilityBar ----- */
+/* AccessibilityBar: shortcuts, animations button and accessibility link, before the header */
+.oc-a11ybar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--space-2) var(--space-5);padding:var(--space-2) var(--space-4);background:var(--bg);border-bottom:1px solid var(--border)}
+.oc-skip{display:flex;flex-wrap:wrap;gap:var(--space-1) var(--space-2);margin:0;padding:0;list-style:none}
+.oc-link{display:inline-flex;align-items:center;gap:var(--space-2);min-height:var(--touch-target);padding:0 var(--space-2);color:var(--accent-text);font-size:15px;line-height:22px;text-decoration:underline;text-underline-offset:3px;border-radius:var(--radius-sm)}
+.oc-link:hover{color:var(--text)}
+.oc-a11ybar__tools{display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-2)}
+/* Music volume: label, slider and percentage value */
+.oc-volume{display:flex;align-items:center;gap:var(--space-2);min-height:var(--touch-target);padding:0 var(--space-3);border:1px solid var(--border-strong);border-radius:var(--radius-md);background:var(--elevated)}
+.oc-volume__label{font:600 16px/24px var(--font-sans);color:var(--text)}
+.oc-volume__input{width:120px;min-height:var(--touch-target);margin:0;accent-color:var(--brand);background:transparent;cursor:pointer}
+.oc-volume__value{min-width:4ch;font:600 16px/24px var(--font-mono);font-variant-numeric:tabular-nums;color:var(--text);text-align:right}
+/* Mobile: Music and Animations share the first row; the volume takes up the whole second row */
+@media (max-width:599px){
+  .oc-a11ybar__tools{width:100%}
+  .oc-a11ybar__tools>.oc-btn{flex:1 1 0}
+  .oc-volume{order:3;flex:1 1 100%}
+  .oc-volume__input{flex:1;width:auto}
+}
+/* Short notice (music, animations, progress): floats over the page, just
+   below the top bar, without pushing the content down. It disappears on its
+   own after a few seconds (the screen reader has already read it out). */
+.oc-status{position:fixed;z-index:40;top:72px;right:var(--space-4);max-width:min(420px,calc(100% - 32px));margin:0;font-size:16px;line-height:24px;color:var(--text);pointer-events:none}
+.oc-status:not(:empty){padding:var(--space-3) var(--space-4);background:var(--elevated);border:1px solid var(--border-strong);border-left:4px solid var(--brand);border-radius:var(--radius-md);box-shadow:0 8px 24px rgba(0,0,0,.45)}
+/* ----- END: AccessibilityBar ----- */
+
+/* ----- START: Mission and current objective ----- */
+/* On entry: a large card with the mission and the two choices.
+   During play: a compact strip, fixed to the top from 761px up, so the
+   objective is always in view. Color is never the only cue: the
+   number of indicators within target is written out. */
+.oc-mission{display:grid;gap:var(--space-4);padding:var(--space-5);border:2px solid var(--brand);border-radius:var(--radius-sm);background:var(--card);box-shadow:var(--shadow-panel)}
+.oc-mission__body{display:grid;gap:var(--space-2);min-width:0}
+.oc-mission__eyebrow{margin:0;color:var(--brand)}
+.oc-mission__title{margin:0;font:800 44px/1 var(--font-display);letter-spacing:.03em;text-transform:uppercase;color:var(--text)}
+.oc-mission__text{margin:0;font-size:20px;line-height:31px;color:var(--text);max-width:68ch}
+.oc-mission__tally{justify-self:start;margin:0;padding:2px var(--space-2);border:1px solid var(--border-strong);border-radius:var(--radius-sm);font:600 15px/22px var(--font-mono);color:var(--text)}
+.oc-mission__tally[data-state="ok"]{background:var(--ok-bg);border-color:var(--ok-border);color:var(--ok-text)}
+.oc-mission__tally[data-state="bad"]{background:var(--bad-bg);border-color:var(--bad-border);color:var(--bad-text)}
+.oc-mission__actions{display:flex;flex-wrap:wrap;gap:var(--space-3)}
+.oc-mission[data-mode="intro"] .oc-mission__actions .oc-btn{min-height:56px;padding:0 var(--space-5);font:800 22px/1 var(--font-display);letter-spacing:.05em;text-transform:uppercase}
+@media (max-width:599px){.oc-mission__actions .oc-btn{flex:1 1 100%}.oc-mission__title{font-size:36px}.oc-mission__text{font-size:18px;line-height:28px}}
+/* Compact strip (training, challenge and free exploration): the heading
+   is still there for the screen reader, but is hidden from view. */
+.oc-mission[data-mode="training"],.oc-mission[data-mode="challenge"],.oc-mission[data-mode="free"]{gap:var(--space-3);padding:var(--space-3) var(--space-4)}
+.oc-mission[data-mode="training"] .oc-mission__title,.oc-mission[data-mode="challenge"] .oc-mission__title,.oc-mission[data-mode="free"] .oc-mission__title{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+.oc-mission[data-mode="training"] .oc-mission__text,.oc-mission[data-mode="challenge"] .oc-mission__text,.oc-mission[data-mode="free"] .oc-mission__text{font-size:18px;line-height:27px;font-weight:600;max-width:none}
+.oc-mission[data-mode="done"]{border-color:var(--ok-border);background:var(--gradient-ok)}
+.oc-mission[data-mode="done"] .oc-mission__eyebrow{color:var(--ok-text)}
+.oc-mission[data-mode="done"] .oc-mission__text{font-size:18px;line-height:29px}
+/* Mobile: target badge below the step text. From 761px up: beside it. */
+.oc-mission[data-mode="training"] .oc-mission__body,.oc-mission[data-mode="challenge"] .oc-mission__body,.oc-mission[data-mode="free"] .oc-mission__body{gap:var(--space-1)}
+@media (min-width:761px){
+  .oc-mission:not([data-mode="intro"]){grid-template-columns:minmax(0,1fr) auto;align-items:center}
+  .oc-mission[data-mode="training"] .oc-mission__body,.oc-mission[data-mode="challenge"] .oc-mission__body,.oc-mission[data-mode="free"] .oc-mission__body{grid-template-columns:auto minmax(0,1fr);align-items:center;column-gap:var(--space-3);row-gap:var(--space-1)}
+  .oc-mission[data-mode="training"] .oc-mission__text,.oc-mission[data-mode="challenge"] .oc-mission__text,.oc-mission[data-mode="free"] .oc-mission__text{grid-column:1/-1;grid-row:2}
+  .oc-mission__eyebrow{grid-row:1;grid-column:1}
+  .oc-mission__tally{grid-row:1;grid-column:2}
+  .oc-mission[data-mode="training"],.oc-mission[data-mode="challenge"],.oc-mission[data-mode="free"]{position:sticky;top:0;z-index:15;box-shadow:0 8px 20px rgba(0,0,0,.55)}
+  /* Focus is never hidden behind the fixed strip (WCAG 2.4.11) */
+  html:has(#missao[data-mode="training"]),html:has(#missao[data-mode="challenge"]),html:has(#missao[data-mode="free"]){scroll-padding-top:var(--mission-h,150px)}
+}
+/* ----- END: Mission and current objective ----- */
+
+/* ----- START: Guided training ----- */
+/* The current step's control gets a steady yellow outline (no blinking) and
+   the training box appears just below it, pointing up. */
+.oc-range.is-coach{margin:calc(var(--space-3) * -1);padding:var(--space-3);border:var(--focus-width) solid var(--focus);border-radius:var(--radius-md);background:transparent}
+.oc-coach{position:relative;display:grid;gap:var(--space-2);padding:var(--space-4);border:2px solid var(--focus);border-radius:var(--radius-md);background:var(--bg)}
+.oc-coach::before{content:"";position:absolute;top:-10px;left:28px;width:16px;height:16px;background:var(--bg);border-left:2px solid var(--focus);border-top:2px solid var(--focus);transform:rotate(45deg)}
+.oc-coach__step{margin:0;font:600 15px/22px var(--font-mono);letter-spacing:.04em;text-transform:uppercase;color:var(--focus)}
+.oc-coach__task{margin:0;font-size:18px;line-height:28px;font-weight:600;color:var(--text)}
+.oc-coach__hint{margin:0;font-size:16px;line-height:24px;color:var(--text-2)}
+.oc-coach__result{margin:var(--space-1) 0 0;padding:var(--space-3);border-left:4px solid var(--accent-text);border-radius:var(--radius-sm);background:var(--surface);font-size:16px;line-height:26px;color:var(--text)}
+.oc-coach__actions{display:flex;flex-wrap:wrap;gap:var(--space-2);margin-top:var(--space-1)}
+@media (max-width:430px){.oc-coach__actions .oc-btn{flex:1 1 100%}}
+/* ----- END: Guided training ----- */
+
+/* ----- START: Effect of the adjustment ----- */
+.oc-consequence{margin-top:var(--space-5);padding-top:var(--space-4);border-top:1px solid var(--border)}
+.oc-consequence__title{margin:0 0 var(--space-1)}
+.oc-consequence__text{margin:0;font-size:16px;line-height:25px;color:var(--text)}
+/* ----- END: Effect of the adjustment ----- */
+
+/* ----- START: Listen to indicators ----- */
+.oc-listen{display:flex;flex-wrap:wrap;gap:var(--space-2)}
+.oc-listen__feedback{margin:0 0 var(--space-3);font-size:15px;line-height:22px;color:var(--text-2)}
+.oc-listen__feedback:empty{display:none}
+/* ----- END: Listen to indicators ----- */
+
+/* ----- START: Explanation of the selected item (camera 1) ----- */
+.oc-info{display:grid;gap:var(--space-2);margin-top:var(--space-3);padding:var(--space-4);border:2px solid var(--focus);border-radius:var(--radius-md);background:var(--bg)}
+.oc-info__title{margin:0;font-size:18px;line-height:26px;font-weight:600;color:var(--text)}
+.oc-info__text,.oc-info__more{margin:0;color:var(--text-2)}
+.oc-info__read{margin:0;font:500 16px/24px var(--font-mono);color:var(--text)}
+.oc-info__actions{display:flex;flex-wrap:wrap;gap:var(--space-2)}
+.oc-btn--quiet{margin-top:var(--space-3)}
+.oc-diagram [data-sensor]{cursor:pointer}
+.oc-diagram [data-sensor]:focus{outline:none}
+.oc-diagram [data-sensor]:focus-visible .oc-d-sensor,.oc-diagram [data-sensor][data-selected="true"] .oc-d-sensor{stroke:var(--focus);stroke-width:4}
+/* ----- END: Explanation of the selected item ----- */
+
+/* ----- START: Collapsed sections (Other alerts, History, Learn more…) ----- */
+.oc-more>summary{display:flex;align-items:center;min-height:var(--touch-target);cursor:pointer;font-weight:600}
+.oc-more[open]>summary{margin-bottom:var(--space-2)}
+.oc-diag__tip{margin:0;color:var(--text)}
+/* ----- END: Collapsed sections ----- */
+
+/* ----- START: Camera 2 · instruction and "Understand the drawing" ----- */
+.oc-cam__task{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--space-2) var(--space-4);margin-bottom:var(--space-3)}
+.oc-cam__task .oc-btn--quiet{margin-top:0}
+.oc-cam__instruction{margin:0;font-size:18px;line-height:27px;font-weight:600;color:var(--text)}
+.oc-cam__more{margin-top:var(--space-3)}
+.oc-cam__about{margin:0 0 var(--space-3);color:var(--text-2);max-width:70ch}
+.oc-cam__more .oc-legend__item dd strong{color:var(--text)}
+/* ----- END: Camera 2 ----- */
+
+/* ----- START: Links within the text ----- */
+.oc-link--inline{display:inline;min-height:0;padding:0}
+/* ----- END: Links within the text ----- */
+
+/* ----- START: Two-part phase ----- */
+/* Part 1 (A): only the valve, flow rate, pressure and camera 2.
+   Part 2 (B): both controls, all four indicators, camera 1 and the
+   diagnosis. Whatever is not in play leaves the screen and the Tab order. */
+.station[data-part="A"] #c-temperature,.station[data-part="A"] #c-stability,
+.station[data-part="A"] #range-pump,.station[data-part="A"] #diagnostico,
+.station[data-part="A"] #camera-1,.station[data-part="B"] #camera-2{display:none}
+@media (min-width:761px){.station[data-part="A"] .oc-indicators{grid-template-columns:repeat(2,minmax(0,1fr))}}
+/* Reference screen: "About the operation" and "About the simulation" in place of the phase */
+.station[data-view="consulta"]>:not(#consulta){display:none}
+.oc-consulta{display:grid;gap:var(--space-5)}
+.oc-consulta__back{justify-self:start}
+.oc-footnote{text-transform:none;letter-spacing:0}
+/* ----- END: Two-part phase ----- */
+
+/* ----- START: Motion ----- */
+/* Motion: the operating system always wins; the page button can only turn motion off, never back on */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
+html[data-motion="off"] *,html[data-motion="off"] *::before,html[data-motion="off"] *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+/* ----- END: Motion ----- */
+
+/* ==========================================================================
+   END: 2. COMPONENTS
+   ========================================================================== */
+
+/* ==========================================================================
+   START: 3. PAGE
+   ========================================================================== */
+/* ============================================================
+   START: PAGE BASE
+   Background, font and general behavior of the document.
+   ============================================================ */
+:root{color-scheme:dark}
+html{background:var(--bg)}
+body{margin:0;background:var(--gradient-page),var(--bg);background-attachment:fixed;color:var(--text);font-family:var(--font-sans);font-size:16px;line-height:26px}
+/* Any link, even one without a class, follows the theme. Without this the browser
+   paints links in its default blue, and purple once they have been visited. */
+a,a:visited{color:var(--brand);text-underline-offset:3px}
+a:hover{color:var(--text)}
+/* Shortcut targets ("Go to…") do not stick to the very top of the screen */
+[id]{scroll-margin-top:var(--space-4)}
+/* Containers that receive focus only through the shortcuts show no focus ring on click */
+[tabindex="-1"]:focus:not(:focus-visible){outline:none}
+.hint{margin:0;font-size:15px;line-height:22px;color:var(--text-3)}
+/* ============================================================
+   END: PAGE BASE
+   ============================================================ */
+
+/* ============================================================
+   START: STATION LAYOUT
+   Two rows, each with a main column and a side column.
+   Desktop: columns side by side. Tablet: one column, and the side
+   column becomes two columns. Mobile: everything stacked. Nothing is
+   reordered by the CSS, so the focus order is always the visual order.
+   ============================================================ */
+.station{max-width:var(--content-max);margin:0 auto;padding:var(--space-5) var(--space-4) var(--space-6);display:grid;gap:var(--space-5)}
+.row{display:grid;gap:var(--space-5);grid-template-columns:minmax(0,1.7fr) minmax(320px,1fr);align-items:start}
+.col{display:grid;gap:var(--space-5);align-content:start;min-width:0}
+@media (max-width:1100px){
+  .row{grid-template-columns:minmax(0,1fr)}
+  .col-side{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+/* Phase 2 station: operations panel on the left, cameras on the right */
+.row--station{grid-template-columns:minmax(360px,1fr) minmax(0,1.5fr)}
+/* Indicator strip: four side by side from 761px up; landscape cards from 1280px up */
+@media (min-width:761px){
+  .a-indicators{padding:var(--space-4) var(--space-5)}
+  .a-indicators .oc-panel__head{margin-bottom:var(--space-3)}
+  .a-indicators .oc-panel__title{font-size:26px;line-height:28px}
+  .oc-indicators{grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--space-3)}
+  .oc-indicator{padding:var(--space-3) var(--space-4)}
+  .oc-indicator__value{margin:var(--space-1) 0;font-size:34px;line-height:38px}
+}
+@media (min-width:1280px){
+  .oc-indicator{display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-areas:"name status" "value target";align-items:baseline;column-gap:var(--space-3)}
+  .oc-indicator__name{grid-area:name}
+  .oc-indicator__status{grid-area:status;justify-self:end}
+  .oc-indicator__value{grid-area:value;margin:var(--space-1) 0 0}
+  .oc-indicator__target{grid-area:target;justify-self:end;margin:0}
+}
+@media (max-width:1100px){
+  .row--station{grid-template-columns:minmax(0,1fr)}
+  .col-console{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:760px){
+  .station{padding:var(--space-4) var(--space-4) var(--space-6)}
+  .col-side{grid-template-columns:minmax(0,1fr)}
+  /* Mobile: indicators and controls kept together, so you can adjust and see the result on the same screen */
+  .col-console{grid-template-columns:minmax(0,1fr)}
+  .station{gap:var(--space-3)}
+  .a-indicators .oc-panel__head,.a-controls .oc-panel__head{margin-bottom:var(--space-3)}
+  .oc-indicators{gap:var(--space-2)}
+  .oc-indicator{padding:var(--space-3)}
+  .oc-indicator__value{margin:var(--space-1) 0;font-size:30px;line-height:34px}
+  .oc-panel{padding:var(--space-4)}
+  .oc-header__name{font-size:18px;line-height:24px}
+}
+/* ============================================================
+   END: STATION LAYOUT
+   ============================================================ */
+
+/* ============================================================
+   START: PANEL DETAILS
+   ============================================================ */
+.oc-panel__eyebrow{margin:0 0 2px}
+.oc-lead{margin:0 0 var(--space-4);color:var(--text-2);max-width:68ch}
+details.alt summary,.notes summary{cursor:pointer;color:var(--accent-text);min-height:var(--touch-target);display:flex;align-items:center;font-weight:600}
+.oc-controls{display:grid;gap:var(--space-5)}
+details.alt{margin-top:var(--space-4)}
+.oc-alt{margin:var(--space-2) 0 0}
+#sel{margin:var(--space-3) 0 0}
+.oc-diag__item strong{font-weight:600}
+.notes p{color:var(--text-2);margin:0 0 var(--space-3)}
+.notes pre{white-space:pre-wrap;overflow-wrap:anywhere;background:var(--surface);border:1px solid var(--border);padding:var(--space-4);border-radius:var(--radius-md);color:var(--text);font:15px/22px var(--font-mono);margin:var(--space-2) 0 0}
+/* ============================================================
+   END: PANEL DETAILS
+   ============================================================ */
+
+/* ============================================================
+   START: FOOTER AND NOTICE
+   ============================================================ */
+.disclaimer{margin:0;font-size:15px;line-height:22px;color:var(--text-3);max-width:90ch}
+footer{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:var(--space-2) var(--space-5);border-top:1px solid var(--border);padding:var(--space-4);font-size:14px;line-height:20px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-3);background:var(--bg)}
+footer .oc-link{text-transform:none;letter-spacing:0}
+/* ============================================================
+   END: FOOTER AND NOTICE
+   ============================================================ */
+
+/* ============================================================
+   START: ADJUSTMENT MICROINTERACTION
+   Gently flashes the value that changed. Disabled when motion is off
+   (motion rules in the components block).
+   ============================================================ */
+.is-bump{animation:oc-bump .35s ease}
+@keyframes oc-bump{from{opacity:.45}to{opacity:1}}
+/* ============================================================
+   END: ADJUSTMENT MICROINTERACTION
+   ============================================================ */
+/* ==========================================================================
+   END: 3. PAGE
+   ========================================================================== */
+
+/* ==========================================================================
+   START: 4. STORM THEME (visual identity approved in prototype 1)
+   Headings in a stencil font, safety orange for highlights,
+   riveted rust borders and a hazard stripe on the header.
+   Blue is still the color of gas in the process drawings.
+   ========================================================================== */
+/* ----- START: Headings ----- */
+.oc-header__name{font-family:var(--font-display);font-weight:800;letter-spacing:.03em;color:var(--text)}
+.oc-header__name{font-size:34px;line-height:34px}
+.oc-header__name em{color:var(--brand)}
+.oc-panel__title{font-family:var(--font-display);font-weight:800;font-size:30px;line-height:32px;letter-spacing:.03em;text-transform:uppercase}
+@media (max-width:760px){.oc-header__name{font-size:28px;line-height:30px}.oc-panel__title{font-size:26px;line-height:28px}}
+/* ----- END: Headings ----- */
+
+/* ----- START: Safety orange highlights ----- */
+.oc-btn--primary{background:var(--brand);border-color:var(--brand);color:var(--on-accent)}
+.oc-btn--primary:hover{background:var(--focus);border-color:var(--focus);color:var(--on-accent)}
+.oc-btn[aria-pressed="true"]{border:2px solid var(--brand)}
+.oc-link{color:var(--brand)}
+.oc-link:hover{color:var(--text)}
+.oc-range__value{color:var(--brand)}
+.oc-range__input{accent-color:var(--brand)}
+details.alt summary,.notes summary,.oc-more>summary{color:var(--brand)}
+/* ----- END: Highlights ----- */
+
+/* ----- START: Panels as riveted steel plates ----- */
+.oc-panel{position:relative;border:2px solid var(--rust);border-radius:var(--radius-sm)}
+.oc-panel::before,.oc-panel::after{content:"";position:absolute;top:8px;width:7px;height:7px;border-radius:50%;background:var(--rust)}
+.oc-panel::before{left:8px}
+.oc-panel::after{right:8px}
+/* ----- END: Panels ----- */
+
+/* ----- START: Hazard stripe on the header ----- */
+.oc-header{position:relative;border-bottom:0;padding-bottom:calc(var(--space-3) + 8px)}
+.oc-header::after{content:"";position:absolute;left:0;right:0;bottom:0;height:8px;background:repeating-linear-gradient(-45deg,var(--focus) 0 12px,var(--bg) 12px 24px)}
+/* ----- END: Hazard stripe ----- */
+
+/* ----- START: Top bar ----- */
+/* Keyboard shortcuts: hidden from view until they receive focus */
+.oc-a11ybar{justify-content:flex-end}
+.oc-skipnav:not(:focus-within){position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+.oc-skipnav:focus-within{padding:var(--space-2) var(--space-4);background:var(--bg)}
+/* ----- END: Top bar ----- */
+
+/* ==========================================================================
+   END: 4. STORM THEME
+   ========================================================================== */
+
+/* ==========================================================================
+   START: 5. GAME INTRO (start screen with the storm)
+   Mobile first: everything in one column.
+   ========================================================================== */
+.oc-home{display:grid;gap:var(--space-6);padding-bottom:var(--space-6)}
+.oc-home__wrap{width:100%;max-width:1120px;margin-inline:auto;padding-inline:var(--space-4)}
+/* ----- START: Hero ----- */
+.oc-hero__scene{position:relative;width:100%;max-width:100%;aspect-ratio:16/9;max-height:62vh;overflow:hidden;background:linear-gradient(180deg,#121c26 0%,#1d2b37 55%,#0d1720 100%)}
+.oc-hero__scene canvas{display:block;width:100%;height:100%}
+.oc-hero__scene::after{content:"";position:absolute;left:0;right:0;bottom:0;height:30%;background:linear-gradient(180deg,transparent,var(--bg));pointer-events:none}
+@media (max-width:600px){.oc-hero__scene{aspect-ratio:4/3}}
+.oc-hero__body{display:grid;gap:var(--space-4);padding-top:var(--space-5)}
+.oc-hero__title{margin:0;font:800 clamp(56px,13vw,132px)/.88 var(--font-display);letter-spacing:.02em;text-transform:uppercase;color:var(--text)}
+.oc-hero__title span{display:block;color:var(--brand)}
+.oc-hero__lead{margin:0;max-width:60ch;font-size:18px;line-height:29px;color:var(--text-2)}
+.oc-hero__actions{display:flex;flex-wrap:wrap;gap:var(--space-3);align-items:center}
+.oc-btn--hero{min-height:56px;padding:0 var(--space-6);font:800 24px/1 var(--font-display);letter-spacing:.06em;text-transform:uppercase}
+.oc-hero__meta{display:flex;flex-wrap:wrap;gap:var(--space-2) var(--space-5);margin:0;padding:0;list-style:none;font:500 15px/22px var(--font-mono);color:var(--text-2)}
+.oc-hero__meta b{color:var(--text);font-weight:600}
+/* Author credit under the scenario data: link in safety orange, white on hover */
+.oc-hero__credit{margin:var(--space-4) 0 0;font-size:16px;line-height:24px;color:var(--text-2)}
+.oc-hero__credit-link{display:inline-block;padding:var(--space-1) 0;color:var(--brand);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.oc-hero__credit-link:visited{color:var(--brand)}
+.oc-hero__credit-link:hover{color:var(--text)}
+.oc-hero__links{display:flex;flex-wrap:wrap;gap:var(--space-2);margin:var(--space-2) 0 0;padding:0;list-style:none}
+.oc-hero__link,.oc-hero__link:visited{display:inline-flex;align-items:center;gap:var(--space-2);min-height:44px;min-width:44px;justify-content:center;padding:0 var(--space-2);color:var(--brand);font-size:16px;font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.oc-hero__link:hover{color:var(--text)}
+.oc-hero__link-icon{width:24px;height:24px;flex:none}
+.oc-hero__link-icon--code{width:32px}
+/* Desktop: the storm fills the whole screen and the text sits on top,
+   on the left, over a dark veil that guarantees AAA contrast. The ship
+   sits on the right. Everything fits on one screen, with no scrolling. */
+@media (min-width:1024px){
+  .oc-home{padding-bottom:0}
+  .oc-hero{position:relative;display:grid;align-items:center;min-height:calc(100vh - 64px);min-height:calc(100svh - 64px);overflow:hidden}
+  .oc-hero__scene{position:absolute;inset:0;aspect-ratio:auto;max-height:none}
+  .oc-hero__scene::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(10,18,25,.95) 0%,rgba(10,18,25,.92) 48%,rgba(10,18,25,0) 66%);pointer-events:none}
+  .oc-hero__scene::after{height:18%}
+  .oc-hero__body{position:relative;z-index:2;max-width:1400px;padding:var(--space-6) var(--space-6) 48px}
+  .oc-hero__body>*{max-width:min(600px,44vw)}
+  .oc-hero__title{font-size:clamp(72px,min(9vw,14vh),132px)}
+}
+/* ----- END: Hero ----- */
+/* Hazard stripe (warnings) */
+.oc-hazard{height:12px;border-radius:2px;background:repeating-linear-gradient(-45deg,var(--focus) 0 12px,var(--bg) 12px 24px)}
+/* ==========================================================================
+   END: 5. GAME INTRO
+   ========================================================================== */
+
+/* ==========================================================================
+   START: 6. PHASE MENU
+   The recommended phase is shown in orange. The others are gray (dashed
+   border and dimmed number), with a permanent notice above the list.
+   The text still meets AAA contrast.
+   ========================================================================== */
+.oc-menu{width:min(640px,calc(100% - 32px));max-height:calc(100% - 32px);padding:var(--space-5);border:2px solid var(--rust);border-radius:var(--radius-sm);background:var(--gradient-panel),var(--card);color:var(--text)}
+.oc-menu::backdrop{background:rgba(5,9,13,.82)}
+.oc-menu[open]{display:grid;gap:var(--space-4)}
+.oc-menu__head{display:grid;gap:var(--space-1)}
+.oc-menu__title{margin:0;font:800 40px/1 var(--font-display);letter-spacing:.03em;text-transform:uppercase}
+.oc-menu__list{display:grid;gap:var(--space-3);margin:0;padding:0;list-style:none}
+.oc-phasebtn{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:var(--space-1) var(--space-4);width:100%;min-height:72px;padding:var(--space-3) var(--space-4);border:2px solid var(--border);border-radius:var(--radius-sm);background:var(--elevated);color:var(--text);font:inherit;text-align:left;cursor:pointer}
+.oc-phasebtn:hover{border-color:var(--text-2)}
+.oc-phasebtn__num{grid-row:span 2;font:800 44px/1 var(--font-display);color:var(--text-2)}
+.oc-phasebtn__name{font-size:19px;line-height:26px;font-weight:600}
+.oc-phasebtn__status{font:600 15px/22px var(--font-mono);letter-spacing:.04em;color:var(--text-2)}
+/* Recommended phase: in color, like the first phase's button */
+.oc-phasebtn[data-state="next"]{border-color:var(--brand);background:linear-gradient(160deg,rgba(255,159,74,.16),rgba(255,159,74,.04)),var(--elevated)}
+.oc-phasebtn[data-state="next"] .oc-phasebtn__num{color:var(--brand)}
+.oc-phasebtn[data-state="next"] .oc-phasebtn__status{color:var(--brand)}
+.oc-phasebtn[data-state="next"]:hover{border-color:var(--focus)}
+/* Completed phase */
+.oc-phasebtn[data-state="done"] .oc-phasebtn__num,.oc-phasebtn[data-state="done"] .oc-phasebtn__status{color:var(--ok-text)}
+.oc-phasebtn[data-state="done"]{border-color:var(--ok-border)}
+/* Out-of-order phase: gray; the notice above the list explains that it can still be played */
+.oc-phasebtn[data-state="skip"]{border-style:dashed;background:var(--surface)}
+.oc-menu__confirm{display:grid;gap:var(--space-3);padding:var(--space-4);border:2px solid var(--focus);border-radius:var(--radius-sm);background:var(--bg)}
+.oc-menu__notice{display:grid;gap:var(--space-2);padding:var(--space-3) var(--space-4) var(--space-4);border:2px solid var(--focus);border-radius:var(--radius-sm);background:var(--bg)}
+.oc-menu__notice p{margin:0;color:var(--text)}
+.oc-phasebtn[data-state="skip"] .oc-phasebtn__name{grid-row:span 2}
+/* Phase closed to the public (js/release.js): dashed like the others, with a "Coming soon" label */
+.oc-phasebtn[data-state="locked"]{border-style:dashed;background:var(--surface)}
+.oc-menu__confirm-title{margin:0;font:800 28px/1.1 var(--font-display);letter-spacing:.04em;text-transform:uppercase;color:var(--focus)}
+.oc-menu__confirm-text{margin:0;color:var(--text)}
+.oc-menu__actions{display:flex;flex-wrap:wrap;gap:var(--space-3)}
+.oc-menu__foot{display:grid;gap:var(--space-3);padding-top:var(--space-3);border-top:1px solid var(--border)}
+.oc-menu__saved{margin:0;font-size:15px;line-height:22px;color:var(--text-2)}
+/* ==========================================================================
+   END: 6. PHASE MENU
+   ========================================================================== */
+
+/* ==========================================================================
+   START: 7. PRIVACY NOTICE (LGPD)
+   A strip fixed to the bottom of the screen, without blocking the page.
+   ========================================================================== */
+.oc-privacy{position:fixed;left:0;right:0;bottom:0;z-index:20;max-height:75vh;overflow:auto;padding:var(--space-4) var(--space-4) calc(var(--space-4) + env(safe-area-inset-bottom,0px));background:var(--card);border-top:2px solid var(--rust);box-shadow:0 -8px 24px rgba(0,0,0,.5)}
+.oc-privacy__inner{max-width:1120px;margin-inline:auto;display:grid;gap:var(--space-3)}
+.oc-privacy__title{margin:0;font:800 28px/1.1 var(--font-display);letter-spacing:.03em;text-transform:uppercase}
+.oc-privacy__text{margin:0;max-width:70ch;color:var(--text-2)}
+.oc-privacy__more summary{min-height:var(--touch-target);display:flex;align-items:center;cursor:pointer;font-weight:600;color:var(--brand)}
+.oc-privacy__more ul{margin:var(--space-2) 0 0;padding-left:var(--space-5);display:grid;gap:var(--space-2);max-width:80ch;color:var(--text-2)}
+.oc-privacy__more strong{color:var(--text)}
+.oc-privacy__email{font-family:var(--font-mono);color:var(--text);overflow-wrap:anywhere;user-select:all}
+.oc-privacy__actions{display:flex;flex-wrap:wrap;gap:var(--space-3)}
+/* ==========================================================================
+   END: 7. PRIVACY NOTICE
+   ========================================================================== */

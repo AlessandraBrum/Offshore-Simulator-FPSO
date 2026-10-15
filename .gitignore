@@ -1,0 +1,5 @@
+# Author-only folders: never publish on GitHub
+interno/
+
+# Build output (Vercel creates it on its own)
+dist/
