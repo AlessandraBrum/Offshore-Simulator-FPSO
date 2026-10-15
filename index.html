@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+
+<!-- START: HEAD -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Offshore Simulator</title>
+  <meta name="description" content="Fictional educational simulator of offshore instrumentation, with accessible controls.">
+  <link rel="preload" href="fonts/ibm-plex-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/big-shoulders-stencil-display-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/motion-pref.js"></script>
+  <script src="js/release.js" defer></script>
+  <script src="js/main.js" defer></script>
+</head>
+<!-- END: HEAD -->
+
+<body>
+<div class="oc-root">
+
+    <!-- START: TOP BAR (music and animations, applies to both the introduction and the game) -->
+    <div class="oc-a11ybar">
+      <div class="oc-a11ybar__tools">
+        <button type="button" id="music-toggle" class="oc-btn" aria-pressed="true" aria-describedby="music-note">Music
+          <span class="oc-btn__state" id="music-state" aria-hidden="true">on</span></button>
+        <!-- Music volume: native control (keyboard arrows change it in steps of 5) -->
+        <div class="oc-volume">
+          <label class="oc-volume__label" for="music-volume">Volume</label>
+          <input class="oc-volume__input" type="range" id="music-volume" min="0" max="100" step="5" value="60"
+            aria-valuetext="60%">
+          <output class="oc-volume__value" id="music-volume-value" for="music-volume" aria-hidden="true">50%</output>
+        </div>
+        <button type="button" id="motion-toggle" class="oc-btn" aria-pressed="true"
+          aria-describedby="motion-note">Animations <span class="oc-btn__state" id="motion-state"
+            aria-hidden="true">on</span></button>
+      </div>
+      <p id="music-note" class="oc-sr">Turns the background soundtrack on or off. It starts on and kicks in at the first
+        tap or key press.</p>
+      <p id="motion-note" class="oc-sr">Turns the page animations on or off. If your operating system asks for reduced
+        motion, they always stay off.</p>
+    </div>
+    <!-- Short messages for screen readers and for everyone (animations, music) -->
+    <p id="a11y-status" class="oc-status" role="status" aria-live="polite"></p>
+    <!-- END: TOP BAR -->
+
+    <!-- START: GAME INTRODUCTION -->
+    <main id="start" class="oc-home" aria-labelledby="start-title">
+
+      <!-- START: HERO · FPSO IN THE STORM
+       The drawing is a decorative canvas. On mobile, the text sits below
+       it, on a solid background; on desktop, it sits on top, on the left,
+       over a dark veil. In both cases the contrast is AAA. -->
+      <section class="oc-hero">
+        <div class="oc-hero__scene"><canvas id="storm" aria-hidden="true"></canvas></div>
+        <div class="oc-home__wrap oc-hero__body">
+          <p class="oc-label">FPSO Comandante Ancunín · Santos Basin · Educational simulation</p>
+          <h1 class="oc-hero__title" id="start-title">Offshore <span>Simulator</span></h1>
+          <p class="oc-hero__lead">Take over the instrumentation shift on an offshore platform. The instruments are
+            currently in operation, the sea is rough and production depends on your readings.</p>
+          <div class="oc-hero__actions">
+            <button type="button" class="oc-btn oc-btn--primary oc-btn--hero" id="start-game" aria-haspopup="dialog"
+              aria-controls="phase-menu">Start shift</button>
+          </div>
+          <ul class="oc-hero__meta" aria-label="Scenario data">
+            <li>Shift <b>Night</b></li>
+            <li>Sea <b>Rough</b></li>
+            <li>Wind <b>32 knots</b></li>
+            <li>Water depth <b>2,140 m</b></li>
+          </ul>
+          <!-- START: CREDITS -->
+          <p class="oc-hero__credit">Developed by <a class="oc-hero__link" href="https://alessandrabrum.vercel.app/"
+              target="_blank" rel="noopener">Alessandra Brum</a>.</p>
+          <ul class="oc-hero__links">
+            <li><a class="oc-hero__link" href="https://alessandrabrum.vercel.app/" target="_blank" rel="noopener"><svg
+                  class="oc-hero__link-icon oc-hero__link-icon--code" viewBox="0 0 32 24" aria-hidden="true" focusable="false">
+                  <path d="M8 6.5 2 12l6 5.5M24 6.5 30 12l-6 5.5M18.5 4l-5 16" fill="none" stroke="currentColor"
+                    stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+                </svg><span class="oc-sr">Portfolio (opens in a new tab)</span></a></li>
+            <li><a class="oc-hero__link" href="https://linkedin.com/in/AlessandraBrum" target="_blank"
+                rel="noopener"><svg class="oc-hero__link-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path fill="currentColor"
+                    d="M20.4 2H3.6A1.6 1.6 0 0 0 2 3.6v16.8A1.6 1.6 0 0 0 3.6 22h16.8a1.6 1.6 0 0 0 1.6-1.6V3.6A1.6 1.6 0 0 0 20.4 2ZM8 19H5V9.5h3V19ZM6.5 8.2a1.75 1.75 0 1 1 0-3.5 1.75 1.75 0 0 1 0 3.5ZM19 19h-3v-4.6c0-1.1 0-2.6-1.6-2.6s-1.8 1.2-1.8 2.5V19h-3V9.5h2.9v1.3h.04a3.2 3.2 0 0 1 2.9-1.6c3 0 3.6 2 3.6 4.6V19Z" />
+                </svg><span class="oc-sr">LinkedIn (opens in a new tab)</span></a></li>
+          </ul>
+          <p class="oc-hero__credit">Project currently under construction. Keep an eye out for updates!</p>
+          <!-- END: CREDITS -->
+        </div>
+      </section>
+      <!-- END: HERO -->
+
+    </main>
+    <!-- END: GAME INTRODUCTION -->
+
+    <!-- START: PHASE MENU (native modal dialog: traps focus and closes with Esc)
+     A fixed notice, before the buttons, explains that playing out of order is
+     not recommended. The recommended phase is highlighted; the others stay
+     gray until they are completed, but remain playable. Phases not yet
+     unlocked show only their number. -->
+    <dialog id="phase-menu" class="oc-menu" aria-labelledby="phase-menu-title">
+      <div class="oc-menu__head">
+        <p class="oc-label">Instrumentation shift</p>
+        <h2 class="oc-menu__title" id="phase-menu-title">Choose a phase</h2>
+      </div>
+      <!-- Fixed notice about the order of the phases -->
+      <div class="oc-menu__notice" id="phase-notice">
+        <div class="oc-hazard" aria-hidden="true"></div>
+        <p>All phases can be played, but playing them out of order is not recommended: it may affect your experience of
+          the game and get in the way of your learning.</p>
+      </div>
+      <ol class="oc-menu__list" id="phase-list"></ol>
+
+      <!-- Phase under construction notice -->
+      <div class="oc-menu__confirm" id="phase-wip" hidden>
+        <p class="oc-menu__confirm-title" id="phase-wip-title">Phase under construction</p>
+        <p class="oc-menu__confirm-text" id="phase-wip-text">This phase is still being prepared. Go back to the menu to
+          choose another one.</p>
+        <div class="oc-menu__actions"><button type="button" class="oc-btn" id="phase-wip-back">Back to menu</button>
+        </div>
+      </div>
+
+      <div class="oc-menu__foot">
+        <p class="oc-menu__saved" id="progress-note"></p>
+        <div class="oc-menu__actions">
+          <button type="button" class="oc-btn" id="privacy-open">Privacy and progress</button>
+          <button type="button" class="oc-btn" id="phase-menu-close">Close</button>
+        </div>
+      </div>
+    </dialog>
+    <!-- END: PHASE MENU -->
+
+    <!-- START: PRIVACY NOTICE (LGPD)
+     Appears on the first visit, without blocking the page. Nothing is saved
+     before the answer. Can be reopened with the "Privacy and progress" button. -->
+    <section class="oc-privacy" id="privacy" aria-labelledby="privacy-title" hidden>
+      <div class="oc-privacy__inner">
+        <h2 class="oc-privacy__title" id="privacy-title">Save your progress on this device?</h2>
+        <p class="oc-privacy__text">The game can store, in this browser only, which phases you have completed and
+          whether you prefer animations turned off. That way you don't lose your progress if you close the page.</p>
+        <details class="oc-privacy__more">
+          <summary>How and why this data is used</summary>
+          <ul>
+            <li><strong>What is stored:</strong> the list of completed phases, your animation preference and your answer
+              to this notice. No name, e-mail, location or any data that identifies you.</li>
+            <li><strong>What for:</strong> only to remember your progress and your preference on your next visit.</li>
+            <li><strong>Where it is kept:</strong> in your browser's local storage (<i>localStorage</i>), on this
+              device. It is not sent to any server or shared with anyone. The game uses no login, database, tracking
+              cookies or analytics tools.</li>
+            <li><strong>Other sites:</strong> the game fetches nothing from third-party sites. Fonts, sounds, images and
+              code all come from the game itself, so no outside company learns about your visit because of it. As with
+              any website, the service hosting the page logs technical access data, such as your IP address, in order to
+              work and protect itself, under that host's privacy policy.</li>
+            <li><strong>Legal basis:</strong> your consent under the LGPD (Brazil's General Data Protection Law, Law No.
+              13,709/2018), Art. 7, item I. Without it, the game works normally; it just doesn't remember your progress.
+            </li>
+            <li><strong>Your rights:</strong> you can change your mind whenever you like. The "Erase my progress" button
+              removes everything immediately. Clearing the site's data in your browser also erases it.</li>
+            <li id="privacy-contact" hidden><strong>Contact:</strong> questions, requests or complaints about privacy
+              can be sent to <span class="oc-privacy__email" id="privacy-email"></span>. You will get a reply within 15
+              days. If you are not satisfied, you can also contact the ANPD (Brazil's National Data Protection
+              Authority) at gov.br/anpd.</li>
+          </ul>
+        </details>
+        <div class="oc-privacy__actions">
+          <button type="button" class="oc-btn oc-btn--primary" id="privacy-accept">Save my progress</button>
+          <button type="button" class="oc-btn" id="privacy-decline">Don't save</button>
+          <button type="button" class="oc-btn" id="privacy-erase" hidden>Erase my progress</button>
+        </div>
+      </div>
+    </section>
+    <!-- END: PRIVACY NOTICE (LGPD) -->
+
+  </div>
+
+</body>
+
+</html>
