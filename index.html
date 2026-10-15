@@ -13,27 +13,45 @@
   <script src="js/motion-pref.js"></script>
   <script src="js/release.js" defer></script>
   <script src="js/main.js" defer></script>
+  <script src="js/nav.js" defer></script>
 </head>
 <!-- END: HEAD -->
 
 <body>
 <div class="oc-root">
 
-    <!-- START: TOP BAR (music and animations, applies to both the introduction and the game) -->
+    <!-- START: TOP BAR (the same on index.html, aboutthegame.html and devlog.html)
+         Sticky at the top. From 1100px everything sits in one row; below that,
+         the "Menu" button opens a panel from the right (js/nav.js). -->
     <div class="oc-a11ybar">
-      <div class="oc-a11ybar__tools">
-        <button type="button" id="music-toggle" class="oc-btn" aria-pressed="true" aria-describedby="music-note">Music
-          <span class="oc-btn__state" id="music-state" aria-hidden="true">on</span></button>
-        <!-- Music volume: native control (keyboard arrows change it in steps of 5) -->
-        <div class="oc-volume">
-          <label class="oc-volume__label" for="music-volume">Volume</label>
-          <input class="oc-volume__input" type="range" id="music-volume" min="0" max="100" step="5" value="60"
-            aria-valuetext="60%">
-          <output class="oc-volume__value" id="music-volume-value" for="music-volume" aria-hidden="true">50%</output>
+      <a class="oc-a11ybar__brand" href="index.html" aria-current="page">Offshore Simulator</a>
+      <button type="button" class="oc-btn oc-nav-toggle" id="nav-toggle" aria-expanded="false"
+        aria-controls="site-menu"><span class="oc-nav-toggle__icon" aria-hidden="true"></span>Menu</button>
+      <div class="oc-a11ybar__panel" id="site-menu">
+        <button type="button" class="oc-btn oc-nav-close" id="nav-close">Close menu</button>
+        <!-- START: MAIN MENU -->
+        <nav class="oc-nav" aria-label="Main">
+          <ul class="oc-nav__list">
+            <li><a class="oc-nav__link" href="index.html#start-shift">Start shift</a></li>
+            <li><a class="oc-nav__link" href="aboutthegame.html">About the game</a></li>
+            <li><a class="oc-nav__link" href="devlog.html">Dev log</a></li>
+          </ul>
+        </nav>
+        <!-- END: MAIN MENU -->
+        <div class="oc-a11ybar__tools">
+          <button type="button" id="music-toggle" class="oc-btn" aria-pressed="true" aria-describedby="music-note">Music
+            <span class="oc-btn__state" id="music-state" aria-hidden="true">on</span></button>
+          <!-- Music volume: native control (keyboard arrows change it in steps of 5) -->
+          <div class="oc-volume">
+            <label class="oc-volume__label" for="music-volume">Volume</label>
+            <input class="oc-volume__input" type="range" id="music-volume" min="0" max="100" step="5" value="30"
+              aria-valuetext="30%">
+            <output class="oc-volume__value" id="music-volume-value" for="music-volume" aria-hidden="true">30%</output>
+          </div>
+          <button type="button" id="motion-toggle" class="oc-btn" aria-pressed="true"
+            aria-describedby="motion-note">Animations <span class="oc-btn__state" id="motion-state"
+              aria-hidden="true">on</span></button>
         </div>
-        <button type="button" id="motion-toggle" class="oc-btn" aria-pressed="true"
-          aria-describedby="motion-note">Animations <span class="oc-btn__state" id="motion-state"
-            aria-hidden="true">on</span></button>
       </div>
       <p id="music-note" class="oc-sr">Turns the background soundtrack on or off. It starts on and kicks in at the first
         tap or key press.</p>
@@ -61,6 +79,12 @@
           <div class="oc-hero__actions">
             <button type="button" class="oc-btn oc-btn--primary oc-btn--hero" id="start-game" aria-haspopup="dialog"
               aria-controls="phase-menu">Start shift</button>
+            <!-- START: EXTRA PAGES BUTTONS ("About the game" and "Dev log")
+                 To remove them, delete everything from START to END,
+                 and the matching rule at the end of css/style.css. -->
+            <a class="oc-btn oc-btn--hero oc-btn--link" href="aboutthegame.html">About the game</a>
+            <a class="oc-btn oc-btn--hero oc-btn--link" href="devlog.html">Dev log</a>
+            <!-- END: EXTRA PAGES BUTTONS -->
           </div>
           <ul class="oc-hero__meta" aria-label="Scenario data">
             <li>Shift <b>Night</b></li>
@@ -136,11 +160,11 @@
       <div class="oc-privacy__inner">
         <h2 class="oc-privacy__title" id="privacy-title">Save your progress on this device?</h2>
         <p class="oc-privacy__text">The game can store, in this browser only, which phases you have completed and
-          whether you prefer animations turned off. That way you don't lose your progress if you close the page.</p>
+          whether you prefer animations or music turned off. That way you don't lose your progress if you close the page.</p>
         <details class="oc-privacy__more">
           <summary>How and why this data is used</summary>
           <ul>
-            <li><strong>What is stored:</strong> the list of completed phases, your animation preference and your answer
+            <li><strong>What is stored:</strong> the list of completed phases, your animation and music preferences and your answer
               to this notice. No name, e-mail, location or any data that identifies you.</li>
             <li><strong>What for:</strong> only to remember your progress and your preference on your next visit.</li>
             <li><strong>Where it is kept:</strong> in your browser's local storage (<i>localStorage</i>), on this

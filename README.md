@@ -8,7 +8,7 @@ This is the public preview: the intro, the soundtrack, the privacy notice and th
 
 ## Technologies used
 
-**No framework.** I did not use React, Vue, npm or any external library. (A small Node.js script only prepares the two sites for publishing.) There are three files that the browser understands directly:
+**No framework.** I did not use React, Vue, npm or any external library.
 
 - **HTML** for the structure: text, buttons, menus.
 - **CSS** for the appearance.
