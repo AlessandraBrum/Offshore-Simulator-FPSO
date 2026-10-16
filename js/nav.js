@@ -46,6 +46,17 @@
   });
   // END: KEEP THE KEYBOARD INSIDE THE OPEN PANEL
 
-  // Preserve old bookmarked start-shift links with the current Phase 1 destination.
-  if (location.hash === '#start-shift') location.replace('phase1.html');
+  // Start shift opens the phase selector on the home page.
+  const startBtn = document.getElementById('start-game');
+  if (startBtn) {
+    document.querySelectorAll('a[href="index.html#start-shift"]').forEach(link => link.addEventListener('click', event => {
+      event.preventDefault();
+      startBtn.click();
+    }));
+    if (location.hash === '#start-shift') {
+      history.replaceState(null, '', location.pathname + location.search);
+      if (document.readyState === 'complete') startBtn.click();
+      else window.addEventListener('load', () => startBtn.click(), {once: true});
+    }
+  }
 })();

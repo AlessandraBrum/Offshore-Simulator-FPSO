@@ -800,3 +800,6 @@ a.oc-btn--link:hover{border-color:var(--brand);color:var(--brand)}
 /* ==========================================================================
    END: STICKY TOP BAR AND MAIN MENU
    ========================================================================== */
+/* Primary links retain dark, legible text in every link state. */
+a.oc-btn--primary,a.oc-btn--primary:visited,a.oc-btn--primary:hover,a.oc-btn--primary:focus-visible{color:var(--on-accent);text-decoration:none}
+.oc-phase-availability{margin:8px 4px 16px;color:var(--text-3);font:400 14px/1.5 var(--font-sans)}
