@@ -86,7 +86,7 @@
     if (!staticMotion() && !paused && !document.hidden) frame = requestAnimationFrame(tick);
     if (master) {
       master.gain.cancelScheduledValues(context.currentTime);
-      master.gain.setTargetAtTime(music && !paused && !document.hidden ? Number(get('music-volume').value) / 100 * .18 : 0, context.currentTime, 1.2);
+      master.gain.setTargetAtTime(music && !paused && !document.hidden ? Number(get('music-volume').value) / 100 * .18 : 0, context.currentTime, .25);
     }
     get('flow-head').style.display = staticMotion() ? 'none' : '';
   }
@@ -98,15 +98,44 @@
         const Audio = window.AudioContext || window.webkitAudioContext;
         if (!Audio) throw new Error('Audio unavailable');
         context = new Audio(); master = context.createGain(); master.gain.value = 0; master.connect(context.destination);
-        // Quiet original ambient chord, softened with individual slow envelopes.
-        [130.81, 164.81, 196, 246.94, 293.66].forEach((frequency, i) => {
+        // START: INTRO SOUNDSCAPE (all synthesized, no audio files)
+        // 1. Sea: soft filtered noise that swells and recedes like waves.
+        const noise = context.createBuffer(1, context.sampleRate * 4, context.sampleRate), data = noise.getChannelData(0);
+        for (let i = 0, last = 0; i < data.length; i++) { last = (last + .02 * (Math.random() * 2 - 1)) / 1.02; data[i] = last * 3.5; }
+        const sea = context.createBufferSource(); sea.buffer = noise; sea.loop = true;
+        const seaFilter = context.createBiquadFilter(); seaFilter.type = 'lowpass'; seaFilter.frequency.value = 700;
+        const seaGain = context.createGain(); seaGain.gain.value = .35;
+        const swell = context.createOscillator(), swellDepth = context.createGain();
+        swell.frequency.value = .09; swellDepth.gain.value = .25; swell.connect(swellDepth); swellDepth.connect(seaGain.gain);
+        sea.connect(seaFilter); seaFilter.connect(seaGain); seaGain.connect(master); sea.start(); swell.start();
+        // 2. Music: a slow cycle of four warm chords (about 64 s) with a gentle
+        //    melody on top, so it no longer sounds like one held note.
+        const chords = [[130.81, 196, 246.94, 329.63], [110, 164.81, 220, 261.63], [87.31, 130.81, 174.61, 220], [98, 146.83, 196, 246.94]];
+        const melody = [392, 440, 329.63, 293.66, 329.63, 392, 440, 523.25, 440, 392, 329.63, 293.66, 261.63, 293.66, 329.63, 293.66];
+        const tone = (frequency, start, length, level, type) => {
           const oscillator = context.createOscillator(), gain = context.createGain();
-          oscillator.type = 'sine'; oscillator.frequency.value = frequency;
-          gain.gain.value = .15; oscillator.connect(gain); gain.connect(master); oscillator.start();
-          const lfo = context.createOscillator(), depth = context.createGain();
-          lfo.frequency.value = .035 + i * .009; depth.gain.value = .06;
-          lfo.connect(depth); depth.connect(gain.gain); lfo.start();
+          oscillator.type = type; oscillator.frequency.value = frequency;
+          gain.gain.setValueAtTime(0, start); gain.gain.linearRampToValueAtTime(level, start + Math.min(1, length * .35));
+          gain.gain.linearRampToValueAtTime(0, start + length);
+          oscillator.connect(gain); gain.connect(master); oscillator.start(start); oscillator.stop(start + length + .1);
+        };
+        // 3. Seagulls: an occasional distant call, a short gliding whistle.
+        const gull = start => [0, .28].forEach(offset => {
+          const oscillator = context.createOscillator(), gain = context.createGain(), t = start + offset;
+          oscillator.type = 'triangle'; oscillator.frequency.setValueAtTime(1500, t); oscillator.frequency.exponentialRampToValueAtTime(900, t + .22);
+          gain.gain.setValueAtTime(0, t); gain.gain.linearRampToValueAtTime(.025, t + .04); gain.gain.linearRampToValueAtTime(0, t + .24);
+          oscillator.connect(gain); gain.connect(master); oscillator.start(t); oscillator.stop(t + .3);
         });
+        // Schedules one 64 s cycle at a time, only while the context is alive.
+        const cycle = () => {
+          const now = context.currentTime + .1;
+          chords.forEach((chord, i) => chord.forEach(f => tone(f, now + i * 16, 17, .07, 'sine')));
+          melody.forEach((f, i) => tone(f, now + .5 + i * 4, 3.6, .035, 'triangle'));
+          [9, 31, 50].forEach(at => gull(now + at + Math.random() * 4));
+          setTimeout(cycle, 64000);
+        };
+        cycle();
+        // END: INTRO SOUNDSCAPE
       }
       await context.resume();
       syncMusic(); update();
