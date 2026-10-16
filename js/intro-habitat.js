@@ -29,10 +29,11 @@
     blades: Math.floor(random(3, 6)), bend: random(-9, 9),
     color: ['#287080', '#246171', '#337b83'][Math.floor(random(0, 3))]
   }));
+  // Fish shapes (head on the right, tail on the left). The round, tall-bodied
+  // one was removed at the author's request: only slim, elongated fish remain.
   const shapes = [
     'M-16 0Q0-15 19 0Q0 15-16 0L-28 10V-10Z',
     'M-20 0Q0-7 25 0Q0 8-20 0L-31 6V-6Z',
-    'M-12 0Q-6-21 10-16Q26 0 10 16Q-6 21-12 0L-23 12V-12Z',
     'M-24 0Q-2-13 23 0Q2 13-24 0L-35 9V-9ZM-3-6 3-18 10-7Z'
   ];
   const fishSamples = Array.from({length: 54}, (_, i) => ({
