@@ -46,18 +46,6 @@
   });
   // END: KEEP THE KEYBOARD INSIDE THE OPEN PANEL
 
-  // START: "START SHIFT" LINK
-  // On the menu page it opens the phase menu directly. From the other pages
-  // it goes to index.html#start-shift, which opens the phase menu on arrival.
-  const startBtn = document.getElementById('start-game');
-  if (startBtn) {
-    document.querySelectorAll('a[href="index.html#start-shift"]').forEach(link => link.addEventListener('click', e => {
-      e.preventDefault(); setTimeout(() => startBtn.click(), 0);
-    }));
-    if (location.hash === '#start-shift') {
-      history.replaceState(null, '', location.pathname);
-      window.addEventListener('load', () => startBtn.click());
-    }
-  }
-  // END: "START SHIFT" LINK
+  // Preserve old bookmarked start-shift links with the current Phase 1 destination.
+  if (location.hash === '#start-shift') location.replace('phase1.html');
 })();
