@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+
+<!-- START: HEAD -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Phase 1 · Offshore Simulator</title>
+  <meta name="description" content="Phase 1 of Offshore Simulator is under development.">
+  <!-- START: SOCIAL SHARE PREVIEW (Open Graph + Twitter/X)
+       Shows this card when the link is shared on WhatsApp, Instagram, etc.
+       Absolute URLs are required: social apps do not resolve relative ones. -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Offshore Simulator">
+  <meta property="og:url" content="https://fpso-offshore-simulator.vercel.app/phase1.html">
+  <meta property="og:title" content="Phase 1 · Offshore Simulator">
+  <meta property="og:description" content="Phase 1 of Offshore Simulator is under development.">
+  <meta property="og:image" content="https://fpso-offshore-simulator.vercel.app/assets/og-preview-square.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="1200">
+  <meta property="og:image:alt" content="The FPSO Comandante Ancunín at night in a storm, flare stack burning, beside the Offshore Simulator logo.">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Phase 1 · Offshore Simulator">
+  <meta name="twitter:description" content="Phase 1 of Offshore Simulator is under development.">
+  <meta name="twitter:image" content="https://fpso-offshore-simulator.vercel.app/assets/og-preview-square.jpg">
+  <meta name="twitter:image:alt" content="The FPSO Comandante Ancunín at night in a storm, flare stack burning, beside the Offshore Simulator logo.">
+  <!-- END: SOCIAL SHARE PREVIEW (Open Graph + Twitter/X) -->
+  <link rel="preload" href="fonts/big-shoulders-stencil-display-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/about.css">
+  <script src="js/motion-pref.js"></script>
+  <script src="js/storm-page.js" defer></script>
+  <script src="js/nav.js" defer></script>
+</head>
+<!-- END: HEAD -->
+
+<body>
+
+  <!-- START: SKIP LINK (keyboard users jump straight to the text) -->
+  <a class="oc-about__skip" href="#about-content">Skip to content</a>
+  <!-- END: SKIP LINK -->
+
+  <!-- START: TOP BAR (the same on index.html, aboutthegame.html and devlog.html)
+       Sticky at the top. From 1100px everything sits in one row; below that,
+       the "Menu" button opens a panel from the right (js/nav.js). -->
+  <div class="oc-a11ybar">
+    <a class="oc-a11ybar__brand" href="index.html">Offshore Simulator</a>
+    <button type="button" class="oc-btn oc-nav-toggle" id="nav-toggle" aria-expanded="false"
+      aria-controls="site-menu"><span class="oc-nav-toggle__icon" aria-hidden="true"></span>Menu</button>
+    <div class="oc-a11ybar__panel" id="site-menu">
+      <button type="button" class="oc-btn oc-nav-close" id="nav-close">Close menu</button>
+      <!-- START: MAIN MENU -->
+      <nav class="oc-nav" aria-label="Main">
+        <ul class="oc-nav__list">
+          <li><a class="oc-nav__link" href="phase1.html">Start shift</a></li>
+          <li><a class="oc-nav__link" href="aboutthegame.html">About the game</a></li>
+          <li><a class="oc-nav__link" href="devlog.html">Dev log</a></li>
+        </ul>
+      </nav>
+      <!-- END: MAIN MENU -->
+      <div class="oc-a11ybar__tools">
+        <button type="button" id="music-toggle" class="oc-btn" aria-pressed="true" aria-describedby="music-note">Music
+          <span class="oc-btn__state" id="music-state" aria-hidden="true">on</span></button>
+        <!-- Music volume: native control (keyboard arrows change it in steps of 5) -->
+        <div class="oc-volume">
+          <label class="oc-volume__label" for="music-volume">Volume</label>
+          <input class="oc-volume__input" type="range" id="music-volume" min="0" max="100" step="5" value="30"
+            aria-valuetext="30%">
+          <output class="oc-volume__value" id="music-volume-value" for="music-volume" aria-hidden="true">30%</output>
+        </div>
+        <button type="button" id="motion-toggle" class="oc-btn" aria-pressed="true"
+          aria-describedby="motion-note">Animations <span class="oc-btn__state" id="motion-state"
+            aria-hidden="true">on</span></button>
+      </div>
+    </div>
+    <p id="music-note" class="oc-sr">Turns the background soundtrack on or off. It starts on and kicks in at the first
+      tap or key press.</p>
+    <p id="motion-note" class="oc-sr">Turns the page animations on or off. If your operating system asks for reduced
+      motion, they always stay off.</p>
+  </div>
+  <!-- Short messages for screen readers and for everyone (animations, music) -->
+  <p id="a11y-status" class="oc-status" role="status" aria-live="polite"></p>
+  <!-- END: TOP BAR -->
+
+  <!-- START: HEADER -->
+  <header class="oc-about__header">
+    <a class="oc-about__back" href="intro.html">Back to the introduction</a>
+  </header>
+  <!-- END: HEADER -->
+
+  <!-- START: HERO (animated storm, same as the menu; still frame with "Reduce motion") -->
+  <section class="oc-about__hero" aria-labelledby="about-title">
+    <div class="oc-about__scene"><canvas id="storm" aria-hidden="true"></canvas></div>
+    <div class="oc-about__hero-body">
+      <p class="oc-label">FPSO Comandante Ancunín · Educational simulation</p>
+      <h1 class="oc-about__title" id="about-title">Phase <span>1</span></h1>
+    </div>
+    <div class="oc-hazard" aria-hidden="true"></div>
+  </section>
+  <!-- END: HERO -->
+
+  <!-- START: CONTENT (write your entries here, newest first) -->
+  <main class="oc-about oc-about--log" id="about-content" tabindex="-1">
+    <article class="oc-about__card" aria-labelledby="phase-status-title">
+      <h2 class="oc-about__heading" id="phase-status-title">Phase 1 is under development</h2>
+      <p>Your offshore instrumentation shift will begin here. Phase 1 is not available to play yet.</p>
+      <p>The introduction is ready to explore while this part of the game is being built.</p>
+      <p><a class="oc-about__back" href="intro.html">Replay the introduction</a></p>
+      <p><a class="oc-about__back" href="devlog.html">Read the dev log</a></p>
+    </article>
+  </main>
+  <!-- END: CONTENT -->
+
+</body>
+
+</html>
+
+
