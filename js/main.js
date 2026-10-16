@@ -629,7 +629,7 @@ const Music = (() => {
    preview locks every phase; the development version locks none.
    ========================================================================== */
 const PHASES = [
-  { id: 'fase1', num: '01', name: '', ready: false },
+  { id: 'fase1', num: '01', name: 'Introduction', ready: true, href: 'intro.html' },
   { id: 'fase2', num: '02', name: '', ready: true }
 ];
 
@@ -676,6 +676,14 @@ window.Phases = (() => {
             : '');
       btn.addEventListener('click', () => play(phase));
       li.append(btn);
+      if (phase.href === 'intro.html') {
+        const availability = document.createElement('p');
+        availability.className = 'oc-phase-availability';
+        availability.id = 'phase-01-availability';
+        availability.textContent = 'This phase is not playable yet. Only part of the introduction is currently available.';
+        btn.setAttribute('aria-describedby', availability.id);
+        li.append(availability);
+      }
       list.append(li);
     });
     const consent = Store.consent();
@@ -688,6 +696,7 @@ window.Phases = (() => {
     wipBox.hidden = true; list.hidden = false; notice.hidden = false;
   }
   function play(phase) {
+    if (phase.href && !isLocked(phase)) { window.location.assign(phase.href); return; }
     if (isLocked(phase) || !phase.ready) {
       list.hidden = true; notice.hidden = true; wipBox.hidden = false;
       byId('phase-wip-title').textContent = 'Phase ' + Number(phase.num) + (isLocked(phase) ? ' · Coming soon' : ' under construction');
@@ -715,7 +724,7 @@ window.Phases = (() => {
     if (typeof menu.showModal === 'function') menu.showModal(); else menu.setAttribute('open', '');
     list.querySelector('[data-state="next"], button').focus();
   }
-  // Start shift is a direct link to phase1.html; the phase menu remains separate.
+  byId('start-game').addEventListener('click', open);
   const openPhases = byId('open-phases');            // missing in the public preview build
   if (openPhases) openPhases.addEventListener('click', () => { leaveGame(); open(); });
 

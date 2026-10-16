@@ -77,3 +77,6 @@ html[data-motion=off] .intro-page *,html[data-motion=off] .intro-page *::before,
 .intro-caption .oc-label{color:var(--chapter-accent);transition:color .35s ease}
 .intro-caption .intro-progress span{background:var(--chapter-accent);transition:background-color .35s ease}
 @media(forced-colors:active){.intro-caption{border-left-color:CanvasText}.intro-caption .oc-label{color:CanvasText}.intro-caption .intro-progress span{background:Highlight}}
+.intro-back,.intro-back:visited{font:400 14px/1.5 var(--font-sans);color:var(--text-2);display:inline-flex;align-items:center;min-height:44px;padding:8px;text-underline-offset:4px}
+.intro-back:hover{color:var(--brand)}
+@media(max-width:700px){.intro-back{flex-basis:100%;justify-content:center}}
