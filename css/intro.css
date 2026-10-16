@@ -80,3 +80,48 @@ html[data-motion=off] .intro-page *,html[data-motion=off] .intro-page *::before,
 .intro-back,.intro-back:visited{font:400 14px/1.5 var(--font-sans);color:var(--text-2);display:inline-flex;align-items:center;min-height:44px;padding:8px;text-underline-offset:4px}
 .intro-back:hover{color:var(--brand)}
 @media(max-width:700px){.intro-back{flex-basis:100%;justify-content:center}}
+
+/* START: DUSK ENVIRONMENT ANIMATIONS (all very slow; off with Animations off,
+   Pause or the system "Reduce motion" setting, through the rules above) */
+.intro-flare{animation:flicker 3.2s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:50% 100%}
+.intro-flare--far{animation-duration:4.6s}
+.intro-blink{animation:blink 5s ease-in-out infinite}
+.intro-stars{animation:twinkle 9s ease-in-out infinite alternate}
+.intro-snow{animation:snow 40s linear infinite alternate}
+.intro-jelly{animation:jelly 14s ease-in-out infinite alternate}
+.intro-sway{animation:sway 7s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:50% 100%}
+.intro-bubble{animation:bubble 9s linear infinite}
+.intro[data-static] :is(.intro-flare,.intro-blink,.intro-stars,.intro-snow,.intro-jelly,.intro-sway,.intro-bubble){animation:none!important}
+@keyframes flicker{to{transform:scale(.92,1.08);opacity:.85}}
+@keyframes blink{50%{opacity:.35}}
+@keyframes twinkle{to{opacity:.6}}
+@keyframes snow{to{transform:translate(-30px,40px)}}
+@keyframes jelly{to{transform:translateY(-26px)}}
+@keyframes sway{to{transform:rotate(6deg)}}
+@keyframes bubble{from{transform:translateY(0);opacity:0}15%{opacity:.6}to{transform:translateY(-60px);opacity:0}}
+.intro-ship{animation:ride 9s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:50% 100%}
+.intro-gull{animation:glide 38s linear infinite}
+.intro-wing{animation:flap 1.6s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:50% 100%}
+.intro-beams{animation:shimmer 8s ease-in-out infinite alternate}
+.intro-glint{animation:blink 4s ease-in-out infinite}
+.intro[data-static] :is(.intro-ship,.intro-gull,.intro-wing,.intro-beams,.intro-glint){animation:none!important}
+@keyframes ride{to{transform:translateY(3px) rotate(.4deg)}}
+@keyframes glide{from{transform:translateX(-200px)}to{transform:translateX(1500px)}}
+@keyframes flap{to{transform:scaleY(-.6)}}
+@keyframes shimmer{to{opacity:.55}}
+.intro-heli{animation:heli 70s linear infinite}
+.intro-boat{animation:ride 7s ease-in-out infinite alternate-reverse;transform-box:fill-box;transform-origin:50% 100%}
+.intro-turtle{animation:turtle 80s linear infinite}
+.intro-manta{animation:manta 110s linear infinite}
+.intro-fin{animation:flap 2.4s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:0 50%}
+.intro-rov{animation:hover 6s ease-in-out infinite alternate}
+.intro[data-static] :is(.intro-heli,.intro-boat,.intro-turtle,.intro-manta,.intro-fin,.intro-rov){animation:none!important}
+@keyframes heli{from{transform:translateX(200px)}to{transform:translateX(-1700px)}}
+@keyframes turtle{from{transform:translateX(0)}to{transform:translateX(1500px)}}
+@keyframes manta{from{transform:translateX(0)}to{transform:translateX(-1600px)}}
+@keyframes hover{to{transform:translateY(-4px)}}
+.intro-smoke circle{animation:smoke 6s ease-out infinite;transform-box:fill-box;transform-origin:center}
+.intro[data-static] .intro-smoke circle{animation:none!important;opacity:.2}
+@keyframes smoke{from{transform:translate(0,0) scale(1);opacity:.35}to{transform:translate(-26px,-34px) scale(3);opacity:0}}
+/* END: DUSK ENVIRONMENT ANIMATIONS */
+
