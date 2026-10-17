@@ -4,7 +4,7 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Before the shift · Offshore Simulator</title>
 <link rel="preload" href="fonts/big-shoulders-stencil-display-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="fonts/ibm-plex-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/intro.css">
-<script src="js/motion-pref.js"></script><script src="js/intro.js" defer></script><script src="js/nav.js" defer></script><script src="js/intro-habitat.js" defer></script>
+<script src="js/motion-pref.js"></script><script src="js/intro-preload.js"></script><script src="js/intro.js" defer></script><script src="js/nav.js" defer></script><script src="js/intro-habitat.js" defer></script>
 </head>
 <body class="intro-page">
 <a class="intro-skip" href="#intro-content">Skip to content</a>
@@ -59,6 +59,7 @@
 <radialGradient id="glow"><stop stop-color="#ffc56b" stop-opacity=".7"/><stop offset="1" stop-color="#ffc56b" stop-opacity="0"/></radialGradient>
 <mask id="moon-cut"><rect x="600" y="0" width="120" height="120" fill="#fff"/><circle cx="668" cy="50" r="16" fill="#000"/></mask>
 <linearGradient id="rov-light" x1="1" y1="0" x2="0" y2="1"><stop stop-color="#fff2c4" stop-opacity=".45"/><stop offset="1" stop-color="#fff2c4" stop-opacity="0"/></linearGradient>
+<radialGradient id="star-skin"><stop stop-color="#f09a62"/><stop offset="1" stop-color="#c9603f"/></radialGradient>
 <linearGradient id="beam" x2="0" y2="1"><stop stop-color="#f3b27a" stop-opacity=".14"/><stop offset="1" stop-color="#f3b27a" stop-opacity="0"/></linearGradient>
 </defs>
 <rect x="-10000" y="-10000" width="20000" height="10270" fill="url(#sky)"/><circle cx="1000" cy="262" r="260" fill="url(#sun)"/>
@@ -67,7 +68,7 @@
 <g fill="#3b2a40" opacity=".85"><path d="M0 147q30-60 70-10 40-25 65 20 50-20 80 15H0Z"/><path d="M410 90q35-30 60 0 30-15 55 10H390Z"/><path d="M640 150q40-34 80-4 36-22 70 4 30-8 46 10H620Z"/></g>
 <g fill="none" stroke="#f0a066" stroke-width="2" opacity=".55"><path d="M10 160h200M402 99h125M630 158h200"/></g>
 <g fill="#2a2a3c"><path d="M500 252h46v-8h-46zM506 252v8h4v-8zM536 252v8h4v-8zM538 244v-22h3v22zM498 238h18v6h-18z"/><path d="M1160 254h32v-6h-32zM1164 254v6h3v-6zM1186 254v6h3v-6z"/></g>
-<circle class="intro-flare intro-flare--far" cx="540" cy="220" r="12" fill="url(#glow)"/><circle cx="540" cy="220" r="2.5" fill="#ffb24d"/><circle class="intro-blink" cx="1176" cy="245" r="1.8" fill="#ff6a5a"/>
+<circle class="intro-flare-glow intro-flare-glow--far" cx="540" cy="220" r="12" fill="url(#glow)"/><circle cx="540" cy="220" r="2.5" fill="#ffb24d"/><circle class="intro-blink" cx="1176" cy="245" r="1.8" fill="#ff6a5a"/>
 <!-- Seagulls gliding across the sky -->
 <g class="intro-gull" style="animation-delay:-0s"><g transform="translate(0 150) scale(1)"><path class="intro-wing" d="M-12 0q6-6 12 0q6-6 12 0" fill="none" stroke="#1d1a26" stroke-width="2.2" stroke-linecap="round"/></g></g><g class="intro-gull" style="animation-delay:-5s"><g transform="translate(40 170) scale(0.8)"><path class="intro-wing" d="M-12 0q6-6 12 0q6-6 12 0" fill="none" stroke="#1d1a26" stroke-width="2.2" stroke-linecap="round"/></g></g><g class="intro-gull" style="animation-delay:-17s"><g transform="translate(-30 120) scale(0.7)"><path class="intro-wing" d="M-12 0q6-6 12 0q6-6 12 0" fill="none" stroke="#1d1a26" stroke-width="2.2" stroke-linecap="round"/></g></g><g class="intro-gull" style="animation-delay:-26s"><g transform="translate(10 195) scale(0.9)"><path class="intro-wing" d="M-12 0q6-6 12 0q6-6 12 0" fill="none" stroke="#1d1a26" stroke-width="2.2" stroke-linecap="round"/></g></g>
 <!-- Crescent moon -->
@@ -142,7 +143,9 @@
 <rect x="778" y="158" width="12" height="9" fill="#f2a35e"/><rect x="985" y="164" width="12" height="9" fill="#f2a35e"/>
 <!-- Flare tower (lattice) -->
 <g fill="none" stroke="#6c7c88" stroke-width="2"><path d="M1076 222l12-118M1106 222l-12-118M1080 190h22M1083 160h16M1086 130h10M1078 206l22-16M1082 176l18-16M1085 146l12-16"/></g>
-<circle class="intro-flare" cx="1091" cy="96" r="34" fill="url(#glow)"/><path class="intro-flare" d="M1091 104q-9-14 0-30 9 16 0 30z" fill="#ffb24d"/><path class="intro-flare" d="M1091 102q-4-8 0-16 4 8 0 16z" fill="#ffe2a0"/>
+<!-- Flare: a soft pulsing glow and a three-layer flame that sways gently in the wind -->
+<circle class="intro-flare-glow" cx="1091" cy="92" r="40" fill="url(#glow)"/>
+<g class="intro-flame"><path d="M1091 106C1083 102 1080 94 1084 86C1086 81 1089 78 1091 70C1094 77 1098 80 1099 86C1101 94 1098 102 1091 106Z" fill="#ff8a3d"/><path d="M1091 105C1086 102 1084 97 1086 92C1087 88 1089 86 1091 81C1093 86 1096 88 1096 92C1097 97 1095 102 1091 105Z" fill="#ffb24d"/><path d="M1091 104C1088 102 1087 99 1088 96C1089 94 1090 92 1091 90C1092 92 1094 94 1094 96C1095 99 1094 102 1091 104Z" fill="#ffe7b0"/></g>
 <!-- Deck lights -->
 <g fill="url(#glow)"><circle class="intro-blink" style="animation-delay:-0.0s" cx="760" cy="166" r="9"/><circle class="intro-blink" style="animation-delay:-1.3s" cx="930" cy="178" r="9"/><circle class="intro-blink" style="animation-delay:-2.6s" cx="1040" cy="180" r="9"/><circle class="intro-blink" style="animation-delay:-3.9s" cx="1120" cy="214" r="9"/><circle class="intro-blink" style="animation-delay:-5.2s" cx="660" cy="218" r="9"/></g>
 <!-- Riser balcony on the hull side; the deck line carries the flow to the process modules -->
@@ -189,7 +192,7 @@
 <path d="M300 700h70v-16h-70z" fill="#b48a33" stroke="#7d6324" stroke-width="2"/><path d="M308 684v-8h54v8" fill="#d6a644"/>
 <path d="M370 702Q700 690 1180 716" fill="none" stroke="#d0573d" stroke-width="3"/>
 <g fill="none" stroke-width="3" stroke-linecap="round"><g class="intro-sway" style="animation-delay:-3.9s" stroke="#c96a55"><path d="M70 742q-8-24 3-46M78 743q8-20-1-38M74 743q2-17 12-28"/></g><g class="intro-sway" style="animation-delay:-4.0s" stroke="#c96a55"><path d="M330 742q-8-24 3-46M338 743q8-20-1-38M334 743q2-17 12-28"/></g><g class="intro-sway" style="animation-delay:-0.2s" stroke="#3d8b6a"><path d="M560 742q-8-24 3-46M568 743q8-20-1-38M564 743q2-17 12-28"/></g><g class="intro-sway" style="animation-delay:-3.5s" stroke="#3d8b6a"><path d="M700 742q-8-24 3-46M708 743q8-20-1-38M704 743q2-17 12-28"/></g><g class="intro-sway" style="animation-delay:-2.5s" stroke="#9467b8"><path d="M880 742q-8-24 3-46M888 743q8-20-1-38M884 743q2-17 12-28"/></g><g class="intro-sway" style="animation-delay:-0.3s" stroke="#c96a55"><path d="M1000 742q-8-24 3-46M1008 743q8-20-1-38M1004 743q2-17 12-28"/></g><g class="intro-sway" style="animation-delay:-4.5s" stroke="#2f7a7f"><path d="M1170 742q-8-24 3-46M1178 743q8-20-1-38M1174 743q2-17 12-28"/></g><g class="intro-sway" style="animation-delay:-3.5s" stroke="#c96a55"><path d="M1260 742q-8-24 3-46M1268 743q8-20-1-38M1264 743q2-17 12-28"/></g></g>
-<g fill="#d9774a"><path d="M380 752l3 7h8l-6 4 2 8-7-5-7 5 2-8-6-4h8z"/><path d="M860 752l3 7h8l-6 4 2 8-7-5-7 5 2-8-6-4h8z"/><path d="M1220 752l3 7h8l-6 4 2 8-7-5-7 5 2-8-6-4h8z"/></g>
+<g fill="#d9774a"><path d="M380 752l3 7h8l-6 4 2 8-7-5-7 5 2-8-6-4h8z"/><path d="M1220 752l3 7h8l-6 4 2 8-7-5-7 5 2-8-6-4h8z"/></g>
 <path d="M-40 760q14-5 28 0 M30 748q14-5 28 0 M100 754q14-5 28 0 M170 760q14-5 28 0 M240 748q14-5 28 0 M310 754q14-5 28 0 M380 760q14-5 28 0 M450 748q14-5 28 0 M520 754q14-5 28 0 M590 760q14-5 28 0 M660 748q14-5 28 0 M730 754q14-5 28 0 M800 760q14-5 28 0 M870 748q14-5 28 0 M940 754q14-5 28 0 M1010 760q14-5 28 0 M1080 748q14-5 28 0 M1150 754q14-5 28 0 M1220 760q14-5 28 0" fill="none" stroke="#21455a" stroke-width="2"/>
 <!-- ROV (remotely operated vehicle) inspecting the manifold, tethered to the supply vessel -->
 <g class="intro-rov">
@@ -199,6 +202,9 @@
 <rect x="-5" y="6" width="5" height="8" fill="#2c3e4f"/><rect x="30" y="6" width="5" height="8" fill="#2c3e4f"/>
 <circle cx="4" cy="13" r="2.4" fill="#fff2c4"/><path d="M8 18v5h14v-5" fill="none" stroke="#6c7c88" stroke-width="1.4"/>
 <circle class="intro-blink" cx="26" cy="3" r="1.4" fill="#7dff9a"/></g></g>
+<!-- START: OPENING STARFISH (the camera starts here when the page loads, see js/intro.js) -->
+<g id="opening-star"><polygon points="860.0,752.0 862.5,758.6 869.5,758.9 864.0,763.3 865.9,770.1 860.0,766.2 854.1,770.1 856.0,763.3 850.5,758.9 857.5,758.6" fill="url(#star-skin)" stroke="#c9603f" stroke-width="2.6" stroke-linejoin="round"/><g fill="#f7c9a0" opacity=".9"><circle cx="860.0" cy="758.8" r="0.75"/><circle cx="860.0" cy="756.4" r="0.75"/><circle cx="860.0" cy="754.4" r="0.55"/><circle cx="863.0" cy="761.0" r="0.75"/><circle cx="865.3" cy="760.3" r="0.75"/><circle cx="867.2" cy="759.7" r="0.55"/><circle cx="861.9" cy="764.6" r="0.75"/><circle cx="863.3" cy="766.5" r="0.75"/><circle cx="864.5" cy="768.1" r="0.55"/><circle cx="858.1" cy="764.6" r="0.75"/><circle cx="856.7" cy="766.5" r="0.75"/><circle cx="855.5" cy="768.1" r="0.55"/><circle cx="857.0" cy="761.0" r="0.75"/><circle cx="854.7" cy="760.3" r="0.75"/><circle cx="852.8" cy="759.7" r="0.55"/></g><circle cx="860" cy="762" r="1.7" fill="#f0a77a"/></g>
+<!-- END: OPENING STARFISH -->
 <!-- END: SEABED DETAILS -->
 <g class="intro-labels" fill="#eef5f3" font-family="sans-serif" font-size="18"><text x="937" y="312">FPSO · riser balcony</text><path d="m930 302-40-44" stroke="#d5e5e7"/><circle cx="890" cy="258" r="3"/><text x="794" y="475">Riser</text><path id="riser-callout" d="M786 468 752 454" fill="none" stroke="#d5e5e7"/><circle id="riser-anchor" r="3" fill="#eef5f3"/><text x="175" y="605">Production mixture</text><text x="640" y="740" font-size="15">Umbilical</text><path d="m660 726 6-26" stroke="#d5e5e7"/><text x="300" y="652" font-size="15">Manifold</text><text x="478" y="600" font-size="15">ROV</text><path d="m330 658 0 18" stroke="#d5e5e7"/><path d="m242 614 3 20" stroke="#d5e5e7"/></g>
 </svg>
@@ -207,7 +213,7 @@
 <button class="oc-btn" id="pause" type="button" aria-pressed="false">Pause</button><button class="oc-btn" id="restart" type="button">Replay</button>
 
 <a class="oc-btn intro-continue" href="phase1.html">Continue to the shift →</a>
-<a class="intro-back" href="index.html">← Back to the menu</a></footer><p class="intro-note" id="sound-note">Music is on by default and fades in after your first tap or key press. You can pause or skip this introduction at any time. Illustration not to scale.</p>
+<a class="intro-back" href="index.html"><span class="intro-back__arrow" aria-hidden="true">←</span> Back to the menu</a></footer><p class="intro-note" id="sound-note">Music is on by default and fades in after your first tap or key press. You can pause or skip this introduction at any time. Illustration not to scale.</p>
 <noscript><p>The production mixture rises through the riser to the FPSO. JavaScript enables animation and optional music; you can still continue to the shift.</p></noscript>
 </main></body></html>
 

@@ -1,4 +1,4 @@
-/* Standalone daylight prologue. Shared navigation styles; preferences saved only with existing consent. */
+/* Standalone dusk prologue. Shared navigation styles; preferences saved only with existing consent. */
 (() => {
   'use strict';
   const get = id => document.getElementById(id);
@@ -6,6 +6,7 @@
   const reduce = matchMedia('(prefers-reduced-motion: reduce)');
   const route = get('route'), length = route.getTotalLength();
   let elapsed = 0, previous = null, paused = false, chapter = -1, frame;
+  let opening = null, target = null;   // opening shot state and final camera (see OPENING SHOT)
   let context, master, music = true;
   const preferences = {
     get(key) { try { return localStorage.getItem('oc-consent') === 'yes' ? localStorage.getItem(key) : null; } catch (_) { return null; } },
@@ -64,13 +65,14 @@
     }
   }
   function tick(now) {
-    if (previous !== null && !paused && !document.hidden && !staticMotion()) elapsed = Math.min(duration, elapsed + now - previous);
+    if (previous !== null && !paused && !opening && !document.hidden && !staticMotion()) elapsed = Math.min(duration, elapsed + now - previous);
     previous = now;
     draw();
     if (!paused && !document.hidden && !staticMotion()) frame = requestAnimationFrame(tick);
 
   }
   function update() {
+    if (opening && staticMotion()) finishOpening();   // Animations off or Reduce motion: jump to the final view
     cancelAnimationFrame(frame); previous = null;
     document.documentElement.toggleAttribute('data-motion', userMotionOff);
     if (userMotionOff) document.documentElement.dataset.motion = 'off';
@@ -78,6 +80,7 @@
     get('motion-toggle').setAttribute('aria-disabled', String(reduce.matches));
     get('motion-state').textContent = reduce.matches ? 'off by system setting' : userMotionOff ? 'off' : 'on';
     root.toggleAttribute('data-static', staticMotion());
+    if (staticMotion()) root.removeAttribute('data-revealing');
     if (staticMotion() && get('intro-caption').chapterAnimation) get('intro-caption').chapterAnimation.cancel();
     root.toggleAttribute('data-paused', paused || document.hidden);
     get('pause').textContent = staticMotion() ? 'Reduced motion enabled' : paused ? 'Resume' : 'Pause';
@@ -194,14 +197,73 @@
     const width = viewportWidth / scale;
     const height = viewportHeight / scale;
     const top = (topInset + Math.max(0, sceneHeight - 760 * scale) / 2) / scale;
-    const viewBox = `${(1200 - width) / 2} ${-top} ${width} ${height}`;
-    if (scene.getAttribute('viewBox') !== viewBox) scene.setAttribute('viewBox', viewBox);
+    target = [(1200 - width) / 2, -top, width, height];
+    const viewBox = target.join(' ');
+    if (scene.dataset.camera !== viewBox) scene.dataset.camera = viewBox;   // final camera, read by intro-habitat.js
+    if (!opening && scene.getAttribute('viewBox') !== viewBox) scene.setAttribute('viewBox', viewBox);
   }
+
+  // START: OPENING SHOT (the camera starts on a starfish and zooms out to the whole scene)
+  // Runs once when the page loads, only when animations are allowed. The zoom
+  // changes the SVG viewBox, so the drawing stays sharp at every size. Any key,
+  // click, tap, scroll or focus inside the page skips straight to the final view.
+  // Timing: OPENING_HOLD = pause on the starfish, OPENING_ZOOM = zoom length (ms).
+  const OPENING_HOLD = 700, OPENING_ZOOM = 5200;
+  const smooth = p => p * p * p * (p * (p * 6 - 15) + 10);
+  function cameraAt(e) {
+    const [x, y, w, h] = target;
+    const k = Math.pow(60 / h, 1 - e);            // starts about 60 units tall around the starfish
+    const vw = w * k, vh = h * k;
+    const ux = .5 + ((opening.cx - x) / w - .5) * e, uy = .5 + ((opening.cy - y) / h - .5) * e;
+    return `${opening.cx - ux * vw} ${opening.cy - uy * vh} ${vw} ${vh}`;
+  }
+  function openingStep(now) {
+    if (!opening) return;
+    if (staticMotion()) { finishOpening(); return; }
+    if (opening.last !== null && !document.hidden) opening.time += Math.min(50, now - opening.last);
+    opening.last = now;
+    const p = Math.max(0, Math.min(1, (opening.time - OPENING_HOLD) / OPENING_ZOOM));
+    scene.setAttribute('viewBox', cameraAt(smooth(p)));
+    if (p >= 1) finishOpening(); else opening.frame = requestAnimationFrame(openingStep);
+  }
+  const skipEvents = ['keydown', 'pointerdown', 'wheel', 'touchstart', 'click'];
+  const skipOpening = () => finishOpening();
+  function finishOpening() {
+    if (!opening) return;
+    cancelAnimationFrame(opening.frame);
+    opening = null;
+    skipEvents.forEach(type => document.removeEventListener(type, skipOpening, true));
+    root.removeEventListener('focusin', skipOpening);
+    root.removeAttribute('data-opening');
+    if (!staticMotion()) {                         // the skipping tap must not press a still-invisible button
+      root.setAttribute('data-revealing', '');
+      clearTimeout(finishOpening.timer);
+      finishOpening.timer = setTimeout(() => root.removeAttribute('data-revealing'), 900);
+    }
+    if (target) scene.setAttribute('viewBox', target.join(' '));
+    previous = null; update();                     // the narration starts now
+  }
+  function startOpening() {
+    const star = get('opening-star');
+    if (!star || !target || staticMotion()) return;
+    try {
+      const box = star.getBBox();
+      opening = {cx: box.x + box.width / 2, cy: box.y + box.height / 2, time: 0, last: null, frame: 0};
+      root.setAttribute('data-opening', '');
+      scene.setAttribute('viewBox', cameraAt(0));
+      skipEvents.forEach(type => document.addEventListener(type, skipOpening, {capture: true, passive: true}));
+      root.addEventListener('focusin', skipOpening);
+      opening.frame = requestAnimationFrame(openingStep);
+    } catch (_) { finishOpening(); }
+  }
+  // END: OPENING SHOT
   if (window.ResizeObserver) new ResizeObserver(fitScene).observe(bar);
   window.addEventListener('resize', fitScene);
   if (document.fonts) document.fonts.ready.then(fitScene);
   fitScene();
   syncMusic(); draw(); update();
+  startOpening();
+  document.documentElement.removeAttribute('data-intro-opening');   // set early by js/intro-preload.js
 })();
 
 
