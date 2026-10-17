@@ -79,20 +79,26 @@ html[data-motion=off] .intro-page *,html[data-motion=off] .intro-page *::before,
 @media(forced-colors:active){.intro-caption{border-left-color:CanvasText}.intro-caption .oc-label{color:CanvasText}.intro-caption .intro-progress span{background:Highlight}}
 .intro-back,.intro-back:visited{font:400 14px/1.5 var(--font-sans);color:var(--text-2);display:inline-flex;align-items:center;min-height:44px;padding:8px;text-underline-offset:4px}
 .intro-back:hover{color:var(--brand)}
+/* The arrow is an inline-block, so the link underline is not drawn under it */
+.intro-back__arrow{display:inline-block;text-decoration:none;margin-right:6px}
 @media(max-width:700px){.intro-back{flex-basis:100%;justify-content:center}}
 
 /* START: DUSK ENVIRONMENT ANIMATIONS (all very slow; off with Animations off,
    Pause or the system "Reduce motion" setting, through the rules above) */
-.intro-flare{animation:flicker 3.2s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:50% 100%}
-.intro-flare--far{animation-duration:4.6s}
+.intro-flame path{animation:flame 2.6s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%}
+.intro-flame path:nth-child(2){animation-duration:2.1s;animation-delay:-.7s}
+.intro-flame path:nth-child(3){animation-duration:1.7s;animation-delay:-1.1s}
+.intro-flare-glow{animation:flare-glow 4.8s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+.intro-flare-glow--far{animation-duration:6.2s;animation-delay:-2s}
 .intro-blink{animation:blink 5s ease-in-out infinite}
 .intro-stars{animation:twinkle 9s ease-in-out infinite alternate}
 .intro-snow{animation:snow 40s linear infinite alternate}
 .intro-jelly{animation:jelly 14s ease-in-out infinite alternate}
 .intro-sway{animation:sway 7s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:50% 100%}
 .intro-bubble{animation:bubble 9s linear infinite}
-.intro[data-static] :is(.intro-flare,.intro-blink,.intro-stars,.intro-snow,.intro-jelly,.intro-sway,.intro-bubble){animation:none!important}
-@keyframes flicker{to{transform:scale(.92,1.08);opacity:.85}}
+.intro[data-static] :is(.intro-flame path,.intro-flare-glow,.intro-blink,.intro-stars,.intro-snow,.intro-jelly,.intro-sway,.intro-bubble){animation:none!important}
+@keyframes flame{0%,100%{transform:scale(1,1) skewX(0deg)}25%{transform:scale(.95,1.06) skewX(-4deg)}50%{transform:scale(1.03,.97) skewX(2deg)}75%{transform:scale(.97,1.04) skewX(-2deg)}}
+@keyframes flare-glow{0%,100%{opacity:.8;transform:scale(.96)}50%{opacity:1;transform:scale(1.06)}}
 @keyframes blink{50%{opacity:.35}}
 @keyframes twinkle{to{opacity:.6}}
 @keyframes snow{to{transform:translate(-30px,40px)}}
@@ -125,3 +131,21 @@ html[data-motion=off] .intro-page *,html[data-motion=off] .intro-page *::before,
 @keyframes smoke{from{transform:translate(0,0) scale(1);opacity:.35}to{transform:translate(-26px,-34px) scale(3);opacity:0}}
 /* END: DUSK ENVIRONMENT ANIMATIONS */
 
+/* START: OPENING SHOT (camera zoom in js/intro.js)
+   While the camera zooms out from the starfish, the texts, labels and
+   buttons stay hidden; they fade in one after another when it ends.
+   The zoom never runs with Animations off or the system "Reduce motion"
+   setting, so in those cases everything is visible from the start. */
+.intro > :not(.intro-scene){transition:opacity .9s ease}
+.intro > .intro-caption{transition-delay:.25s}
+.intro > .intro-controls{transition-delay:.45s}
+.intro > .intro-note{transition-delay:.6s}
+.intro-labels{transition:opacity 1s ease .3s}
+.intro > :focus-within{opacity:1;transition:none}
+.intro[data-opening] > :not(.intro-scene),.intro[data-opening] .intro-labels{opacity:0;pointer-events:none;transition:none}
+.intro[data-revealing] > :not(.intro-scene){pointer-events:none}
+/* Before the scripts run (slow devices): js/intro-preload.js hides everything,
+   so the full scene never flashes before the starfish close-up. */
+html[data-intro-opening] .intro > :not(.intro-scene),html[data-intro-opening] .intro-labels{opacity:0;pointer-events:none;transition:none}
+html[data-intro-opening] .intro-scene{opacity:0;animation:none}
+/* END: OPENING SHOT */

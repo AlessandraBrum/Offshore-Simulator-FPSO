@@ -43,7 +43,10 @@
     duration: random(20, 48), delay: random(-45, 0), travel: random(35, 130), bob: random(4, 15)
   }));
   function layout() {
-    const box = scene.viewBox.baseVal;
+    // Lay out for the final camera (data-camera), not the animated opening viewBox.
+    const camera = (scene.dataset.camera || '').split(' ').map(Number);
+    const box = camera.length === 4 && camera.every(Number.isFinite)
+      ? {x: camera[0], y: camera[1], width: camera[2], height: camera[3]} : scene.viewBox.baseVal;
     const left = box.x, width = box.width || 1200;
     const floorBottom = Math.max(780, Math.min(box.y + box.height, 1200));
     rocks.replaceChildren(); algae.replaceChildren(); fish.replaceChildren();
@@ -88,7 +91,7 @@
       svg('circle', {class: 'intro-bubble', cx: (p.x + random(-14, 14)).toFixed(1), cy: (p.y - random(4, 20)).toFixed(1), r: random(1.5, 3.5).toFixed(1), style: `animation-delay:-${random(0, 9).toFixed(1)}s;animation-duration:${random(7, 12).toFixed(1)}s`}, bubbles);
     }
   }
-  new MutationObserver(layout).observe(scene, {attributes: true, attributeFilter: ['viewBox']});
+  new MutationObserver(layout).observe(scene, {attributes: true, attributeFilter: ['data-camera']});
   layout();
 })();
 
