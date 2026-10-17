@@ -79,8 +79,10 @@ html[data-motion=off] .intro-page *,html[data-motion=off] .intro-page *::before,
 @media(forced-colors:active){.intro-caption{border-left-color:CanvasText}.intro-caption .oc-label{color:CanvasText}.intro-caption .intro-progress span{background:Highlight}}
 .intro-back,.intro-back:visited{font:400 14px/1.5 var(--font-sans);color:var(--text-2);display:inline-flex;align-items:center;min-height:44px;padding:8px;text-underline-offset:4px}
 .intro-back:hover{color:var(--brand)}
-/* The arrow is an inline-block, so the link underline is not drawn under it */
-.intro-back__arrow{display:inline-block;text-decoration:none;margin-right:6px}
+/* The link is inline-flex, so the underline would reach every child (the arrow too). Remove it from the link and draw it only on the words. */
+.intro-back,.intro-back:visited{text-decoration:none}
+.intro-back__arrow{margin-right:6px}
+.intro-back__text{text-decoration:underline;text-underline-offset:4px}
 @media(max-width:700px){.intro-back{flex-basis:100%;justify-content:center}}
 
 /* START: DUSK ENVIRONMENT ANIMATIONS (all very slow; off with Animations off,
