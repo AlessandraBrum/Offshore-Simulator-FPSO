@@ -7,26 +7,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Dev log · Offshore Simulator</title>
   <meta name="description" content="Development log of Offshore Simulator.">
-  <!-- START: SOCIAL SHARE PREVIEW (Open Graph + Twitter/X)
-       Shows this card when the link is shared on WhatsApp, Instagram, etc.
-       Absolute URLs are required: social apps do not resolve relative ones. -->
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Offshore Simulator">
-  <meta property="og:url" content="https://fpso-offshore-simulator.vercel.app/devlog.html">
-  <meta property="og:title" content="Dev log · Offshore Simulator">
-  <meta property="og:description" content="Development log of Offshore Simulator.">
-  <meta property="og:image" content="https://fpso-offshore-simulator.vercel.app/assets/og-preview-square.jpg">
-  <meta property="og:image:type" content="image/jpeg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="1200">
-  <meta property="og:image:alt" content="The FPSO Comandante Ancunín at night in a storm, flare stack burning, beside the Offshore Simulator logo.">
-  <meta property="og:locale" content="en_US">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Dev log · Offshore Simulator">
-  <meta name="twitter:description" content="Development log of Offshore Simulator.">
-  <meta name="twitter:image" content="https://fpso-offshore-simulator.vercel.app/assets/og-preview-square.jpg">
-  <meta name="twitter:image:alt" content="The FPSO Comandante Ancunín at night in a storm, flare stack burning, beside the Offshore Simulator logo.">
-  <!-- END: SOCIAL SHARE PREVIEW (Open Graph + Twitter/X) -->
   <link rel="preload" href="fonts/big-shoulders-stencil-display-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/about.css">
@@ -54,7 +34,7 @@
       <!-- START: MAIN MENU -->
       <nav class="oc-nav" aria-label="Main">
         <ul class="oc-nav__list">
-          <li><a class="oc-nav__link" href="index.html">Start shift</a></li>
+          <li><a class="oc-nav__link" href="index.html#start-shift">Start shift</a></li>
           <li><a class="oc-nav__link" href="aboutthegame.html">About the game</a></li>
           <li><a class="oc-nav__link" href="devlog.html" aria-current="page">Dev log</a></li>
         </ul>
@@ -83,6 +63,12 @@
   <!-- Short messages for screen readers and for everyone (animations, music) -->
   <p id="a11y-status" class="oc-status" role="status" aria-live="polite"></p>
   <!-- END: TOP BAR -->
+
+  <!-- START: HEADER -->
+  <header class="oc-about__header">
+    <a class="oc-about__back" href="index.html">Back to the game</a>
+  </header>
+  <!-- END: HEADER -->
 
   <!-- START: HERO (animated storm, same as the menu; still frame with "Reduce motion") -->
   <section class="oc-about__hero" aria-labelledby="about-title">
