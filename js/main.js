@@ -24,7 +24,7 @@ const Store = (() => {
     setConsent(value) { write(CONSENT, value); },
     get: key => (read(CONSENT) === 'yes' ? read(key) : null),
     set(key, value) { if (read(CONSENT) === 'yes') write(key, value); },
-    eraseAll() { ['oc-progress', 'oc-motion'].forEach(remove); }
+    eraseAll() { ['oc-progress', 'oc-motion', 'oc-music'].forEach(remove); }
   };
 })();
 /* ==========================================================================
@@ -547,11 +547,12 @@ const Music = (() => {
   // Gentle entry: the volume rises from silence to full level in 1 second,
   // on a curve that grows slowly at first (the ear perceives it as gradual).
   const FADE_IN = 1;
-  // Volume chosen on the slider (0 to 100%). At 100% the gain is 1.1; the
-  // output compressor holds back the peaks.
+  // Volume chosen on the slider (0 to 100%). At 100% the gain is 0.35
+  // (about a third of the old level: the music must stay soft, under the
+  // storm, never loud). The output compressor holds back the peaks.
   const volume = byId('music-volume'), volumeText = byId('music-volume-value');
   let level = Number(volume.value) / 100;
-  const target = () => Math.max(0.0001, level * 1.1);
+  const target = () => Math.max(0.0001, level * 0.35);
   function fadeIn() {
     const now = ac.currentTime;
     master.gain.cancelScheduledValues(now);
@@ -567,6 +568,21 @@ const Music = (() => {
       master.gain.setTargetAtTime(target(), ac.currentTime, 0.05);
     }
   });
+
+  // START: REMEMBER "MUSIC OFF"
+  // Once the player turns the music off, it stays off: on other pages of the
+  // site, after a reload and, if they agreed to save progress, on the next visit.
+  // Only the Music button can turn it back on.
+  const MUSIC_KEY = 'oc-music';
+  const savedOff = () => {
+    try { if (sessionStorage.getItem(MUSIC_KEY) === 'off') return true; } catch (e) {}
+    return Store.get(MUSIC_KEY) === 'off';
+  };
+  function remember(value) {
+    try { sessionStorage.setItem(MUSIC_KEY, value ? 'on' : 'off'); } catch (e) {}
+    Store.set(MUSIC_KEY, value ? 'on' : 'off');                      // only saved with consent
+  }
+  // END: REMEMBER "MUSIC OFF"
 
   function setOn(value) {
     on = value;
@@ -586,12 +602,10 @@ const Music = (() => {
       setTimeout(() => { if (!on) ac.suspend(); }, 1200);
     }
   }
-  // On but still blocked by the browser: clicking the button unlocks the
-  // sound instead of turning it off (the player has not heard anything yet).
+  // The button always does what its label says: "on" → off, "off" → on.
   const blocked = () => on && ac && ac.state !== 'running';
   button.addEventListener('click', () => {
-    if (blocked()) { ac.resume().then(fadeIn); announce('Music on.'); return; }
-    setOn(!on); announce(on ? 'Music on.' : 'Music off.');
+    setOn(!on); remember(on); announce(on ? 'Music on.' : 'Music off.');
   });
 
   // First tap or key press anywhere on the page: unlocks the sound.
@@ -605,7 +619,9 @@ const Music = (() => {
   }
   document.addEventListener('pointerdown', unlock, true);
   document.addEventListener('keydown', unlock, true);
-  setOn(true);                                                         // starts on
+  // Starts on, unless the player turned it off before.
+  if (savedOff()) { button.setAttribute('aria-pressed', 'false'); state.textContent = 'off'; }
+  else setOn(true);
   document.addEventListener('visibilitychange', () => {
     if (!ac || !on) return;
     if (document.hidden) ac.suspend(); else ac.resume();
@@ -629,7 +645,9 @@ const Music = (() => {
    preview locks every phase; the development version locks none.
    ========================================================================== */
 const PHASES = [
-  { id: 'fase1', num: '01', name: '', ready: false },
+  // Phase 1 opens the introduction page (href). The hint is shown under its button.
+  { id: 'fase1', num: '01', name: 'Introduction', ready: true, href: 'intro.html',
+    hint: 'This phase is not playable yet. Only part of the introduction is currently available.' },
   { id: 'fase2', num: '02', name: '', ready: true }
 ];
 
@@ -676,6 +694,14 @@ window.Phases = (() => {
             : '');
       btn.addEventListener('click', () => play(phase));
       li.append(btn);
+      if (phase.hint && !locked) {                      // short note under the button, read with it
+        const hint = document.createElement('p');
+        hint.className = 'oc-phasebtn__hint';
+        hint.id = 'hint-' + phase.id;
+        hint.textContent = phase.hint;
+        btn.setAttribute('aria-describedby', hint.id);
+        li.append(hint);
+      }
       list.append(li);
     });
     const consent = Store.consent();
@@ -697,6 +723,7 @@ window.Phases = (() => {
       byId('phase-wip-back').focus();
       return;
     }
+    if (phase.href) { window.location.href = phase.href; return; }   // phase with its own page
     menu.close();
     enterGame();
   }

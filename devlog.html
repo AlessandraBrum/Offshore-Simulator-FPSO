@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+
+<!-- START: HEAD -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dev log · Offshore Simulator</title>
+  <meta name="description" content="Development log of Offshore Simulator.">
+  <link rel="preload" href="fonts/big-shoulders-stencil-display-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/about.css">
+  <script src="js/motion-pref.js"></script>
+  <script src="js/storm-page.js" defer></script>
+  <script src="js/nav.js" defer></script>
+</head>
+<!-- END: HEAD -->
+
+<body>
+
+  <!-- START: SKIP LINK (keyboard users jump straight to the text) -->
+  <a class="oc-about__skip" href="#about-content">Skip to content</a>
+  <!-- END: SKIP LINK -->
+
+  <!-- START: TOP BAR (the same on index.html, aboutthegame.html and devlog.html)
+       Sticky at the top. From 1100px everything sits in one row; below that,
+       the "Menu" button opens a panel from the right (js/nav.js). -->
+  <div class="oc-a11ybar">
+    <a class="oc-a11ybar__brand" href="index.html">Offshore Simulator</a>
+    <button type="button" class="oc-btn oc-nav-toggle" id="nav-toggle" aria-expanded="false"
+      aria-controls="site-menu"><span class="oc-nav-toggle__icon" aria-hidden="true"></span>Menu</button>
+    <div class="oc-a11ybar__panel" id="site-menu">
+      <button type="button" class="oc-btn oc-nav-close" id="nav-close">Close menu</button>
+      <!-- START: MAIN MENU -->
+      <nav class="oc-nav" aria-label="Main">
+        <ul class="oc-nav__list">
+          <li><a class="oc-nav__link" href="index.html#start-shift">Start shift</a></li>
+          <li><a class="oc-nav__link" href="aboutthegame.html">About the game</a></li>
+          <li><a class="oc-nav__link" href="devlog.html" aria-current="page">Dev log</a></li>
+        </ul>
+      </nav>
+      <!-- END: MAIN MENU -->
+      <div class="oc-a11ybar__tools">
+        <button type="button" id="music-toggle" class="oc-btn" aria-pressed="true" aria-describedby="music-note">Music
+          <span class="oc-btn__state" id="music-state" aria-hidden="true">on</span></button>
+        <!-- Music volume: native control (keyboard arrows change it in steps of 5) -->
+        <div class="oc-volume">
+          <label class="oc-volume__label" for="music-volume">Volume</label>
+          <input class="oc-volume__input" type="range" id="music-volume" min="0" max="100" step="5" value="30"
+            aria-valuetext="30%">
+          <output class="oc-volume__value" id="music-volume-value" for="music-volume" aria-hidden="true">30%</output>
+        </div>
+        <button type="button" id="motion-toggle" class="oc-btn" aria-pressed="true"
+          aria-describedby="motion-note">Animations <span class="oc-btn__state" id="motion-state"
+            aria-hidden="true">on</span></button>
+      </div>
+    </div>
+    <p id="music-note" class="oc-sr">Turns the background soundtrack on or off. It starts on and kicks in at the first
+      tap or key press.</p>
+    <p id="motion-note" class="oc-sr">Turns the page animations on or off. If your operating system asks for reduced
+      motion, they always stay off.</p>
+  </div>
+  <!-- Short messages for screen readers and for everyone (animations, music) -->
+  <p id="a11y-status" class="oc-status" role="status" aria-live="polite"></p>
+  <!-- END: TOP BAR -->
+
+  <!-- START: HEADER -->
+  <header class="oc-about__header">
+    <a class="oc-about__back" href="index.html">Back to the game</a>
+  </header>
+  <!-- END: HEADER -->
+
+  <!-- START: HERO (animated storm, same as the menu; still frame with "Reduce motion") -->
+  <section class="oc-about__hero" aria-labelledby="about-title">
+    <div class="oc-about__scene"><canvas id="storm" aria-hidden="true"></canvas></div>
+    <div class="oc-about__hero-body">
+      <p class="oc-label">FPSO Comandante Ancunín · Educational simulation</p>
+      <h1 class="oc-about__title" id="about-title">Dev <span>log</span></h1>
+    </div>
+    <div class="oc-hazard" aria-hidden="true"></div>
+  </section>
+  <!-- END: HERO -->
+
+  <!-- START: CONTENT (write your entries here, newest first) -->
+  <main class="oc-about oc-about--log" id="about-content" tabindex="-1">
+
+    <!-- START: ENTRY (copy this whole block to add a new entry, newest first) -->
+    <article class="oc-about__card" aria-labelledby="log-2026-10-15">
+      <h2 class="oc-about__heading" id="log-2026-10-15"><time datetime="2026-10-15">October 15<sup>th</sup>, 2026</time></h2>
+      <p>Here you will find about what I have learned and what comes next.</p>
+    </article>
+    <!-- END: ENTRY -->
+
+  </main>
+  <!-- END: CONTENT -->
+
+</body>
+
+</html>

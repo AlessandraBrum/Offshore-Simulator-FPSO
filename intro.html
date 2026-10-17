@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Before the shift · Offshore Simulator</title>
+<link rel="preload" href="fonts/big-shoulders-stencil-display-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="fonts/ibm-plex-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/intro.css">
+<script src="js/motion-pref.js"></script><script src="js/intro-preload.js"></script><script src="js/intro.js" defer></script><script src="js/nav.js" defer></script><script src="js/intro-habitat.js" defer></script>
+</head>
+<body class="intro-page">
+<a class="intro-skip" href="#intro-content">Skip to content</a>
+  <div class="oc-a11ybar">
+    <a class="oc-a11ybar__brand" href="index.html">Offshore Simulator</a>
+    <button type="button" class="oc-btn oc-nav-toggle" id="nav-toggle" aria-expanded="false"
+      aria-controls="site-menu"><span class="oc-nav-toggle__icon" aria-hidden="true"></span>Menu</button>
+    <div class="oc-a11ybar__panel" id="site-menu">
+      <button type="button" class="oc-btn oc-nav-close" id="nav-close">Close menu</button>
+      <!-- START: MAIN MENU -->
+      <nav class="oc-nav" aria-label="Main">
+        <ul class="oc-nav__list">
+          <li><a class="oc-nav__link" href="index.html">Start shift</a></li>
+          <li><a class="oc-nav__link" href="aboutthegame.html">About the game</a></li>
+          <li><a class="oc-nav__link" href="devlog.html">Dev log</a></li>
+        </ul>
+      </nav>
+      <!-- END: MAIN MENU -->
+      <div class="oc-a11ybar__tools">
+        <button type="button" id="music-toggle" class="oc-btn" aria-pressed="true" aria-describedby="music-note">Music
+          <span class="oc-btn__state" id="music-state" aria-hidden="true">on</span></button>
+        <!-- Music volume: native control (keyboard arrows change it in steps of 5) -->
+        <div class="oc-volume">
+          <label class="oc-volume__label" for="music-volume">Volume</label>
+          <input class="oc-volume__input" type="range" id="music-volume" min="0" max="100" step="5" value="30"
+            aria-valuetext="30%">
+          <output class="oc-volume__value" id="music-volume-value" for="music-volume" aria-hidden="true">30%</output>
+        </div>
+        <button type="button" id="motion-toggle" class="oc-btn" aria-pressed="true"
+          aria-describedby="motion-note">Animations <span class="oc-btn__state" id="motion-state"
+            aria-hidden="true">on</span></button>
+      </div>
+    </div>
+    <p id="music-note" class="oc-sr">Turns the background soundtrack on or off. It starts on and kicks in at the first
+      tap or key press.</p>
+    <p id="motion-note" class="oc-sr">Turns the page animations on or off. If your operating system asks for reduced
+      motion, they always stay off.</p>
+  </div>
+  <!-- Short messages for screen readers and for everyone (animations, music) -->
+  <p id="a11y-status" class="oc-status" role="status" aria-live="polite"></p>
+<main class="intro" id="intro-content" tabindex="-1" aria-labelledby="intro-title">
+<header class="intro-heading"><p class="oc-label">Offshore Simulator · Prologue</p><h1 id="intro-title">Every shift begins <span>far below the surface.</span></h1><p>Before the night shift, follow the production mixture from the seabed to the FPSO.</p></header><div class="intro-scene-space" aria-hidden="true"></div>
+<svg class="intro-scene" preserveAspectRatio="xMidYMid meet" viewBox="0 0 1200 760" role="img" aria-labelledby="scene-title scene-description">
+<title id="scene-title">From the seabed to the FPSO</title><desc id="scene-description">At dusk, a mixture of oil, water and gas rises from a subsea well through a curved riser to a floating production, storage and offloading vessel. Gold particles show the upward flow. Small schools of fish and jellyfish drift at different depths. A crew helicopter crosses the dusk sky, a supply vessel waits beside the FPSO and its remotely operated vehicle (ROV) inspects the manifold. A sea turtle and a manta ray glide past. Mooring lines hold the FPSO in place, and an umbilical cable runs along the seabed to the subsea well and manifold. Illustration not to scale.</desc>
+<defs>
+<linearGradient id="sky" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="270"><stop stop-color="#16223a"/><stop offset=".5" stop-color="#5a3446"/><stop offset=".85" stop-color="#b8603f"/><stop offset="1" stop-color="#e3925a"/></linearGradient>
+<linearGradient id="sea" gradientUnits="userSpaceOnUse" x1="0" y1="260" x2="0" y2="760"><stop stop-color="#165f74"/><stop offset=".45" stop-color="#083349"/><stop offset="1" stop-color="#031929"/></linearGradient>
+<linearGradient id="hull" x2="0" y2="1"><stop stop-color="#1b3548"/><stop offset=".58" stop-color="#102333"/><stop offset=".6" stop-color="#8e4341"/><stop offset="1" stop-color="#4e2e38"/></linearGradient>
+<radialGradient id="sun"><stop stop-color="#ffb46a" stop-opacity=".55"/><stop offset="1" stop-color="#ffb46a" stop-opacity="0"/></radialGradient>
+<path id="route" d="M260 667 C620 680 824 536 871 258"/>
+<pattern id="windows" width="18" height="16" patternUnits="userSpaceOnUse"><rect width="7" height="5" fill="#ffd98a"/></pattern>
+<radialGradient id="glow"><stop stop-color="#ffc56b" stop-opacity=".7"/><stop offset="1" stop-color="#ffc56b" stop-opacity="0"/></radialGradient>
+<mask id="moon-cut"><rect x="600" y="0" width="120" height="120" fill="#fff"/><circle cx="668" cy="50" r="16" fill="#000"/></mask>
+<linearGradient id="rov-light" x1="1" y1="0" x2="0" y2="1"><stop stop-color="#fff2c4" stop-opacity=".45"/><stop offset="1" stop-color="#fff2c4" stop-opacity="0"/></linearGradient>
+<radialGradient id="star-skin"><stop stop-color="#f09a62"/><stop offset="1" stop-color="#c9603f"/></radialGradient>
+<linearGradient id="beam" x2="0" y2="1"><stop stop-color="#f3b27a" stop-opacity=".14"/><stop offset="1" stop-color="#f3b27a" stop-opacity="0"/></linearGradient>
+</defs>
+<rect x="-10000" y="-10000" width="20000" height="10270" fill="url(#sky)"/><circle cx="1000" cy="262" r="260" fill="url(#sun)"/>
+<!-- START: DUSK SKY (stars, clouds lit from below, distant platforms) -->
+<g class="intro-stars" fill="#fff"><circle cx="514" cy="-21" r="1.5" opacity="0.56"/><circle cx="614" cy="-12" r="0.8" opacity="0.58"/><circle cx="834" cy="54" r="0.7" opacity="0.47"/><circle cx="-137" cy="59" r="1.3" opacity="0.32"/><circle cx="1468" cy="109" r="1.3" opacity="0.64"/><circle cx="-17" cy="-195" r="1.1" opacity="0.33"/><circle cx="42" cy="-123" r="0.6" opacity="0.56"/><circle cx="493" cy="70" r="1.1" opacity="0.65"/><circle cx="600" cy="12" r="1.1" opacity="0.45"/><circle cx="1496" cy="119" r="1.4" opacity="0.69"/><circle cx="267" cy="-127" r="0.9" opacity="0.34"/><circle cx="1079" cy="-72" r="1.4" opacity="0.51"/><circle cx="1424" cy="71" r="0.6" opacity="0.42"/><circle cx="1338" cy="-50" r="1.6" opacity="0.52"/><circle cx="-169" cy="1" r="1.4" opacity="0.45"/><circle cx="-143" cy="-94" r="1.6" opacity="0.72"/><circle cx="-88" cy="-121" r="0.7" opacity="0.33"/><circle cx="1135" cy="-143" r="1.2" opacity="0.55"/><circle cx="43" cy="34" r="0.7" opacity="0.65"/><circle cx="-90" cy="-65" r="0.8" opacity="0.45"/><circle cx="1448" cy="57" r="0.9" opacity="0.79"/><circle cx="79" cy="-74" r="1.5" opacity="0.65"/><circle cx="-119" cy="117" r="0.8" opacity="0.44"/><circle cx="1091" cy="-95" r="0.9" opacity="0.34"/><circle cx="-138" cy="-14" r="0.8" opacity="0.63"/><circle cx="369" cy="-55" r="1.6" opacity="0.57"/><circle cx="734" cy="77" r="0.8" opacity="0.38"/><circle cx="1335" cy="62" r="0.8" opacity="0.40"/><circle cx="1031" cy="101" r="0.8" opacity="0.82"/><circle cx="1288" cy="-7" r="1.0" opacity="0.36"/><circle cx="-230" cy="108" r="0.8" opacity="0.69"/><circle cx="163" cy="64" r="1.2" opacity="0.46"/><circle cx="16" cy="31" r="0.7" opacity="0.43"/><circle cx="707" cy="73" r="1.2" opacity="0.45"/><circle cx="1351" cy="-135" r="0.6" opacity="0.45"/><circle cx="502" cy="-181" r="0.8" opacity="0.50"/><circle cx="730" cy="-158" r="1.0" opacity="0.79"/><circle cx="1465" cy="10" r="1.3" opacity="0.62"/><circle cx="-47" cy="-189" r="0.6" opacity="0.80"/><circle cx="962" cy="108" r="0.6" opacity="0.65"/><circle cx="568" cy="34" r="0.9" opacity="0.85"/><circle cx="-165" cy="-25" r="1.3" opacity="0.80"/><circle cx="1027" cy="25" r="1.4" opacity="0.80"/><circle cx="333" cy="19" r="1.5" opacity="0.78"/><circle cx="451" cy="53" r="1.5" opacity="0.62"/><circle cx="825" cy="-78" r="1.2" opacity="0.63"/><circle cx="-156" cy="5" r="1.6" opacity="0.78"/><circle cx="1011" cy="-76" r="1.3" opacity="0.62"/><circle cx="493" cy="68" r="0.7" opacity="0.71"/><circle cx="-246" cy="-8" r="1.1" opacity="0.43"/><circle cx="957" cy="-41" r="1.2" opacity="0.81"/><circle cx="160" cy="-196" r="0.9" opacity="0.67"/><circle cx="65" cy="-146" r="1.5" opacity="0.66"/><circle cx="495" cy="85" r="0.9" opacity="0.67"/><circle cx="57" cy="-62" r="1.4" opacity="0.80"/><circle cx="1284" cy="-77" r="1.2" opacity="0.47"/><circle cx="-55" cy="-41" r="1.4" opacity="0.77"/><circle cx="980" cy="104" r="0.9" opacity="0.39"/><circle cx="511" cy="-112" r="0.8" opacity="0.53"/><circle cx="826" cy="-42" r="0.9" opacity="0.76"/><circle cx="1468" cy="-55" r="0.7" opacity="0.32"/><circle cx="1271" cy="-187" r="1.3" opacity="0.61"/><circle cx="256" cy="53" r="0.6" opacity="0.37"/><circle cx="519" cy="-192" r="1.4" opacity="0.43"/><circle cx="-46" cy="-185" r="1.2" opacity="0.55"/><circle cx="834" cy="10" r="1.4" opacity="0.83"/><circle cx="932" cy="-136" r="1.1" opacity="0.40"/><circle cx="-281" cy="-49" r="1.3" opacity="0.40"/><circle cx="190" cy="-89" r="1.3" opacity="0.59"/><circle cx="806" cy="42" r="1.0" opacity="0.74"/></g>
+<g fill="#3b2a40" opacity=".85"><path d="M0 147q30-60 70-10 40-25 65 20 50-20 80 15H0Z"/><path d="M410 90q35-30 60 0 30-15 55 10H390Z"/><path d="M640 150q40-34 80-4 36-22 70 4 30-8 46 10H620Z"/></g>
+<g fill="none" stroke="#f0a066" stroke-width="2" opacity=".55"><path d="M10 160h200M402 99h125M630 158h200"/></g>
+<g fill="#2a2a3c"><path d="M500 252h46v-8h-46zM506 252v8h4v-8zM536 252v8h4v-8zM538 244v-22h3v22zM498 238h18v6h-18z"/><path d="M1160 254h32v-6h-32zM1164 254v6h3v-6zM1186 254v6h3v-6z"/></g>
+<circle class="intro-flare-glow intro-flare-glow--far" cx="540" cy="220" r="12" fill="url(#glow)"/><circle cx="540" cy="220" r="2.5" fill="#ffb24d"/><circle class="intro-blink" cx="1176" cy="245" r="1.8" fill="#ff6a5a"/>
+<!-- Seagulls gliding across the sky -->
+<g class="intro-gull" style="animation-delay:-0s"><g transform="translate(0 150) scale(1)"><path class="intro-wing" d="M-12 0q6-6 12 0q6-6 12 0" fill="none" stroke="#1d1a26" stroke-width="2.2" stroke-linecap="round"/></g></g><g class="intro-gull" style="animation-delay:-5s"><g transform="translate(40 170) scale(0.8)"><path class="intro-wing" d="M-12 0q6-6 12 0q6-6 12 0" fill="none" stroke="#1d1a26" stroke-width="2.2" stroke-linecap="round"/></g></g><g class="intro-gull" style="animation-delay:-17s"><g transform="translate(-30 120) scale(0.7)"><path class="intro-wing" d="M-12 0q6-6 12 0q6-6 12 0" fill="none" stroke="#1d1a26" stroke-width="2.2" stroke-linecap="round"/></g></g><g class="intro-gull" style="animation-delay:-26s"><g transform="translate(10 195) scale(0.9)"><path class="intro-wing" d="M-12 0q6-6 12 0q6-6 12 0" fill="none" stroke="#1d1a26" stroke-width="2.2" stroke-linecap="round"/></g></g>
+<!-- Crescent moon -->
+<circle cx="660" cy="56" r="17" fill="#f3e6c4" mask="url(#moon-cut)"/><circle cx="660" cy="56" r="30" fill="#f3e6c4" opacity=".06"/>
+<!-- Crew helicopter crossing the sky, slowly, towards the helideck side -->
+<g class="intro-heli"><g transform="translate(1260 70)" fill="#1d1a26">
+<path d="M0 0q2-9 16-9h10q8 0 8 7v4H6q-6 0-6-2z"/><path d="M30 -2h26l3-5h3l-2 8H30z"/><path d="M14 -10v-3M-10 -14h50" stroke="#1d1a26" stroke-width="1.6"/>
+<path d="M4 6h26M10 2v4M24 2v4" stroke="#1d1a26" stroke-width="1.4" fill="none"/>
+<circle class="intro-blink" cx="2" cy="1" r="1.6" fill="#ff5a4a"/><circle class="intro-blink" style="animation-delay:-2.5s" cx="61" cy="-6" r="1.4" fill="#ffffff"/></g></g>
+<!-- END: DUSK SKY -->
+<rect x="-10000" y="260" width="20000" height="10000" fill="url(#sea)"/>
+<g class="intro-beams" fill="url(#beam)"><path d="m180 260-160 450h160l100-450Z"/><path d="m400 260-80 380h90l65-380Z"/><path d="m760 260-50 300h70l40-300Z"/></g>
+<g class="intro-glint" fill="#f0a066"><rect x="1135" y="267" width="57" height="2" opacity="0.37"/><rect x="762" y="280" width="43" height="2" opacity="0.42"/><rect x="881" y="284" width="54" height="2" opacity="0.39"/><rect x="1153" y="281" width="44" height="2" opacity="0.21"/><rect x="1047" y="293" width="44" height="2" opacity="0.37"/><rect x="802" y="296" width="59" height="2" opacity="0.44"/><rect x="958" y="292" width="29" height="2" opacity="0.42"/><rect x="1111" y="277" width="18" height="2" opacity="0.28"/><rect x="964" y="292" width="36" height="2" opacity="0.16"/><rect x="1088" y="266" width="51" height="2" opacity="0.20"/><rect x="861" y="292" width="20" height="2" opacity="0.19"/><rect x="948" y="290" width="53" height="2" opacity="0.36"/><rect x="1154" y="282" width="58" height="2" opacity="0.18"/><rect x="806" y="283" width="27" height="2" opacity="0.37"/><rect x="1007" y="283" width="53" height="2" opacity="0.32"/><rect x="850" y="278" width="53" height="2" opacity="0.42"/><rect x="800" y="295" width="59" height="2" opacity="0.31"/><rect x="975" y="271" width="39" height="2" opacity="0.30"/><rect x="991" y="265" width="59" height="2" opacity="0.30"/><rect x="892" y="293" width="40" height="2" opacity="0.30"/><rect x="1032" y="266" width="39" height="2" opacity="0.27"/><rect x="1159" y="297" width="26" height="2" opacity="0.29"/></g>
+<g class="intro-snow" fill="#cfe6ea" opacity=".25"><circle cx="3" cy="473" r="1.8"/><circle cx="1241" cy="491" r="1.2"/><circle cx="106" cy="547" r="1.9"/><circle cx="7" cy="612" r="0.8"/><circle cx="111" cy="391" r="1.6"/><circle cx="315" cy="442" r="1.5"/><circle cx="-32" cy="592" r="0.9"/><circle cx="617" cy="400" r="1.0"/><circle cx="649" cy="475" r="1.3"/><circle cx="461" cy="512" r="1.0"/><circle cx="127" cy="553" r="1.6"/><circle cx="647" cy="641" r="1.5"/><circle cx="1171" cy="393" r="1.7"/><circle cx="1097" cy="661" r="1.2"/><circle cx="304" cy="669" r="1.1"/><circle cx="1397" cy="655" r="1.0"/><circle cx="183" cy="591" r="1.1"/><circle cx="-45" cy="633" r="1.3"/><circle cx="1064" cy="350" r="1.3"/><circle cx="896" cy="307" r="1.0"/><circle cx="892" cy="665" r="2.0"/><circle cx="-15" cy="502" r="1.7"/><circle cx="604" cy="574" r="1.0"/><circle cx="-87" cy="342" r="0.8"/><circle cx="683" cy="506" r="1.5"/><circle cx="34" cy="374" r="1.0"/><circle cx="1144" cy="696" r="1.9"/><circle cx="-48" cy="325" r="1.9"/><circle cx="539" cy="606" r="1.2"/><circle cx="547" cy="506" r="1.3"/><circle cx="761" cy="305" r="1.6"/><circle cx="1151" cy="373" r="1.3"/><circle cx="983" cy="462" r="1.0"/><circle cx="64" cy="505" r="0.8"/><circle cx="1229" cy="621" r="1.6"/><circle cx="1177" cy="552" r="1.3"/><circle cx="759" cy="502" r="2.0"/><circle cx="1088" cy="403" r="1.9"/><circle cx="991" cy="611" r="1.8"/><circle cx="449" cy="659" r="1.9"/><circle cx="912" cy="607" r="1.7"/><circle cx="449" cy="589" r="0.9"/><circle cx="347" cy="488" r="0.8"/><circle cx="369" cy="555" r="1.5"/><circle cx="171" cy="678" r="1.6"/><circle cx="341" cy="564" r="1.5"/><circle cx="653" cy="456" r="2.0"/><circle cx="828" cy="581" r="1.7"/><circle cx="1368" cy="309" r="1.5"/><circle cx="982" cy="403" r="1.3"/><circle cx="-119" cy="378" r="1.3"/><circle cx="-42" cy="400" r="1.9"/><circle cx="680" cy="503" r="2.0"/><circle cx="709" cy="698" r="1.6"/><circle cx="1095" cy="330" r="1.5"/><circle cx="1015" cy="318" r="1.9"/><circle cx="56" cy="489" r="1.0"/><circle cx="593" cy="544" r="0.9"/><circle cx="1312" cy="468" r="1.4"/><circle cx="757" cy="446" r="1.1"/></g>
+<!-- START: MOORING LINES (hold the FPSO in place) -->
+<g fill="none" stroke="#5b6d78" stroke-width="2" opacity=".7"><path d="M680 262Q560 480 440 712"/><path d="M700 264Q640 500 610 714"/><path d="M1105 262Q1180 480 1260 712"/><path d="M1085 264Q1120 500 1130 714"/></g>
+<!-- END: MOORING LINES -->
+<!-- START: JELLYFISH -->
+<g fill="#b897dd" opacity=".55"><g class="intro-jelly" style="animation-delay:-0s"><path d="M459 340q11-17 22 0z"/><path d="M463 340q-3 11 2 20M470 340q3 11-2 22M477 340q-2 9 3 18" fill="none" stroke="#b897dd" stroke-width="1.5"/></g><g class="intro-jelly" style="animation-delay:-3s"><path d="M969 420q11-17 22 0z"/><path d="M973 420q-3 11 2 20M980 420q3 11-2 22M987 420q-2 9 3 18" fill="none" stroke="#b897dd" stroke-width="1.5"/></g><g class="intro-jelly" style="animation-delay:-6s"><path d="M139 520q11-17 22 0z"/><path d="M143 520q-3 11 2 20M150 520q3 11-2 22M157 520q-2 9 3 18" fill="none" stroke="#b897dd" stroke-width="1.5"/></g></g>
+<!-- END: JELLYFISH -->
+<!-- START: LARGE SEA LIFE (sea turtle and manta ray gliding very slowly) -->
+<g class="intro-turtle"><g transform="translate(-120 470)" fill="#0d3a4a">
+<ellipse cx="0" cy="0" rx="22" ry="12"/><circle cx="25" cy="-1" r="6"/>
+<path class="intro-fin" d="M6 -8l14-14-2 12z"/><path class="intro-fin" d="M6 8l14 12-2-12z"/><path d="M-18 -6l-10-6 4 9zM-18 6l-10 6 4-9z"/>
+<path d="M-12 -6h24M-14 0h28M-12 6h24" stroke="#16485a" stroke-width="1"/></g></g>
+<g class="intro-manta"><g transform="translate(1320 590)" fill="#0a2c3c" opacity=".85">
+<path d="M0 0q-30-4-48 14q20-4 34 2q6 10 14 10q8 0 14-10q14-6 34-2q-18-18-48-14z"/><path d="M0 26q2 18-6 34" fill="none" stroke="#0a2c3c" stroke-width="1.6"/></g></g>
+<!-- END: LARGE SEA LIFE -->
+<g aria-hidden="true" fill="#07293b" class="intro-fish">
+<path d="M180 397q12-10 25 0-13 10-25 0l-9 6v-12zM215 380q11-9 23 0-12 9-23 0l-8 5v-10zM228 411q12-10 25 0-13 10-25 0l-9 6v-12zM260 390q10-8 22 0-12 8-22 0l-8 5v-10zM185 426q10-8 22 0-12 8-22 0l-8 5v-10z"/>
+</g>
+<g aria-hidden="true" fill="#0b4256" class="intro-fish intro-fish--far">
+<path d="M520 360q9-7 19 0-10 7-19 0l-6 4v-8zM551 345q9-7 19 0-10 7-19 0l-6 4v-8zM562 372q9-7 19 0-10 7-19 0l-6 4v-8zM589 353q9-7 19 0-10 7-19 0l-6 4v-8z"/>
+</g><g class="intro-ship">
+<!-- START: FPSO (hull, deck, accommodation, process modules, cranes, flare) -->
+<!-- Reflection on the water (soft, broken by the waves) -->
+<g opacity=".3"><path d="M669 272H1101l-10 26H690Z" fill="#0d1b26"/>
+<g fill="#ffd27a" opacity=".6"><rect x="826" y="276" width="44" height="2"/><rect x="830" y="283" width="36" height="2"/><rect x="912" y="279" width="120" height="2"/><rect x="1080" y="276" width="22" height="2"/><rect x="1084" y="290" width="14" height="2"/></g></g>
+<!-- Hull: dark topsides, red boot-topping at the waterline, keel shadow -->
+<path d="M646 222H1127l-26 48H669Z" fill="#1c2733"/>
+<path d="M660 248H1114l-6 12H666Z" fill="#a8473f"/><path d="M666 260H1108l-7 10H669Z" fill="#5a2a2e"/>
+<path d="M650 228H1123" stroke="#2c3b49" stroke-width="2"/>
+<g stroke="#2a3a48" stroke-width="1"><path d="M700 226v20"/><path d="M740 226v20"/><path d="M780 226v20"/><path d="M820 226v20"/><path d="M860 226v20"/><path d="M900 226v20"/><path d="M940 226v20"/><path d="M980 226v20"/><path d="M1020 226v20"/><path d="M1060 226v20"/></g>
+<text x="980" y="243" font-size="8" letter-spacing="1.5" font-weight="700" fill="#9fb0bb" font-family="sans-serif">COMANDANTE ANCUNÍN</text>
+<g fill="#b9c4cb"><circle cx="700" cy="238" r="2"/><circle cx="1080" cy="238" r="2"/></g>
+<!-- Deck railing and storage tank hatches -->
+<g stroke="#4f6372" stroke-width="1"><path d="M652 222v-5"/><path d="M660 222v-5"/><path d="M668 222v-5"/><path d="M676 222v-5"/><path d="M684 222v-5"/><path d="M692 222v-5"/><path d="M700 222v-5"/><path d="M708 222v-5"/><path d="M716 222v-5"/><path d="M724 222v-5"/><path d="M732 222v-5"/><path d="M740 222v-5"/><path d="M748 222v-5"/><path d="M756 222v-5"/><path d="M764 222v-5"/><path d="M772 222v-5"/><path d="M780 222v-5"/><path d="M788 222v-5"/><path d="M796 222v-5"/><path d="M804 222v-5"/><path d="M812 222v-5"/><path d="M820 222v-5"/><path d="M828 222v-5"/><path d="M836 222v-5"/><path d="M844 222v-5"/><path d="M852 222v-5"/><path d="M860 222v-5"/><path d="M868 222v-5"/><path d="M876 222v-5"/><path d="M884 222v-5"/><path d="M892 222v-5"/><path d="M900 222v-5"/><path d="M908 222v-5"/><path d="M916 222v-5"/><path d="M924 222v-5"/><path d="M932 222v-5"/><path d="M940 222v-5"/><path d="M948 222v-5"/><path d="M956 222v-5"/><path d="M964 222v-5"/><path d="M972 222v-5"/><path d="M980 222v-5"/><path d="M988 222v-5"/><path d="M996 222v-5"/><path d="M1004 222v-5"/><path d="M1012 222v-5"/><path d="M1020 222v-5"/><path d="M1028 222v-5"/><path d="M1036 222v-5"/><path d="M1044 222v-5"/><path d="M1052 222v-5"/><path d="M1060 222v-5"/><path d="M1068 222v-5"/><path d="M1076 222v-5"/><path d="M1084 222v-5"/><path d="M1092 222v-5"/><path d="M1100 222v-5"/><path d="M1108 222v-5"/><path d="M1116 222v-5"/></g><path d="M648 217H1125" stroke="#4f6372" stroke-width="1"/>
+<ellipse cx="690" cy="219" rx="9" ry="3" fill="#33485a"/><ellipse cx="712" cy="219" rx="9" ry="3" fill="#33485a"/><ellipse cx="734" cy="219" rx="9" ry="3" fill="#33485a"/><ellipse cx="756" cy="219" rx="9" ry="3" fill="#33485a"/><ellipse cx="778" cy="219" rx="9" ry="3" fill="#33485a"/>
+<!-- Offloading hose reel and fairleads at the stern -->
+<path d="M660 222v-10h22v10" fill="#2c3e4f"/><circle cx="671" cy="212" r="6" fill="#1c2733" stroke="#f2a35e" stroke-width="2.5"/><circle cx="671" cy="212" r="1.6" fill="#f2a35e"/>
+<!-- Stern block (engine room, funnel) -->
+<path d="M724 222v-50h36v50Z" fill="#2c3e4f"/><path d="M736 172v-26h14v26" fill="#26384a"/><path d="M736 150h14" stroke="#a8473f" stroke-width="4"/>
+<!-- Accommodation with lit windows, bridge and helideck -->
+<path d="M818 222v-78h58v78Z" fill="#2c3e4f"/><path d="M812 146h70v-6h-70z" fill="#26384a"/>
+<rect x="826" y="150" width="6" height="4" fill="#ffd27a" opacity="1"/><rect x="836" y="150" width="6" height="4" fill="#ffd27a" opacity="1"/><rect x="846" y="150" width="6" height="4" fill="#ffd27a" opacity="0.85"/><rect x="856" y="150" width="6" height="4" fill="#ffd27a" opacity="0.35"/><rect x="866" y="150" width="6" height="4" fill="#ffd27a" opacity="1"/><rect x="826" y="161" width="6" height="4" fill="#ffd27a" opacity="1"/><rect x="836" y="161" width="6" height="4" fill="#ffd27a" opacity="0.35"/><rect x="846" y="161" width="6" height="4" fill="#ffd27a" opacity="0.85"/><rect x="856" y="161" width="6" height="4" fill="#ffd27a" opacity="1"/><rect x="866" y="161" width="6" height="4" fill="#ffd27a" opacity="1"/><rect x="826" y="172" width="6" height="4" fill="#ffd27a" opacity="0.35"/><rect x="836" y="172" width="6" height="4" fill="#ffd27a" opacity="0.35"/><rect x="846" y="172" width="6" height="4" fill="#ffd27a" opacity="0.35"/><rect x="856" y="172" width="6" height="4" fill="#ffd27a" opacity="1"/><rect x="866" y="172" width="6" height="4" fill="#ffd27a" opacity="1"/><rect x="826" y="183" width="6" height="4" fill="#ffd27a" opacity="1"/><rect x="836" y="183" width="6" height="4" fill="#ffd27a" opacity="0.35"/><rect x="846" y="183" width="6" height="4" fill="#ffd27a" opacity="1"/><rect x="856" y="183" width="6" height="4" fill="#ffd27a" opacity="1"/><rect x="866" y="183" width="6" height="4" fill="#ffd27a" opacity="1"/><rect x="826" y="194" width="6" height="4" fill="#ffd27a" opacity="1"/><rect x="836" y="194" width="6" height="4" fill="#ffd27a" opacity="0.85"/><rect x="846" y="194" width="6" height="4" fill="#ffd27a" opacity="1"/><rect x="856" y="194" width="6" height="4" fill="#ffd27a" opacity="0.85"/><rect x="866" y="194" width="6" height="4" fill="#ffd27a" opacity="0.35"/><rect x="826" y="205" width="6" height="4" fill="#ffd27a" opacity="0.35"/><rect x="836" y="205" width="6" height="4" fill="#ffd27a" opacity="0.35"/><rect x="846" y="205" width="6" height="4" fill="#ffd27a" opacity="0.35"/><rect x="856" y="205" width="6" height="4" fill="#ffd27a" opacity="0.35"/><rect x="866" y="205" width="6" height="4" fill="#ffd27a" opacity="1"/>
+<path d="M816 140l-8-6h86l-8 6z" fill="#3a4c5c"/><ellipse cx="847" cy="133" rx="34" ry="5" fill="#3a4c5c"/>
+<ellipse cx="847" cy="133" rx="14" ry="2.2" fill="none" stroke="#e9d36a" stroke-width="1"/><text x="844" y="135" font-size="6" font-weight="700" fill="#e9d36a" font-family="sans-serif">H</text>
+<path d="M876 130v-22M870 112h12" stroke="#6c7c88" stroke-width="1.5"/><circle class="intro-blink" cx="876" cy="106" r="1.8" fill="#ff5a4a"/>
+<!-- Lifeboats in davits -->
+<path d="M878 214h36" stroke="#6c7c88" stroke-width="1.5"/>
+<rect x="880" y="203" width="15" height="8" rx="4" fill="#f26a2e"/><rect x="897" y="203" width="15" height="8" rx="4" fill="#f26a2e"/>
+<!-- Process modules with pipe racks -->
+<path d="M904 222v-34h48v34ZM956 222v-40h44v40ZM1004 222v-30h52v30Z" fill="#26384a"/>
+<path d="M904 188h48M956 182h44M1004 192h52" stroke="#3d556a" stroke-width="2"/>
+<g fill="#2f4558"><rect x="912" y="176" width="22" height="12"/><rect x="964" y="170" width="16" height="12"/><circle cx="1020" cy="186" r="7"/><circle cx="1038" cy="186" r="7"/></g>
+<rect x="912" y="196" width="5" height="3" fill="#ffd27a" opacity=".8"/><rect x="926" y="196" width="5" height="3" fill="#ffd27a" opacity=".8"/><rect x="940" y="196" width="5" height="3" fill="#ffd27a" opacity=".8"/><rect x="954" y="196" width="5" height="3" fill="#ffd27a" opacity=".8"/><rect x="968" y="196" width="5" height="3" fill="#ffd27a" opacity=".8"/><rect x="982" y="196" width="5" height="3" fill="#ffd27a" opacity=".8"/><rect x="996" y="196" width="5" height="3" fill="#ffd27a" opacity=".8"/><rect x="1010" y="196" width="5" height="3" fill="#ffd27a" opacity=".8"/><rect x="1024" y="196" width="5" height="3" fill="#ffd27a" opacity=".8"/><rect x="1038" y="196" width="5" height="3" fill="#ffd27a" opacity=".8"/>
+<g fill="none" stroke="#7d8e99" stroke-width="1.5"><path d="M904 206H1056M904 212H1056"/><path d="M930 188v-14h40v8M1026 179v-12h18"/></g>
+<!-- Cranes (safety orange) -->
+<g fill="none" stroke="#f2a35e" stroke-width="3.5" stroke-linecap="round">
+<path d="M784 222v-62"/><path d="M784 160l-56-26"/><path d="M784 160l24-10"/><path d="M728 134v22" stroke-width="1"/>
+<path d="M991 222v-56"/><path d="M991 166l64-24"/><path d="M1055 142v28" stroke-width="1"/></g>
+<rect x="778" y="158" width="12" height="9" fill="#f2a35e"/><rect x="985" y="164" width="12" height="9" fill="#f2a35e"/>
+<!-- Flare tower (lattice) -->
+<g fill="none" stroke="#6c7c88" stroke-width="2"><path d="M1076 222l12-118M1106 222l-12-118M1080 190h22M1083 160h16M1086 130h10M1078 206l22-16M1082 176l18-16M1085 146l12-16"/></g>
+<!-- Flare: a soft pulsing glow and a three-layer flame that sways gently in the wind -->
+<circle class="intro-flare-glow" cx="1091" cy="92" r="40" fill="url(#glow)"/>
+<g class="intro-flame"><path d="M1091 106C1083 102 1080 94 1084 86C1086 81 1089 78 1091 70C1094 77 1098 80 1099 86C1101 94 1098 102 1091 106Z" fill="#ff8a3d"/><path d="M1091 105C1086 102 1084 97 1086 92C1087 88 1089 86 1091 81C1093 86 1096 88 1096 92C1097 97 1095 102 1091 105Z" fill="#ffb24d"/><path d="M1091 104C1088 102 1087 99 1088 96C1089 94 1090 92 1091 90C1092 92 1094 94 1094 96C1095 99 1094 102 1091 104Z" fill="#ffe7b0"/></g>
+<!-- Deck lights -->
+<g fill="url(#glow)"><circle class="intro-blink" style="animation-delay:-0.0s" cx="760" cy="166" r="9"/><circle class="intro-blink" style="animation-delay:-1.3s" cx="930" cy="178" r="9"/><circle class="intro-blink" style="animation-delay:-2.6s" cx="1040" cy="180" r="9"/><circle class="intro-blink" style="animation-delay:-3.9s" cx="1120" cy="214" r="9"/><circle class="intro-blink" style="animation-delay:-5.2s" cx="660" cy="218" r="9"/></g>
+<!-- Riser balcony on the hull side; the deck line carries the flow to the process modules -->
+<path d="M856 248h32v12h-32z" fill="#f2a35e" stroke="#926e2d" stroke-width="2"/><path d="M872 248V212h70" fill="none" stroke="#ffd273" stroke-width="4" stroke-dasharray="8 6"/>
+<!-- More detail: draft marks, walkway, stair tower, telecom mast, navigation lights, exhaust stacks -->
+<g fill="#d7e1e6" font-family="sans-serif" font-size="5" font-weight="700"><text x="1106" y="248">16</text><text x="1103" y="256">14</text><text x="672" y="248">16</text></g>
+<path d="M690 232H1060" stroke="#4f6372" stroke-width="1" stroke-dasharray="3 3"/>
+<path d="M876 222V150h8v72" fill="none" stroke="#6c7c88" stroke-width="1.2"/><path d="M876 214l8-8M876 198l8-8M876 182l8-8M876 166l8-8" stroke="#6c7c88" stroke-width="1"/>
+<path d="M830 140v-20M824 124h12" stroke="#6c7c88" stroke-width="1.4"/><path d="M836 126a6 6 0 0 1 8 -4" fill="none" stroke="#b9c4cb" stroke-width="1.6"/>
+<circle class="intro-blink" cx="830" cy="118" r="1.6" fill="#ffffff"/><circle cx="812" cy="142" r="1.8" fill="#ff5a4a"/><circle cx="882" cy="142" r="1.8" fill="#5aff8a"/>
+<g fill="#3d556a"><rect x="940" y="166" width="6" height="16"/><rect x="972" y="160" width="6" height="22"/><rect x="1046" y="176" width="6" height="16"/></g>
+<g class="intro-smoke" fill="#8a8f9c">
+<circle cx="743" cy="140" r="4" opacity=".35"/><circle cx="743" cy="140" r="4" opacity=".35" style="animation-delay:-2s"/><circle cx="743" cy="140" r="4" opacity=".35" style="animation-delay:-4s"/>
+<circle cx="975" cy="156" r="3" opacity=".25" style="animation-delay:-1s"/><circle cx="975" cy="156" r="3" opacity=".25" style="animation-delay:-3.5s"/></g>
+<!-- END: FPSO -->
+</g>
+<!-- START: SUPPLY VESSEL (offshore support vessel; its ROV works on the seabed) -->
+<g class="intro-boat"><g transform="translate(560 0)">
+<path d="M0 256h78l-8 14H8z" fill="#1c2733"/><path d="M4 262h70l-3 5H7z" fill="#a8473f"/>
+<path d="M50 256v-18h20v18z" fill="#2c3e4f"/><path d="M48 238h24v-4H48z" fill="#3a4c5c"/>
+<g fill="#ffd27a"><rect x="54" y="242" width="4" height="3"/><rect x="61" y="242" width="4" height="3"/></g>
+<path d="M58 234v-12M54 224h8" stroke="#6c7c88" stroke-width="1.4"/><circle class="intro-blink" cx="58" cy="221" r="1.6" fill="#7dff9a"/>
+<path d="M14 256v-14l14-8" fill="none" stroke="#f2a35e" stroke-width="2.4"/><rect x="6" y="250" width="30" height="6" fill="#26384a"/>
+<path d="M28 234v6" stroke="#f2a35e" stroke-width="1"/></g></g>
+<!-- END: SUPPLY VESSEL -->
+<!-- Whitecaps where the waves break on the hulls -->
+<g class="intro-glint" fill="none" stroke="#e7f4f4" stroke-width="1.6" stroke-linecap="round" opacity=".7">
+<path d="M640 268q8-5 16 0M1104 268q8-5 16 0M676 271q6-3 12 0M1080 271q6-3 12 0M552 268q6-4 12 0M632 270q5-3 10 0"/></g>
+<g class="intro-waves" fill="none" stroke="#8ad6dc" stroke-width="2" opacity=".65"><path d="M-80 265q50-12 100 0t100 0t100 0t100 0t100 0t100 0t100 0t100 0t100 0t100 0t100 0t100 0t100 0"/><path d="M-40 283q70-10 140 0t140 0t140 0t140 0t140 0t140 0t140 0t140 0t140 0" opacity=".35"/></g>
+<!-- Sparse distant blue rocks, rooted behind the seabed. -->
+<g aria-hidden="true" fill="#0b3b55" opacity=".75">
+<path d="M38 708L58 680 67 653 91 634 110 649 120 680 146 708Z"/>
+<path d="M468 708L487 687 496 665 518 650 532 674 548 684 565 708Z"/>
+<path d="M1020 708L1040 678 1050 643 1071 622 1090 650 1099 681 1124 708Z"/>
+</g>
+<path d="M-10000 695H0q160-35 300 1t300 0 300-4 300-8H10000V10000H-10000Z" fill="#254855"/><path d="M-10000 723H0q200-27 400 0t400 0 400-10H10000V10000H-10000Z" fill="#153342"/>
+<use href="#route" fill="none" stroke="#021623" stroke-width="27"/><use href="#route" fill="none" stroke="#466579" stroke-width="18"/><use href="#route" fill="none" stroke="#6d8c98" stroke-width="2"/>
+<use class="intro-flow" href="#route" fill="none" stroke="#ffca65" stroke-width="5" stroke-dasharray="12 32"/>
+<circle id="flow-head" r="9" fill="#ffe1a0" stroke="#ffbd48" stroke-width="3"/>
+<g fill="#d6a644" stroke="#926e2d" stroke-width="3"><path d="M227 646h39v47h-39zM210 690h72v9h-72zM215 638h62v9h-62z"/><path d="M238 628h17v12h-17z"/><path d="M221 674h-14v24m63-24h16v24" fill="none" stroke="#d6a644" stroke-width="6"/></g>
+<g fill="#0a3043"><path d="m50 739-20-24h49l20 24Zm1000-10 30-32h49l30 32ZM440 748l26-22h49l20 22Z"/></g>
+<g fill="none" stroke="#237080" stroke-width="4"><path d="M105 702q-20-30-8-56m10 56q20-40 10-70M1134 693q-20-40-4-69m-3 69q25-28 23-47"/></g>
+<!-- START: SEABED DETAILS (manifold, umbilical, coral, starfish, sand ripples) -->
+<path d="M300 700h70v-16h-70z" fill="#b48a33" stroke="#7d6324" stroke-width="2"/><path d="M308 684v-8h54v8" fill="#d6a644"/>
+<path d="M370 702Q700 690 1180 716" fill="none" stroke="#d0573d" stroke-width="3"/>
+<g fill="none" stroke-width="3" stroke-linecap="round"><g class="intro-sway" style="animation-delay:-3.9s" stroke="#c96a55"><path d="M70 742q-8-24 3-46M78 743q8-20-1-38M74 743q2-17 12-28"/></g><g class="intro-sway" style="animation-delay:-4.0s" stroke="#c96a55"><path d="M330 742q-8-24 3-46M338 743q8-20-1-38M334 743q2-17 12-28"/></g><g class="intro-sway" style="animation-delay:-0.2s" stroke="#3d8b6a"><path d="M560 742q-8-24 3-46M568 743q8-20-1-38M564 743q2-17 12-28"/></g><g class="intro-sway" style="animation-delay:-3.5s" stroke="#3d8b6a"><path d="M700 742q-8-24 3-46M708 743q8-20-1-38M704 743q2-17 12-28"/></g><g class="intro-sway" style="animation-delay:-2.5s" stroke="#9467b8"><path d="M880 742q-8-24 3-46M888 743q8-20-1-38M884 743q2-17 12-28"/></g><g class="intro-sway" style="animation-delay:-0.3s" stroke="#c96a55"><path d="M1000 742q-8-24 3-46M1008 743q8-20-1-38M1004 743q2-17 12-28"/></g><g class="intro-sway" style="animation-delay:-4.5s" stroke="#2f7a7f"><path d="M1170 742q-8-24 3-46M1178 743q8-20-1-38M1174 743q2-17 12-28"/></g><g class="intro-sway" style="animation-delay:-3.5s" stroke="#c96a55"><path d="M1260 742q-8-24 3-46M1268 743q8-20-1-38M1264 743q2-17 12-28"/></g></g>
+<g fill="#d9774a"><path d="M380 752l3 7h8l-6 4 2 8-7-5-7 5 2-8-6-4h8z"/><path d="M1220 752l3 7h8l-6 4 2 8-7-5-7 5 2-8-6-4h8z"/></g>
+<path d="M-40 760q14-5 28 0 M30 748q14-5 28 0 M100 754q14-5 28 0 M170 760q14-5 28 0 M240 748q14-5 28 0 M310 754q14-5 28 0 M380 760q14-5 28 0 M450 748q14-5 28 0 M520 754q14-5 28 0 M590 760q14-5 28 0 M660 748q14-5 28 0 M730 754q14-5 28 0 M800 760q14-5 28 0 M870 748q14-5 28 0 M940 754q14-5 28 0 M1010 760q14-5 28 0 M1080 748q14-5 28 0 M1150 754q14-5 28 0 M1220 760q14-5 28 0" fill="none" stroke="#21455a" stroke-width="2"/>
+<!-- ROV (remotely operated vehicle) inspecting the manifold, tethered to the supply vessel -->
+<g class="intro-rov">
+<path d="M616 270Q560 450 452 612" fill="none" stroke="#e0b040" stroke-width="1.4" opacity=".75"/>
+<path d="M444 626L330 690L392 700Z" fill="url(#rov-light)"/>
+<g transform="translate(440 610)"><rect x="0" y="0" width="30" height="18" rx="2" fill="#e0b040"/><rect x="0" y="0" width="30" height="5" fill="#f2c94c"/>
+<rect x="-5" y="6" width="5" height="8" fill="#2c3e4f"/><rect x="30" y="6" width="5" height="8" fill="#2c3e4f"/>
+<circle cx="4" cy="13" r="2.4" fill="#fff2c4"/><path d="M8 18v5h14v-5" fill="none" stroke="#6c7c88" stroke-width="1.4"/>
+<circle class="intro-blink" cx="26" cy="3" r="1.4" fill="#7dff9a"/></g></g>
+<!-- START: OPENING STARFISH (the camera starts here when the page loads, see js/intro.js) -->
+<g id="opening-star"><polygon points="860.0,752.0 862.5,758.6 869.5,758.9 864.0,763.3 865.9,770.1 860.0,766.2 854.1,770.1 856.0,763.3 850.5,758.9 857.5,758.6" fill="url(#star-skin)" stroke="#c9603f" stroke-width="2.6" stroke-linejoin="round"/><g fill="#f7c9a0" opacity=".9"><circle cx="860.0" cy="758.8" r="0.75"/><circle cx="860.0" cy="756.4" r="0.75"/><circle cx="860.0" cy="754.4" r="0.55"/><circle cx="863.0" cy="761.0" r="0.75"/><circle cx="865.3" cy="760.3" r="0.75"/><circle cx="867.2" cy="759.7" r="0.55"/><circle cx="861.9" cy="764.6" r="0.75"/><circle cx="863.3" cy="766.5" r="0.75"/><circle cx="864.5" cy="768.1" r="0.55"/><circle cx="858.1" cy="764.6" r="0.75"/><circle cx="856.7" cy="766.5" r="0.75"/><circle cx="855.5" cy="768.1" r="0.55"/><circle cx="857.0" cy="761.0" r="0.75"/><circle cx="854.7" cy="760.3" r="0.75"/><circle cx="852.8" cy="759.7" r="0.55"/></g><circle cx="860" cy="762" r="1.7" fill="#f0a77a"/></g>
+<!-- END: OPENING STARFISH -->
+<!-- END: SEABED DETAILS -->
+<g class="intro-labels" fill="#eef5f3" font-family="sans-serif" font-size="18"><text x="937" y="312">FPSO · riser balcony</text><path d="m930 302-40-44" stroke="#d5e5e7"/><circle cx="890" cy="258" r="3"/><text x="794" y="475">Riser</text><path id="riser-callout" d="M786 468 752 454" fill="none" stroke="#d5e5e7"/><circle id="riser-anchor" r="3" fill="#eef5f3"/><text x="175" y="605">Production mixture</text><text x="640" y="740" font-size="15">Umbilical</text><path d="m660 726 6-26" stroke="#d5e5e7"/><text x="300" y="652" font-size="15">Manifold</text><text x="478" y="600" font-size="15">ROV</text><path d="m330 658 0 18" stroke="#d5e5e7"/><path d="m242 614 3 20" stroke="#d5e5e7"/></g>
+</svg>
+<section class="intro-caption" id="intro-caption" aria-label="Scene narration"><button class="oc-btn intro-close" id="close-caption" type="button" aria-label="Close scene narration">×</button><p class="oc-label" id="chapter">01 / From the seabed</p><p id="narration" role="status" aria-live="polite">Oil, water and gas begin their journey from the subsea well.</p><nav class="intro-chapters" aria-label="Narration chapters"><button class="oc-btn" id="previous-chapter" type="button" aria-label="Previous chapter">←</button><button class="oc-btn" id="next-chapter" type="button" aria-label="Next chapter">→</button></nav><div class="intro-progress" aria-hidden="true"><span id="progress"></span></div></section>
+<footer id="intro-controls" class="intro-controls" aria-label="Introduction controls">
+<button class="oc-btn" id="pause" type="button" aria-pressed="false">Pause</button><button class="oc-btn" id="restart" type="button">Replay</button>
+
+<a class="oc-btn intro-continue" href="phase1.html">Continue to the shift →</a>
+<a class="intro-back" href="index.html"><span class="intro-back__arrow" aria-hidden="true">←</span><span class="intro-back__text">Back to the menu</span></a></footer><p class="intro-note" id="sound-note">Music is on by default and fades in after your first tap or key press. You can pause or skip this introduction at any time. Illustration not to scale.</p>
+<noscript><p>The production mixture rises through the riser to the FPSO. JavaScript enables animation and optional music; you can still continue to the shift.</p></noscript>
+</main></body></html>
+
+
+
+
+
+
+
+
+
+
