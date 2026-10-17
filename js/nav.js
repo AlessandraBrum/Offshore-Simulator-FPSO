@@ -46,17 +46,18 @@
   });
   // END: KEEP THE KEYBOARD INSIDE THE OPEN PANEL
 
-  // Start shift opens the phase selector on the home page.
+  // START: "START SHIFT" LINK
+  // On the menu page it opens the phase menu directly. From the other pages
+  // it goes to index.html#start-shift, which opens the phase menu on arrival.
   const startBtn = document.getElementById('start-game');
   if (startBtn) {
-    document.querySelectorAll('a[href="index.html#start-shift"]').forEach(link => link.addEventListener('click', event => {
-      event.preventDefault();
-      startBtn.click();
+    document.querySelectorAll('a[href="index.html#start-shift"]').forEach(link => link.addEventListener('click', e => {
+      e.preventDefault(); setTimeout(() => startBtn.click(), 0);
     }));
     if (location.hash === '#start-shift') {
-      history.replaceState(null, '', location.pathname + location.search);
-      if (document.readyState === 'complete') startBtn.click();
-      else window.addEventListener('load', () => startBtn.click(), {once: true});
+      history.replaceState(null, '', location.pathname);
+      window.addEventListener('load', () => startBtn.click());
     }
   }
+  // END: "START SHIFT" LINK
 })();

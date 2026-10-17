@@ -704,6 +704,8 @@ details.alt summary,.notes summary,.oc-more>summary{color:var(--brand)}
 .oc-menu__list{display:grid;gap:var(--space-3);margin:0;padding:0;list-style:none}
 .oc-phasebtn{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:var(--space-1) var(--space-4);width:100%;min-height:72px;padding:var(--space-3) var(--space-4);border:2px solid var(--border);border-radius:var(--radius-sm);background:var(--elevated);color:var(--text);font:inherit;text-align:left;cursor:pointer}
 .oc-phasebtn:hover{border-color:var(--text-2)}
+/* Note under a phase button (e.g. Phase 1: only the introduction is ready) */
+.oc-phasebtn__hint{margin:var(--space-2) 0 0;font-size:15px;line-height:22px;color:var(--text-2)}
 .oc-phasebtn__num{grid-row:span 2;font:800 44px/1 var(--font-display);color:var(--text-2)}
 .oc-phasebtn__name{font-size:19px;line-height:26px;font-weight:600}
 .oc-phasebtn__status{font:600 15px/22px var(--font-mono);letter-spacing:.04em;color:var(--text-2)}
@@ -800,6 +802,3 @@ a.oc-btn--link:hover{border-color:var(--brand);color:var(--brand)}
 /* ==========================================================================
    END: STICKY TOP BAR AND MAIN MENU
    ========================================================================== */
-/* Primary links retain dark, legible text in every link state. */
-a.oc-btn--primary,a.oc-btn--primary:visited,a.oc-btn--primary:hover,a.oc-btn--primary:focus-visible{color:var(--on-accent);text-decoration:none}
-.oc-phase-availability{margin:8px 4px 16px;color:var(--text-3);font:400 14px/1.5 var(--font-sans)}
