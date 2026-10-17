@@ -1,0 +1,153 @@
+/* Viewport layout; shared fonts, tokens and navigation come from style.css. */
+.intro-page{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-sans);display:grid;grid-template-rows:auto minmax(0,1fr);height:100vh;height:100svh;overflow-wrap:anywhere}
+.intro-page *{box-sizing:border-box}
+.intro{width:100%;max-width:1600px;margin:0 auto;min-height:0;display:grid;grid-template-rows:auto minmax(180px,1fr) auto auto auto;padding:12px clamp(16px,3vw,48px);gap:10px;scroll-margin-top:80px}
+.intro-heading{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:4px 24px}
+.intro-heading .oc-label{grid-column:1/-1;margin:0;color:var(--text-3)}
+.intro-heading h1{font:800 clamp(28px,3.5vw,48px)/1 var(--font-display);text-transform:uppercase;letter-spacing:.015em;margin:0}
+.intro-heading h1 span{color:var(--brand)}
+.intro-heading>p:last-child{font-size:16px;line-height:1.5;margin:0;max-width:520px;color:var(--text-2)}
+.intro-scene{display:block;width:100%;height:100%;min-width:0;min-height:0;animation:arrive 2s ease-out}
+.intro-labels{font-family:var(--font-sans);font-weight:600}
+.intro-caption{position:relative;width:100%;max-width:100%;margin:0;padding:12px 72px 12px 18px;border:1px solid var(--border-strong);border-radius:var(--radius-md);background:var(--gradient-panel);display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 18px;align-items:center}
+.intro-caption .oc-label{margin:0;color:var(--brand)}
+.intro-caption #narration{grid-column:1;grid-row:2;margin:0;font-size:16px;line-height:1.5;min-height:1.5em}
+.intro-close{position:absolute;right:10px;top:10px;font:400 26px/1 var(--font-sans);min-width:44px;min-height:44px}
+.intro-chapters{grid-column:2;grid-row:1/3;display:flex;gap:8px}
+.intro-chapters .oc-btn{min-width:44px;min-height:44px;font-family:var(--font-sans);font-size:22px}
+.intro-progress{grid-column:1/-1;height:3px;background:var(--border);margin-top:4px}
+.intro-progress span{display:block;height:100%;width:0;background:var(--brand)}
+.intro-controls{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:0;padding:0}
+.intro-controls .oc-btn{min-height:44px;font:800 22px/1.2 var(--font-display);text-transform:uppercase;letter-spacing:.025em;white-space:normal}
+.intro-continue,.intro-continue:visited{margin-left:auto;text-decoration:none;background:var(--brand);color:var(--bg);border-color:var(--brand);text-align:center}
+.intro-note{margin:0;font-size:13px;line-height:1.4;color:var(--text-3);padding-bottom:env(safe-area-inset-bottom)}
+.intro-skip{position:fixed;top:0;left:12px;z-index:100;max-width:calc(100% - 24px);background:var(--bg);color:var(--text);padding:16px;transform:translateY(-120%)}
+.intro-skip:focus{transform:none}
+.intro-page :focus-visible{outline:3px solid var(--focus);outline-offset:4px}
+.intro-page button:disabled{opacity:.55;cursor:default}
+.intro-caption[hidden]{display:none}
+.intro:has(.intro-caption[hidden]){grid-template-rows:auto minmax(180px,1fr) auto auto}
+.intro-page .oc-a11ybar{padding-left:max(var(--space-4),env(safe-area-inset-left));padding-right:max(var(--space-4),env(safe-area-inset-right))}
+.intro-waves{animation:drift 8s ease-in-out infinite alternate}.intro-flow{animation:flow 2s linear infinite}
+.intro-fish{animation:swim 22s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:center}.intro-fish--far{animation-duration:31s;animation-direction:alternate-reverse;opacity:.55}
+.intro[data-paused] *{animation-play-state:paused!important}
+.intro[data-static] .intro-waves,.intro[data-static] .intro-flow,.intro[data-static] .intro-fish{animation:none!important}
+@keyframes drift{to{transform:translateX(35px)}}@keyframes flow{to{stroke-dashoffset:-88}}@keyframes arrive{from{opacity:0}to{opacity:1}}@keyframes swim{0%{transform:translate(0,0)}50%{transform:translate(80px,-12px)}100%{transform:translate(160px,8px)}}
+@media(max-width:700px){
+ .intro{padding:10px 16px;gap:8px;grid-template-rows:auto minmax(160px,1fr) auto auto auto}
+ .intro-heading{grid-template-columns:1fr;gap:6px}.intro-heading h1{font-size:30px}.intro-heading h1 br{display:none}.intro-heading>p:last-child{font-size:14px;line-height:1.4}
+ .intro-caption{padding:10px 60px 10px 12px;gap:6px}.intro-caption #narration{font-size:14px;min-height:3em}.intro-chapters{grid-column:1;grid-row:3;gap:10px}.intro-progress{grid-row:4}.intro-close{right:8px;top:8px}
+ .intro-controls .oc-btn{font-size:20px;padding:8px 12px}.intro-controls .intro-continue{flex:1;margin-left:0}.intro-note{font-size:12px}.intro-page .oc-a11ybar__brand{font-size:20px}
+}
+/* Reflow rather than clipping content on short screens or at high text zoom. */
+@media(max-height:600px){.intro-page{height:auto;min-height:100svh}.intro{grid-template-rows:auto minmax(180px,35svh) auto auto auto}.intro-heading h1{font-size:28px}}
+@media(prefers-reduced-motion:reduce){.intro-page *,.intro-page *::before,.intro-page *::after{animation:none!important;transition:none!important}}
+html[data-motion=off] .intro-page *,html[data-motion=off] .intro-page *::before,html[data-motion=off] .intro-page *::after{animation:none!important;transition:none!important}
+@media(forced-colors:active){.intro-progress span{background:Highlight}.intro-caption{border-color:CanvasText}.intro-continue{border:2px solid ButtonText}}
+/* Full-screen illustrated backdrop with independent, readable overlays. */
+.intro-page{height:auto;min-height:100svh;display:block;background:#031929}
+.intro{isolation:isolate;position:relative;max-width:none;min-height:calc(100svh - var(--intro-bar-height,64px));height:auto;grid-template-rows:auto minmax(260px,1fr) auto auto auto;padding:clamp(12px,2vw,28px);gap:12px}
+.intro-scene{position:absolute;inset:0;z-index:-1;width:100%;height:100%;min-height:0;pointer-events:none}
+.intro-heading{display:block;max-width:520px;justify-self:start;padding:18px 22px;background:#071c2cf2;border:1px solid #507587;border-radius:6px;color:var(--text);margin:0}
+.intro-heading .oc-label{font-family:var(--font-sans);font-size:12px;line-height:1.5;letter-spacing:.1em;color:var(--text-2);margin:0 0 10px}
+.intro-heading h1{font:600 clamp(24px,2.5vw,36px)/1.18 var(--font-sans);text-transform:none;letter-spacing:-.02em;margin:0 0 12px}
+.intro-heading h1 span{color:var(--text)}
+.intro-heading>p:last-child{font:400 16px/1.55 var(--font-sans);color:var(--text-2);margin:0}
+.intro-scene-space{min-height:260px}
+.intro-caption{max-width:680px;background:#071c2cf5;justify-self:start}
+.intro-controls{padding:10px 14px;background:#071c2cf5;border-radius:6px;border:1px solid #507587;width:100%}
+.intro-controls .oc-btn{font:600 16px/1.4 var(--font-sans);text-transform:none;letter-spacing:normal}
+.intro-note{padding:8px 12px;background:#071c2cf5;border-radius:4px;max-width:900px;color:var(--text-2)}
+.intro:has(.intro-caption[hidden]){grid-template-rows:auto minmax(260px,1fr) auto auto}
+@media(min-width:701px) and (min-height:700px){.intro{height:calc(100svh - var(--intro-bar-height,64px))}.intro-heading{position:absolute;left:clamp(16px,3vw,48px);top:24px;max-width:min(38%,480px)}.intro-scene-space{grid-row:1/3}.intro-caption{grid-row:3}.intro-controls{grid-row:4}.intro-note{grid-row:5}.intro:has(.intro-caption[hidden]){grid-template-rows:auto minmax(260px,1fr) auto auto auto}}
+@media(max-width:700px){.intro{gap:10px;padding:12px;min-height:calc(100svh - var(--intro-bar-height,64px));grid-template-rows:auto minmax(220px,1fr) auto auto auto}.intro-heading{max-width:100%;padding:14px 16px}.intro-heading h1{font-size:24px}.intro-heading>p:last-child{font-size:14px}.intro-scene-space{min-height:220px}.intro-caption{max-width:100%}.intro-controls{gap:8px}.intro-controls .oc-btn{font-size:14px}.intro:has(.intro-caption[hidden]){grid-template-rows:auto minmax(220px,1fr) auto auto}}
+@media(max-height:600px){.intro{height:auto;min-height:calc(100svh - var(--intro-bar-height,64px))}.intro-heading h1{font-size:24px}}
+/* Varied fish paths remain governed by the same pause/reduced-motion rules. */
+.intro-fish--varied{animation-name:swim-varied}
+@keyframes swim-varied{0%{transform:translate(0,0)}50%{transform:translate(calc(var(--fish-travel)/2),calc(-1 * var(--fish-bob)))}100%{transform:translate(var(--fish-travel),var(--fish-bob))}}
+/* Fixed viewport camera: caption wrapping/dismissal never rescales the sea. */
+.intro-scene{position:fixed;top:var(--intro-bar-height,64px);left:0;right:0;bottom:0;width:100%;height:calc(100vh - var(--intro-bar-height,64px));height:calc(100svh - var(--intro-bar-height,64px))}
+.intro-caption #narration{min-height:3em}
+@media(max-width:700px){.intro-caption #narration{min-height:4.5em}}
+/* Chapter accents supplement the number and title; never rely on color alone. */
+.intro-caption{--chapter-accent:#ffce80;border-left:3px solid var(--chapter-accent)}
+.intro-caption[data-chapter="2"]{--chapter-accent:#a4dce9}
+.intro-caption[data-chapter="3"]{--chapter-accent:#b6e6c3}
+.intro-caption[data-chapter="4"]{--chapter-accent:#d8c6f1}
+.intro-caption .oc-label{color:var(--chapter-accent);transition:color .35s ease}
+.intro-caption .intro-progress span{background:var(--chapter-accent);transition:background-color .35s ease}
+@media(forced-colors:active){.intro-caption{border-left-color:CanvasText}.intro-caption .oc-label{color:CanvasText}.intro-caption .intro-progress span{background:Highlight}}
+.intro-back,.intro-back:visited{font:400 14px/1.5 var(--font-sans);color:var(--text-2);display:inline-flex;align-items:center;min-height:44px;padding:8px;text-underline-offset:4px}
+.intro-back:hover{color:var(--brand)}
+/* The link is inline-flex, so the underline would reach every child (the arrow too). Remove it from the link and draw it only on the words. */
+.intro-back,.intro-back:visited{text-decoration:none}
+.intro-back__arrow{margin-right:6px}
+.intro-back__text{text-decoration:underline;text-underline-offset:4px}
+@media(max-width:700px){.intro-back{flex-basis:100%;justify-content:center}}
+
+/* START: DUSK ENVIRONMENT ANIMATIONS (all very slow; off with Animations off,
+   Pause or the system "Reduce motion" setting, through the rules above) */
+.intro-flame path{animation:flame 2.6s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%}
+.intro-flame path:nth-child(2){animation-duration:2.1s;animation-delay:-.7s}
+.intro-flame path:nth-child(3){animation-duration:1.7s;animation-delay:-1.1s}
+.intro-flare-glow{animation:flare-glow 4.8s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+.intro-flare-glow--far{animation-duration:6.2s;animation-delay:-2s}
+.intro-blink{animation:blink 5s ease-in-out infinite}
+.intro-stars{animation:twinkle 9s ease-in-out infinite alternate}
+.intro-snow{animation:snow 40s linear infinite alternate}
+.intro-jelly{animation:jelly 14s ease-in-out infinite alternate}
+.intro-sway{animation:sway 7s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:50% 100%}
+.intro-bubble{animation:bubble 9s linear infinite}
+.intro[data-static] :is(.intro-flame path,.intro-flare-glow,.intro-blink,.intro-stars,.intro-snow,.intro-jelly,.intro-sway,.intro-bubble){animation:none!important}
+@keyframes flame{0%,100%{transform:scale(1,1) skewX(0deg)}25%{transform:scale(.95,1.06) skewX(-4deg)}50%{transform:scale(1.03,.97) skewX(2deg)}75%{transform:scale(.97,1.04) skewX(-2deg)}}
+@keyframes flare-glow{0%,100%{opacity:.8;transform:scale(.96)}50%{opacity:1;transform:scale(1.06)}}
+@keyframes blink{50%{opacity:.35}}
+@keyframes twinkle{to{opacity:.6}}
+@keyframes snow{to{transform:translate(-30px,40px)}}
+@keyframes jelly{to{transform:translateY(-26px)}}
+@keyframes sway{to{transform:rotate(6deg)}}
+@keyframes bubble{from{transform:translateY(0);opacity:0}15%{opacity:.6}to{transform:translateY(-60px);opacity:0}}
+.intro-ship{animation:ride 9s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:50% 100%}
+.intro-gull{animation:glide 38s linear infinite}
+.intro-wing{animation:flap 1.6s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:50% 100%}
+.intro-beams{animation:shimmer 8s ease-in-out infinite alternate}
+.intro-glint{animation:blink 4s ease-in-out infinite}
+.intro[data-static] :is(.intro-ship,.intro-gull,.intro-wing,.intro-beams,.intro-glint){animation:none!important}
+@keyframes ride{to{transform:translateY(3px) rotate(.4deg)}}
+@keyframes glide{from{transform:translateX(-200px)}to{transform:translateX(1500px)}}
+@keyframes flap{to{transform:scaleY(-.6)}}
+@keyframes shimmer{to{opacity:.55}}
+.intro-heli{animation:heli 70s linear infinite}
+.intro-boat{animation:ride 7s ease-in-out infinite alternate-reverse;transform-box:fill-box;transform-origin:50% 100%}
+.intro-turtle{animation:turtle 80s linear infinite}
+.intro-manta{animation:manta 110s linear infinite}
+.intro-fin{animation:flap 2.4s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:0 50%}
+.intro-rov{animation:hover 6s ease-in-out infinite alternate}
+.intro[data-static] :is(.intro-heli,.intro-boat,.intro-turtle,.intro-manta,.intro-fin,.intro-rov){animation:none!important}
+@keyframes heli{from{transform:translateX(200px)}to{transform:translateX(-1700px)}}
+@keyframes turtle{from{transform:translateX(0)}to{transform:translateX(1500px)}}
+@keyframes manta{from{transform:translateX(0)}to{transform:translateX(-1600px)}}
+@keyframes hover{to{transform:translateY(-4px)}}
+.intro-smoke circle{animation:smoke 6s ease-out infinite;transform-box:fill-box;transform-origin:center}
+.intro[data-static] .intro-smoke circle{animation:none!important;opacity:.2}
+@keyframes smoke{from{transform:translate(0,0) scale(1);opacity:.35}to{transform:translate(-26px,-34px) scale(3);opacity:0}}
+/* END: DUSK ENVIRONMENT ANIMATIONS */
+
+/* START: OPENING SHOT (camera zoom in js/intro.js)
+   While the camera zooms out from the starfish, the texts, labels and
+   buttons stay hidden; they fade in one after another when it ends.
+   The zoom never runs with Animations off or the system "Reduce motion"
+   setting, so in those cases everything is visible from the start. */
+.intro > :not(.intro-scene){transition:opacity .9s ease}
+.intro > .intro-caption{transition-delay:.25s}
+.intro > .intro-controls{transition-delay:.45s}
+.intro > .intro-note{transition-delay:.6s}
+.intro-labels{transition:opacity 1s ease .3s}
+.intro > :focus-within{opacity:1;transition:none}
+.intro[data-opening] > :not(.intro-scene),.intro[data-opening] .intro-labels{opacity:0;pointer-events:none;transition:none}
+.intro[data-revealing] > :not(.intro-scene){pointer-events:none}
+/* Before the scripts run (slow devices): js/intro-preload.js hides everything,
+   so the full scene never flashes before the starfish close-up. */
+html[data-intro-opening] .intro > :not(.intro-scene),html[data-intro-opening] .intro-labels{opacity:0;pointer-events:none;transition:none}
+html[data-intro-opening] .intro-scene{opacity:0;animation:none}
+/* END: OPENING SHOT */
