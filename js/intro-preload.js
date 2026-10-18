@@ -9,3 +9,9 @@ try {
     setTimeout(() => document.documentElement.removeAttribute('data-intro-opening'), 3000);
   }
 } catch (_) {}
+
+/* START: LIGHT MODE (the same scene for everyone, on every device)
+   html[data-intro-lite] draws fewer fish, rocks and bubbles and stops the
+   small decorative loops (see css/intro.css · PERFORMANCE). */
+document.documentElement.setAttribute('data-intro-lite', '');
+/* END: LIGHT MODE */
