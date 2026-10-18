@@ -17,7 +17,10 @@
   scene.insertBefore(algae, pipe);
   scene.insertBefore(fish, pipe);
   const random = (min, max) => min + Math.random() * (max - min);
-  const rockSamples = Array.from({length: 34}, (_, i) => ({
+  // Light mode (js/intro-preload.js): about half the decorative pieces.
+  const lite = document.documentElement.hasAttribute('data-intro-lite');
+  const ROCKS = lite ? 16 : 34, FISH = lite ? 10 : 24, BUBBLES = lite ? 8 : 22;
+  const rockSamples = Array.from({length: ROCKS}, (_, i) => ({
     position: (i + random(.1, .9)) / 34,
     depth: random(0, 1), width: random(28, 115), height: random(12, 85),
     peak: random(.25, .7), shoulder: random(.35, .7)
@@ -36,8 +39,8 @@
     'M-20 0Q0-7 25 0Q0 8-20 0L-31 6V-6Z',
     'M-24 0Q-2-13 23 0Q2 13-24 0L-35 9V-9ZM-3-6 3-18 10-7Z'
   ];
-  const fishSamples = Array.from({length: 24}, (_, i) => ({
-    position: (i + random(.05, .95)) / 24, depth: random(315, 645),
+  const fishSamples = Array.from({length: FISH}, (_, i) => ({
+    position: (i + random(.05, .95)) / FISH, depth: random(315, 645),
     size: random(.18, i % 7 === 0 ? 1.45 : .65),
     shape: Math.floor(random(0, shapes.length)), direction: Math.random() < .5 ? -1 : 1,
     duration: random(20, 48), delay: random(-45, 0), travel: random(35, 130), bob: random(4, 15)
@@ -86,8 +89,8 @@
     const bubbles = svg('g', {'aria-hidden': 'true', fill: 'none', stroke: '#a8d8e0', 'stroke-width': '1.2'});
     scene.insertBefore(bubbles, pipe);
     const total = route.getTotalLength();
-    for (let i = 0; i < 22; i++) {
-      const p = route.getPointAtLength(total * (i + random(.1, .9)) / 22);
+    for (let i = 0; i < BUBBLES; i++) {
+      const p = route.getPointAtLength(total * (i + random(.1, .9)) / BUBBLES);
       svg('circle', {class: 'intro-bubble', cx: (p.x + random(-14, 14)).toFixed(1), cy: (p.y - random(4, 20)).toFixed(1), r: random(1.5, 3.5).toFixed(1), style: `animation-delay:-${random(0, 9).toFixed(1)}s;animation-duration:${random(7, 12).toFixed(1)}s`}, bubbles);
     }
   }

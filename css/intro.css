@@ -151,3 +151,18 @@ html[data-motion=off] .intro-page *,html[data-motion=off] .intro-page *::before,
 html[data-intro-opening] .intro > :not(.intro-scene),html[data-intro-opening] .intro-labels{opacity:0;pointer-events:none;transition:none}
 html[data-intro-opening] .intro-scene{opacity:0;animation:none}
 /* END: OPENING SHOT */
+
+/* ==========================================================================
+   START: PERFORMANCE
+   Every animated SVG piece makes the browser repaint the scene, so:
+   1. while the opening zoom runs, the loops wait (the camera is the show);
+   2. LIGHT MODE (html[data-intro-lite], set by js/intro-preload.js for everyone,
+      on every device) stops the tiny loops nobody notices on a
+      small screen. The ship, flame, sea, fish, jellyfish, gulls and boats keep moving.
+   ========================================================================== */
+.intro-scene{contain:paint}
+.intro[data-opening] .intro-scene *{animation-play-state:paused!important}
+html[data-intro-lite] .intro :is(.intro-blink,.intro-stars,.intro-snow,.intro-glint,.intro-beams,.intro-sway,.intro-wing,.intro-fin,.intro-smoke circle,.intro-flare-glow--far,.intro-heli,.intro-boat){animation:none!important}
+/* 3. when the drawing is scrolled out of view, nothing in it moves (js/intro.js) */
+.intro[data-offscreen] .intro-scene *{animation-play-state:paused!important}
+/* END: PERFORMANCE */

@@ -67,7 +67,8 @@
   function tick(now) {
     if (previous !== null && !paused && !opening && !document.hidden && !staticMotion()) elapsed = Math.min(duration, elapsed + now - previous);
     previous = now;
-    draw();
+    // Light mode: redraw the flow dot at about 30 fps (time still counts every frame).
+    if (!document.documentElement.hasAttribute('data-intro-lite') || now - (tick.drawn || 0) >= 32) { tick.drawn = now; draw(); }
     if (!paused && !document.hidden && !staticMotion()) frame = requestAnimationFrame(tick);
 
   }
@@ -180,6 +181,11 @@
     announce(userMotionOff ? 'Animations off.' : 'Animations on.');
   });
   document.addEventListener('visibilitychange', update);
+  // Drawing scrolled out of view (common on phones): its CSS loops pause (css/intro.css · PERFORMANCE).
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(([entry]) => root.toggleAttribute('data-offscreen', !entry.isIntersecting))
+      .observe(document.querySelector('.intro-scene'));
+  }
   reduce.addEventListener('change', update);
   window.addEventListener('pagehide', () => { cancelAnimationFrame(frame); if (context) context.close(); });
   // Camera depends only on the viewport, never on narration or panel heights.
@@ -208,7 +214,9 @@
   // changes the SVG viewBox, so the drawing stays sharp at every size. Any key,
   // click, tap, scroll or focus inside the page skips straight to the final view.
   // Timing: OPENING_HOLD = pause on the starfish, OPENING_ZOOM = zoom length (ms).
-  const OPENING_HOLD = 700, OPENING_ZOOM = 5200;
+  // Light mode: a shorter zoom, and the camera moves at about 30 frames per second.
+  const lite = document.documentElement.hasAttribute('data-intro-lite');
+  const OPENING_HOLD = lite ? 400 : 700, OPENING_ZOOM = lite ? 3600 : 5200, STEP = lite ? 32 : 0;
   const smooth = p => p * p * p * (p * (p * 6 - 15) + 10);
   function cameraAt(e) {
     const [x, y, w, h] = target;
@@ -222,6 +230,8 @@
     if (staticMotion()) { finishOpening(); return; }
     if (opening.last !== null && !document.hidden) opening.time += Math.min(50, now - opening.last);
     opening.last = now;
+    if (STEP && now - (opening.drawn || 0) < STEP) { opening.frame = requestAnimationFrame(openingStep); return; }
+    opening.drawn = now;
     const p = Math.max(0, Math.min(1, (opening.time - OPENING_HOLD) / OPENING_ZOOM));
     scene.setAttribute('viewBox', cameraAt(smooth(p)));
     if (p >= 1) finishOpening(); else opening.frame = requestAnimationFrame(openingStep);
