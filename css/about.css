@@ -62,3 +62,15 @@
 .oc-about--log{grid-template-columns:minmax(0,1fr)!important}
 .oc-about--log .oc-about__card{max-width:820px}
 /* END: DEV LOG */
+
+/* ==========================================================================
+   START: PHASE PAGE (phase1.html)
+   ========================================================================== */
+/* "PHASE 1" on one line: PHASE white, 1 orange */
+.oc-about__title--inline span{display:inline}
+/* Buttons above the dev log link; side by side when they fit */
+.oc-phase-actions{display:flex;flex-wrap:wrap;gap:var(--space-3);margin:var(--space-5) 0 var(--space-4)}
+.oc-phase-actions .oc-btn{min-height:44px;display:inline-flex;align-items:center}
+/* ==========================================================================
+   END: PHASE PAGE
+   ========================================================================== */
