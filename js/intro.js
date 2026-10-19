@@ -217,7 +217,7 @@
   // phones. Any key, click, tap, scroll or focus skips straight to the final view.
   // Timing: OPENING_HOLD = pause on the starfish, OPENING_ZOOM = zoom length (ms),
   // OPENING_DEPTH = how close the camera starts (times the final size).
-  const OPENING_HOLD = 500, OPENING_ZOOM = 4200, OPENING_DEPTH = 3.5;
+  const OPENING_HOLD = 500, OPENING_ZOOM = 4200, OPENING_DEPTH = 2.25;
   const skipEvents = ['keydown', 'pointerdown', 'wheel', 'touchstart', 'click'];
   const skipOpening = () => finishOpening();
   function finishOpening() {
