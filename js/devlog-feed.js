@@ -20,7 +20,7 @@
       `<img class="oc-post__sign-photo" src="assets/assinatura-avatar.jpg" alt="" width="40" height="40">` +
       `<span class="oc-post__sign-text">` +
         `<span class="oc-post__sign-name">Alessandra Brum</span>` +
-        `<span class="oc-post__sign-role">Developer · Offshore Simulator</span>` +
+        `<span class="oc-post__sign-role">Developer · Offshore Simulator: FPSO Comandante Ancunín</span>` +
       `</span>` +
     `</div>`;
   // END: SIGNATURE

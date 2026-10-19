@@ -16,7 +16,7 @@ Solve short operational challenges by bringing process variables into their targ
 
 Observe the current state, identify the priorities and make adjustments in order to stabilize the system.
 
-<img src="assets/redmepreview.png" alt="Plataforma de petróleo à noite em meio à tempestade" width="55%"></img>
+<img src="assets/PreviewOffshoreSimulator.png" alt="Notebook mostrando captura de tela do site do simulator de plataforma de petróleo" width="100%"></img>
 
 ## ♦ Technologies used
 
