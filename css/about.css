@@ -93,8 +93,6 @@
 .oc-post__body h3{margin:var(--space-4) 0 var(--space-2);font:600 20px/1.3 var(--font-sans);color:var(--text)}
 .oc-post__body img{display:block;max-width:100%;height:auto;margin:var(--space-3) 0;border-radius:var(--radius-sm)}
 .oc-post__body a{word-break:break-word}
-.oc-post__actions{margin-top:var(--space-6);padding-top:var(--space-4);border-top:1px solid var(--border)}
-.oc-post__actions .oc-btn{min-height:44px;display:inline-flex;align-items:center}
 /* ==========================================================================
    END: BLOG POSTS
    ========================================================================== */

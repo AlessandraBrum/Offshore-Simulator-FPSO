@@ -1,8 +1,7 @@
 /* ==========================================================================
    OFFSHORE SIMULATOR · js/devlog-feed.js
    Dev log posts come from the Blogger blog below. Write and publish a post on
-   Blogger and it appears here by itself, in the site's style. Comments stay on
-   Blogger: each post has a "Comment" button that opens its comment form.
+   Blogger and it appears here by itself, in the site's style.
    Blogger's JSON feed is read with a <script> tag (JSONP), so no server is needed.
    ========================================================================== */
 (() => {
@@ -52,9 +51,6 @@
     status.textContent = '';
     entries.forEach((entry, i) => {
       const id = `post-${(page - 1) * PER_PAGE + i + 1}`;
-      const link = (entry.link || []).find(l => l.rel === 'alternate');
-      const url = link ? link.href : BLOG;
-      const count = entry.thr$total ? Number(entry.thr$total.$t) : 0;
       const date = niceDate(entry.published.$t);
       const author = entry.author && entry.author[0] && entry.author[0].name ? entry.author[0].name.$t : '';
       const article = document.createElement('article');
@@ -63,9 +59,7 @@
       article.innerHTML =
         `<h2 class="oc-about__heading" id="${id}"></h2>` +
         `<p class="oc-post__date"><time datetime="${entry.published.$t.slice(0, 10)}">${date.text}<sup>${date.suffix}</sup>, ${date.year}</time><span class="oc-post__author"></span></p>` +
-        `<div class="oc-post__body">${clean(entry.content ? entry.content.$t : (entry.summary ? entry.summary.$t : ''))}</div>` +
-        `<p class="oc-post__actions"><a class="oc-btn oc-btn--link" href="${url}#comments" target="_blank" rel="noopener">` +
-        `Comment${count ? ` (${count})` : ''}<span class="oc-sr"> on this post (opens Blogger in a new tab)</span></a></p>`;
+        `<div class="oc-post__body">${clean(entry.content ? entry.content.$t : (entry.summary ? entry.summary.$t : ''))}</div>`;
       article.querySelector('h2').textContent = entry.title.$t || 'Untitled post';
       if (author && author !== 'Unknown') article.querySelector('.oc-post__author').textContent = `By ${author}`;
       list.append(article);
