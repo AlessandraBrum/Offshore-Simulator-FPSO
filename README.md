@@ -33,10 +33,10 @@ Some features the browser itself provides, with nothing to install:
 1. **Where:** in `localStorage`, a space that every browser sets aside for each website. It stores name/value pairs as text. The data stays only in that browser, on that device, and is never sent to any server.
 2. **What is saved:**
    - `oc-consent`: the answer to the privacy notice (`yes` or `no`);
-   - `oc-progress`: the list of completed phases, for example `["fase2"]`;
+   - `oc-progress`: the list of completed phases, for example `["phase2"]`;
    - `oc-motion`: whether the player turned the animations off.
 3. **What controls it:** the `Store` block, in section 1.1 of `js/main.js`. Before writing or reading any data, it checks whether the player accepted the notice (`oc-consent` equal to `yes`). Without that consent, nothing is written.
-4. **When it writes:** when the player completes the Phase 2 mission in the challenge, section 8 (Mission and training) calls `Phases.complete('fase2')`, which uses `Store` to save the list of phases.
+4. **When it writes:** when the player completes the Phase 2 mission in the challenge, section 8 (Mission and training) calls `Phases.complete('phase2')`, which uses `Store` to save the list of phases.
 5. **How to erase it:** with the game's "Erase my progress" button, or by clearing the site's data in the browser.
 6. **How to see it:** open the game in Chrome, press F12 and go to Application › Local Storage.
 

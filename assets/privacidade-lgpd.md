@@ -19,7 +19,7 @@ Cada site tem a sua gaveta, separada das gavetas dos outros sites. Ela fica só 
 | Nome (chave) | Exemplo de valor | Para que serve | Quando é gravado |
 |---|---|---|---|
 | `oc-consent` | `yes` ou `no` | Lembrar a resposta ao aviso de privacidade | Assim que a pessoa responde |
-| `oc-progress` | `["fase2"]` | Lista de fases concluídas | Só com consentimento |
+| `oc-progress` | `["phase2"]` | Lista de fases concluídas | Só com consentimento |
 | `oc-motion` | `off` | Lembrar que a pessoa desligou as animações | Só com consentimento |
 
 Nada além disso. Nenhum nome, e-mail, IP ou identificador.
@@ -28,7 +28,7 @@ Nada além disso. Nenhum nome, e-mail, IP ou identificador.
 Em `js/main.js`, o bloco **1.1 Armazenamento com consentimento** controla tudo:
 
 ```js
-Store.set('oc-progress', '["fase2"]');   // só grava se oc-consent for "yes"
+Store.set('oc-progress', '["phase2"]');   // só grava se oc-consent for "yes"
 Store.get('oc-progress');                // só lê se oc-consent for "yes"
 Store.eraseAll();                         // apaga progresso e preferência
 ```
@@ -57,7 +57,7 @@ Por baixo, ele usa os comandos do navegador `localStorage.setItem`, `getItem` e 
 A Lei Geral de Proteção de Dados (Lei nº 13.709/2018) regula o uso de **dados pessoais** no Brasil. Ela vale para sites, apps e jogos, inclusive os gratuitos e os feitos por uma pessoa só, quando eles tratam dados de quem está no Brasil. A fiscalização é da **ANPD**, a Autoridade Nacional de Proteção de Dados.
 
 ### Passo 7 · Dado pessoal ou não?
-Pelo art. 5º, I, dado pessoal é qualquer informação que identifica uma pessoa ou pode identificá-la. O progresso do jogo (`["fase2"]`) sozinho não identifica ninguém e não sai do aparelho, então provavelmente nem é dado pessoal.
+Pelo art. 5º, I, dado pessoal é qualquer informação que identifica uma pessoa ou pode identificá-la. O progresso do jogo (`["phase2"]`) sozinho não identifica ninguém e não sai do aparelho, então provavelmente nem é dado pessoal.
 
 Mesmo assim, pedir consentimento e explicar tudo é a postura mais segura e transparente. Também mostra cuidado para quem avaliar o seu portfólio.
 

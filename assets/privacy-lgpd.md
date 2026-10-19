@@ -19,7 +19,7 @@ Each site has its own drawer, kept separate from every other site's drawer. It l
 | Name (key) | Example value | What it is for | When it is saved |
 |---|---|---|---|
 | `oc-consent` | `yes` or `no` | Remember the answer to the privacy notice | As soon as the person answers |
-| `oc-progress` | `["fase2"]` | List of completed phases | Only with consent |
+| `oc-progress` | `["phase2"]` | List of completed phases | Only with consent |
 | `oc-motion` | `off` | Remember that the person turned the animations off | Only with consent |
 
 Nothing else. No name, e-mail, IP address or identifier.
@@ -28,7 +28,7 @@ Nothing else. No name, e-mail, IP address or identifier.
 In `js/main.js`, block **1.1 Storage with consent** controls everything:
 
 ```js
-Store.set('oc-progress', '["fase2"]');   // only writes if oc-consent is "yes"
+Store.set('oc-progress', '["phase2"]');   // only writes if oc-consent is "yes"
 Store.get('oc-progress');                // only reads if oc-consent is "yes"
 Store.eraseAll();                         // erases progress and preference
 ```
@@ -57,7 +57,7 @@ Under the hood, it uses the browser commands `localStorage.setItem`, `getItem` a
 The *Lei Geral de Proteção de Dados* (General Data Protection Law, Law No. 13,709/2018) regulates the use of **personal data** in Brazil. It applies to websites, apps and games, including free ones and those made by a single person, whenever they process data from people in Brazil. Enforcement is carried out by the **ANPD** (Brazil's National Data Protection Authority).
 
 ### Step 7 · Personal data or not?
-Under Art. 5, item I, personal data is any information that identifies a person or could identify them. The game progress (`["fase2"]`) on its own does not identify anyone and never leaves the device, so it is probably not even personal data.
+Under Art. 5, item I, personal data is any information that identifies a person or could identify them. The game progress (`["phase2"]`) on its own does not identify anyone and never leaves the device, so it is probably not even personal data.
 
 Even so, asking for consent and explaining everything is the safest and most transparent approach. It also shows care to anyone reviewing your portfolio.
 

@@ -651,9 +651,9 @@ const Music = (() => {
    ========================================================================== */
 const PHASES = [
   // Phase 1 opens the introduction page (href). The hint is shown under its button.
-  { id: 'fase1', num: '01', name: 'Introduction', ready: true, href: 'intro.html',
+  { id: 'phase1', num: '01', name: 'Introduction', ready: true, href: 'intro.html',
     hint: 'This phase is not playable yet. Only part of the introduction is currently available.' },
-  { id: 'fase2', num: '02', name: '', ready: true }
+  { id: 'phase2', num: '02', name: '', ready: true }
 ];
 
 const RELEASE = window.OC_RELEASE || { locked: [] };   // no js/release.js: nothing locked
@@ -669,7 +669,8 @@ window.Phases = (() => {
   let done = new Set();
 
   function load() {
-    try { done = new Set(JSON.parse(Store.get('oc-progress') || '[]')); } catch (e) { done = new Set(); }
+    try { done = new Set(JSON.parse(Store.get('oc-progress') || '[]')
+      .map(id => String(id).replace(/^fase/, 'phase'))); } catch (e) { done = new Set(); }   // old saves used "fase1", "fase2"
   }
   function save() { Store.set('oc-progress', JSON.stringify(Array.from(done))); }
   const open_ = PHASES.filter(p => !isLocked(p));
