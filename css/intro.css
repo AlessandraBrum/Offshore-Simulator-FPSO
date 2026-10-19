@@ -160,7 +160,7 @@ html[data-intro-opening] .intro-scene{opacity:0;animation:none}
       on every device) stops the tiny loops nobody notices on a
       small screen. The ship, flame, sea, fish, jellyfish, gulls and boats keep moving.
    ========================================================================== */
-.intro-scene{contain:paint}
+
 .intro[data-opening] .intro-scene *{animation-play-state:paused!important}
 html[data-intro-lite] .intro :is(.intro-blink,.intro-stars,.intro-snow,.intro-glint,.intro-beams,.intro-sway,.intro-wing,.intro-fin,.intro-smoke circle,.intro-flare-glow--far,.intro-heli,.intro-boat){animation:none!important}
 /* 3. when the drawing is scrolled out of view, nothing in it moves (js/intro.js) */

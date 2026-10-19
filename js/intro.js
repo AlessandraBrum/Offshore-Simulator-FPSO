@@ -207,42 +207,24 @@
     target = [(1200 - width) / 2, -top, width, height];
     const viewBox = target.join(' ');
     if (scene.dataset.camera !== viewBox) scene.dataset.camera = viewBox;   // final camera, read by intro-habitat.js
-    if (!opening && scene.getAttribute('viewBox') !== viewBox) scene.setAttribute('viewBox', viewBox);
+    if (scene.getAttribute('viewBox') !== viewBox) scene.setAttribute('viewBox', viewBox);
   }
 
   // START: OPENING SHOT (the camera starts on a starfish and zooms out to the whole scene)
-  // Runs once when the page loads, only when animations are allowed. The zoom
-  // changes the SVG viewBox, so the drawing stays sharp at every size. Any key,
-  // click, tap, scroll or focus inside the page skips straight to the final view.
-  // Timing: OPENING_HOLD = pause on the starfish, OPENING_ZOOM = zoom length (ms).
-  // Light mode: a shorter zoom, and the camera moves at about 30 frames per second.
-  const lite = document.documentElement.hasAttribute('data-intro-lite');
-  const OPENING_HOLD = lite ? 400 : 700, OPENING_ZOOM = lite ? 3600 : 5200, STEP = lite ? 32 : 0;
-  const smooth = p => p * p * p * (p * (p * 6 - 15) + 10);
-  function cameraAt(e) {
-    const [x, y, w, h] = target;
-    const k = Math.pow(60 / h, 1 - e);            // starts about 60 units tall around the starfish
-    const vw = w * k, vh = h * k;
-    const ux = .5 + ((opening.cx - x) / w - .5) * e, uy = .5 + ((opening.cy - y) / h - .5) * e;
-    return `${opening.cx - ux * vw} ${opening.cy - uy * vh} ${vw} ${vh}`;
-  }
-  function openingStep(now) {
-    if (!opening) return;
-    if (staticMotion()) { finishOpening(); return; }
-    if (opening.last !== null && !document.hidden) opening.time += Math.min(50, now - opening.last);
-    opening.last = now;
-    if (STEP && now - (opening.drawn || 0) < STEP) { opening.frame = requestAnimationFrame(openingStep); return; }
-    opening.drawn = now;
-    const p = Math.max(0, Math.min(1, (opening.time - OPENING_HOLD) / OPENING_ZOOM));
-    scene.setAttribute('viewBox', cameraAt(smooth(p)));
-    if (p >= 1) finishOpening(); else opening.frame = requestAnimationFrame(openingStep);
-  }
+  // Runs once when the page loads, only when animations are allowed. The drawing
+  // is framed once, then the whole SVG is scaled with a CSS transform (Web
+  // Animations API): the graphics card moves it, so the zoom stays smooth even on
+  // phones. Any key, click, tap, scroll or focus skips straight to the final view.
+  // Timing: OPENING_HOLD = pause on the starfish, OPENING_ZOOM = zoom length (ms),
+  // OPENING_DEPTH = how close the camera starts (times the final size).
+  const OPENING_HOLD = 500, OPENING_ZOOM = 4200, OPENING_DEPTH = 7;
   const skipEvents = ['keydown', 'pointerdown', 'wheel', 'touchstart', 'click'];
   const skipOpening = () => finishOpening();
   function finishOpening() {
     if (!opening) return;
-    cancelAnimationFrame(opening.frame);
+    const shot = opening;
     opening = null;
+    if (shot.animation) shot.animation.cancel();
     skipEvents.forEach(type => document.removeEventListener(type, skipOpening, true));
     root.removeEventListener('focusin', skipOpening);
     root.removeAttribute('data-opening');
@@ -256,15 +238,23 @@
   }
   function startOpening() {
     const star = get('opening-star');
-    if (!star || !target || staticMotion()) return;
+    if (!star || !target || staticMotion() || !scene.animate) return;
     try {
-      const box = star.getBBox();
-      opening = {cx: box.x + box.width / 2, cy: box.y + box.height / 2, time: 0, last: null, frame: 0};
+      opening = {};
       root.setAttribute('data-opening', '');
-      scene.setAttribute('viewBox', cameraAt(0));
+      const frame = scene.getBoundingClientRect(), box = star.getBoundingClientRect();
+      const ox = box.left + box.width / 2 - frame.left, oy = box.top + box.height / 2 - frame.top;
+      const dx = frame.width / 2 - ox, dy = frame.height / 2 - oy;   // brings the starfish to the centre
+      const total = OPENING_HOLD + OPENING_ZOOM;
+      scene.style.transformOrigin = `${ox}px ${oy}px`;
+      opening.animation = scene.animate([
+        {transform: `translate(${dx}px, ${dy}px) scale(${OPENING_DEPTH})`, offset: 0},
+        {transform: `translate(${dx}px, ${dy}px) scale(${OPENING_DEPTH})`, offset: OPENING_HOLD / total, easing: 'cubic-bezier(.6, 0, .25, 1)'},
+        {transform: 'translate(0, 0) scale(1)', offset: 1}
+      ], {duration: total, easing: 'linear', fill: 'none'});
+      opening.animation.onfinish = finishOpening;
       skipEvents.forEach(type => document.addEventListener(type, skipOpening, {capture: true, passive: true}));
       root.addEventListener('focusin', skipOpening);
-      opening.frame = requestAnimationFrame(openingStep);
     } catch (_) { finishOpening(); }
   }
   // END: OPENING SHOT
