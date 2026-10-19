@@ -11,7 +11,11 @@
 
 /* START: HEADER */
 .oc-about__header{position:relative;z-index:2;padding:var(--space-4);background:var(--bg)}
-.oc-about__back{display:inline-flex;align-items:center;min-height:44px;font-weight:600}
+.oc-about__back{display:inline-flex;align-items:center;gap:.5em;min-height:44px;font-weight:600;color:var(--brand);text-transform:uppercase;letter-spacing:.06em;text-decoration:none}
+.oc-about__back:visited{color:var(--brand)}
+.oc-about__back-arrow{text-decoration:none}
+.oc-about__back-text{text-decoration:underline;text-underline-offset:.2em}
+.oc-about__back:hover .oc-about__back-text,.oc-about__back:focus-visible .oc-about__back-text{text-decoration-thickness:2px}
 /* END: HEADER */
 
 /* START: HERO */
