@@ -676,10 +676,11 @@ details.alt summary,.notes summary,.oc-more>summary{color:var(--brand)}
 .oc-hero__link:hover{color:var(--text)}
 .oc-hero__link-icon{width:24px;height:24px;flex:none}
 .oc-hero__link-icon--code{width:32px}
-/* Portfolio tag: the </> icon and the word "portfolio" in one outlined label,
-   like a code tag, so people who don't know the symbol see what it is. */
-.oc-hero__link--tag{gap:var(--space-2);padding:0 var(--space-3);border:1px solid var(--brand);border-radius:6px;font-family:var(--font-mono,monospace);font-size:16px;font-weight:600;text-decoration:none}
-.oc-hero__link--tag:hover{border-color:var(--text)}
+/* Icon + word links (portfolio and LinkedIn): the word in the code font tells
+   people who don't know the symbol what each icon is. No outline. */
+.oc-hero__link--tag{gap:var(--space-2);padding:0 var(--space-2) 0 0;font-family:var(--font-mono);font-size:16px;font-weight:600;text-decoration:none}
+.oc-hero__link--tag .oc-hero__tag-text{text-decoration:underline;text-underline-offset:3px}
+.oc-hero__links{gap:var(--space-6)}
 /* END: CREDITS */
 /* Desktop: the storm fills the whole screen and the text sits on top,
    on the left, over a dark veil that guarantees AAA contrast. The ship
