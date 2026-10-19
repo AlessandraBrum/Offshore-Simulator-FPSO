@@ -33,8 +33,8 @@
   get('riser-anchor').setAttribute('cy', anchor.y);
   const chapters = [
     ['01 / From the seabed', 'Oil, water and gas begin their journey from the subsea well.'],
-    ['02 / Through the riser', 'The production mixture rises through the riser toward the surface.'],
-    ['03 / Arrival at the FPSO', 'At the FPSO, the mixture enters the production system for treatment.'],
+    ['02 / Through the riser', 'The production mixture rises through the riser towards the surface.'],
+    ['03 / Arrival at the FPSO', 'At the FPSO, the mixture enters the production plant for treatment.'],
     ['04 / Before your shift', 'Production continues. Soon, you will take over the offshore instrumentation shift.']
   ];
   const staticMotion = () => reduce.matches || document.documentElement.dataset.motion === 'off';
