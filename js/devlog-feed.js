@@ -12,6 +12,18 @@
   const PER_PAGE = 10;                       // posts per page; older ones on devlog.html?page=2, 3…
   // END: SETTINGS
 
+  // START: SIGNATURE (shown at the end of every post; change the name or the
+  // second line here. The same signature is in the Blogger theme.)
+  const SIGNATURE =
+    `<footer class="oc-post__sign">` +
+      `<img class="oc-post__sign-photo" src="assets/assinatura-avatar.jpg" alt="" width="40" height="40">` +
+      `<span class="oc-post__sign-text">` +
+        `<span class="oc-post__sign-name">Alessandra Brum</span>` +
+        `<span class="oc-post__sign-role">Developer · Offshore Simulator</span>` +
+      `</span>` +
+    `</footer>`;
+  // END: SIGNATURE
+
   const list = document.getElementById('blog-posts');
   const status = document.getElementById('blog-status');
   if (!list) return;
@@ -59,7 +71,8 @@
       article.innerHTML =
         `<h2 class="oc-about__heading" id="${id}"></h2>` +
         `<p class="oc-post__date"><time datetime="${entry.published.$t.slice(0, 10)}">${date.text}<sup>${date.suffix}</sup>, ${date.year}</time><span class="oc-post__author"></span></p>` +
-        `<div class="oc-post__body">${clean(entry.content ? entry.content.$t : (entry.summary ? entry.summary.$t : ''))}</div>`;
+        `<div class="oc-post__body">${clean(entry.content ? entry.content.$t : (entry.summary ? entry.summary.$t : ''))}</div>` +
+        SIGNATURE;
       article.querySelector('h2').textContent = entry.title.$t || 'Untitled post';
       if (author && author !== 'Unknown') article.querySelector('.oc-post__author').textContent = `By ${author}`;
       list.append(article);

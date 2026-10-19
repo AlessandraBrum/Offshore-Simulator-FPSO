@@ -97,6 +97,45 @@
 .oc-post__body h3{margin:var(--space-4) 0 var(--space-2);font:600 20px/1.3 var(--font-sans);color:var(--text)}
 .oc-post__body img{display:block;max-width:100%;height:auto;margin:var(--space-3) 0;border-radius:var(--radius-sm)}
 .oc-post__body a{word-break:break-word}
+
+/* START: POST SIGNATURE (round photo + name at the end of every post) */
+/* The signature row: photo on the left, name and role on the right */
+.oc-post__sign {
+  display: flex;                          /* photo and text side by side */
+  align-items: center;                    /* photo centered with the two text lines */
+  gap: 12px;                              /* space between the photo and the text */
+  margin-top: var(--space-4);             /* space between the post text and the signature */
+  padding-top: var(--space-4);            /* space between the thin line and the signature */
+  border-top: 1px solid var(--border);    /* thin line separating it from the post */
+}
+/* The round photo, the size of a comment avatar, with a soft white glow */
+.oc-post__sign-photo {
+  width: 40px;                            /* photo size */
+  height: 40px;
+  flex: none;                             /* never squeezed on small screens */
+  border-radius: 50%;                     /* makes it round */
+  object-fit: cover;                      /* fills the circle without stretching */
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, .85),   /* thin white ring */
+    0 0 8px 2px rgba(255, 255, 255, .45); /* soft white glow around it */
+}
+/* Name and role stacked on two lines */
+.oc-post__sign-text {
+  display: grid;                          /* one line under the other */
+  line-height: 1.35;                      /* space between the two lines */
+}
+/* "Alessandra Brum" in the brand orange */
+.oc-post__sign-name {
+  font-weight: 600;
+  font-size: 17px;
+  color: var(--brand);
+}
+/* "Developer · Offshore Simulator" in the softer text color */
+.oc-post__sign-role {
+  font-size: 15px;
+  color: var(--text-2);
+}
+/* END: POST SIGNATURE */
 /* ==========================================================================
    END: BLOG POSTS
    ========================================================================== */
