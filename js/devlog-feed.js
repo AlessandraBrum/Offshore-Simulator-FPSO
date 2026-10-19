@@ -14,14 +14,15 @@
 
   // START: SIGNATURE (shown at the end of every post; change the name or the
   // second line here. The same signature is in the Blogger theme.)
+  // It is a <div>, not a <footer>: style.css gives every <footer> the page-footer look.
   const SIGNATURE =
-    `<footer class="oc-post__sign">` +
+    `<div class="oc-post__sign">` +
       `<img class="oc-post__sign-photo" src="assets/assinatura-avatar.jpg" alt="" width="40" height="40">` +
       `<span class="oc-post__sign-text">` +
         `<span class="oc-post__sign-name">Alessandra Brum</span>` +
         `<span class="oc-post__sign-role">Developer · Offshore Simulator</span>` +
       `</span>` +
-    `</footer>`;
+    `</div>`;
   // END: SIGNATURE
 
   const list = document.getElementById('blog-posts');
