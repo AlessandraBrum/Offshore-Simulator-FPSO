@@ -612,16 +612,18 @@ const Music = (() => {
   });
 
   // First tap or key press anywhere on the page: unlocks the sound.
+  // On phones, the browser only allows sound when the finger is lifted
+  // (pointerup, touchend, click), not when it touches the screen, so all
+  // of these are listened to.
+  const UNLOCK_EVENTS = ['pointerdown', 'pointerup', 'touchend', 'click', 'keydown'];
   function unlock(e) {
     if (e.target.closest && e.target.closest('#music-toggle')) return;
-    if (blocked() && !document.hidden) ac.resume().then(fadeIn);
+    if (blocked() && !document.hidden) ac.resume().then(() => { if (on) fadeIn(); });
     if (!ac || ac.state === 'running' || !on) {
-      document.removeEventListener('pointerdown', unlock, true);
-      document.removeEventListener('keydown', unlock, true);
+      UNLOCK_EVENTS.forEach(type => document.removeEventListener(type, unlock, true));
     }
   }
-  document.addEventListener('pointerdown', unlock, true);
-  document.addEventListener('keydown', unlock, true);
+  UNLOCK_EVENTS.forEach(type => document.addEventListener(type, unlock, true));
   // Starts on, unless the player turned it off before.
   if (savedOff()) { button.setAttribute('aria-pressed', 'false'); state.textContent = 'off'; }
   else setOn(true);
