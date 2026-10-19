@@ -165,4 +165,6 @@ html[data-intro-opening] .intro-scene{opacity:0;animation:none}
 html[data-intro-lite] .intro :is(.intro-blink,.intro-stars,.intro-snow,.intro-glint,.intro-beams,.intro-sway,.intro-wing,.intro-fin,.intro-smoke circle,.intro-flare-glow--far,.intro-heli,.intro-boat){animation:none!important}
 /* 3. when the drawing is scrolled out of view, nothing in it moves (js/intro.js) */
 .intro[data-offscreen] .intro-scene *{animation-play-state:paused!important}
+/* 4. while the page is pinch-zoomed, the drawing holds still so the phone can paint it in full (js/intro.js) */
+.intro[data-pinch] .intro-scene *{animation-play-state:paused!important}
 /* END: PERFORMANCE */

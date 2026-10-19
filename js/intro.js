@@ -68,7 +68,7 @@
     if (previous !== null && !paused && !opening && !document.hidden && !staticMotion()) elapsed = Math.min(duration, elapsed + now - previous);
     previous = now;
     // Light mode: redraw the flow dot at about 30 fps (time still counts every frame).
-    if (!document.documentElement.hasAttribute('data-intro-lite') || now - (tick.drawn || 0) >= 32) { tick.drawn = now; draw(); }
+    if (!root.hasAttribute('data-pinch') && (!document.documentElement.hasAttribute('data-intro-lite') || now - (tick.drawn || 0) >= 32)) { tick.drawn = now; draw(); }
     if (!paused && !document.hidden && !staticMotion()) frame = requestAnimationFrame(tick);
 
   }
@@ -217,7 +217,7 @@
   // phones. Any key, click, tap, scroll or focus skips straight to the final view.
   // Timing: OPENING_HOLD = pause on the starfish, OPENING_ZOOM = zoom length (ms),
   // OPENING_DEPTH = how close the camera starts (times the final size).
-  const OPENING_HOLD = 500, OPENING_ZOOM = 4200, OPENING_DEPTH = 7;
+  const OPENING_HOLD = 500, OPENING_ZOOM = 4200, OPENING_DEPTH = 3.5;
   const skipEvents = ['keydown', 'pointerdown', 'wheel', 'touchstart', 'click'];
   const skipOpening = () => finishOpening();
   function finishOpening() {
@@ -225,6 +225,7 @@
     const shot = opening;
     opening = null;
     if (shot.animation) shot.animation.cancel();
+    scene.style.willChange = '';
     skipEvents.forEach(type => document.removeEventListener(type, skipOpening, true));
     root.removeEventListener('focusin', skipOpening);
     root.removeAttribute('data-opening');
@@ -247,6 +248,7 @@
       const dx = frame.width / 2 - ox, dy = frame.height / 2 - oy;   // brings the starfish to the centre
       const total = OPENING_HOLD + OPENING_ZOOM;
       scene.style.transformOrigin = `${ox}px ${oy}px`;
+      scene.style.willChange = 'transform';   // drawn once at normal size, then only moved (no heavy redraws)
       opening.animation = scene.animate([
         {transform: `translate(${dx}px, ${dy}px) scale(${OPENING_DEPTH})`, offset: 0},
         {transform: `translate(${dx}px, ${dy}px) scale(${OPENING_DEPTH})`, offset: OPENING_HOLD / total, easing: 'cubic-bezier(.6, 0, .25, 1)'},
@@ -259,6 +261,15 @@
   }
   // END: OPENING SHOT
   if (window.ResizeObserver) new ResizeObserver(fitScene).observe(bar);
+  // While the page is pinch-zoomed, the drawing holds still. Phones only paint the
+  // part of a moving drawing that is on screen, so zooming back out showed empty
+  // strips at the sides; a still drawing is painted in full.
+  if (window.visualViewport) {
+    const pinch = () => root.toggleAttribute('data-pinch', visualViewport.scale > 1.01);
+    visualViewport.addEventListener('resize', pinch);
+    document.addEventListener('touchstart', e => { if (e.touches.length > 1) root.setAttribute('data-pinch', ''); }, {passive: true});
+    document.addEventListener('touchend', () => setTimeout(pinch, 400), {passive: true});
+  }
   // Pinch zoom also fires resize: ignore it while zoomed, so the drawing is not re-framed.
   window.addEventListener('resize', () => { if (!window.visualViewport || Math.abs(visualViewport.scale - 1) < .01) fitScene(); });
   if (document.fonts) document.fonts.ready.then(fitScene);
