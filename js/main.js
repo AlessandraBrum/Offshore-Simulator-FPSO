@@ -149,8 +149,8 @@ window.Storm = (() => {
   const horizon = () => h * (desktop.matches ? 0.58 : 0.62);
   function sea(x, layer) {
     // Phones: the waves are laid out as if the screen were at least 1000px wide (wider
-    // swells) and sized as if the scene were at least 600px tall (taller waves, more heave).
-    const span = desktop.matches ? w : Math.max(w, 1000), tall = desktop.matches ? h : Math.max(h, 600);
+    // swells) and sized as if the scene were at least 440px tall (taller waves, more heave).
+    const span = desktop.matches ? w : Math.max(w, 1000), tall = desktop.matches ? h : Math.max(h, 440);
     const u = x / span, a = tall * (0.012 + layer * layer * 0.01);
     return horizon() + layer * h * (0.03 + layer * 0.01)
       + Math.sin(u * (6 + layer * 2) + t * (0.7 + layer * 0.35) + layer * 1.7) * a
