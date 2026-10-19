@@ -661,15 +661,22 @@ details.alt summary,.notes summary,.oc-more>summary{color:var(--brand)}
 .oc-hero__meta{display:flex;flex-wrap:wrap;gap:var(--space-2) var(--space-5);margin:0;padding:0;list-style:none;font:500 15px/22px var(--font-mono);color:var(--text-2)}
 .oc-hero__meta b{color:var(--text);font-weight:600}
 /* Author credit under the scenario data: link in safety orange, white on hover */
-.oc-hero__credit{margin:var(--space-4) 0 0;font-size:16px;line-height:24px;color:var(--text-2)}
-.oc-hero__credit-link{display:inline-block;padding:var(--space-1) 0;color:var(--brand);font-weight:600;text-decoration:underline;text-underline-offset:3px}
-.oc-hero__credit-link:visited{color:var(--brand)}
+/* START: CREDITS (index.html, under the hero text)
+   .oc-hero__credits  wraps everything, so the hero grid gap applies only once.
+   .oc-hero__credit   each sentence: no margin, one directly under the other.
+   .oc-hero__credit-link  links inside a sentence: no extra height or side space.
+   .oc-hero__links    the row of icon links, close to each other.
+   .oc-hero__link     each icon link: 44px tap area (accessibility), no padding. */
+.oc-hero__credits{display:grid;gap:var(--space-1)}
+.oc-hero__credit{margin:0;font-size:16px;line-height:24px;color:var(--text-2)}
+.oc-hero__credit-link,.oc-hero__credit-link:visited{color:var(--brand);font-weight:600;text-decoration:underline;text-underline-offset:3px}
 .oc-hero__credit-link:hover{color:var(--text)}
-.oc-hero__links{display:flex;flex-wrap:wrap;gap:var(--space-2);margin:var(--space-2) 0 0;padding:0;list-style:none}
-.oc-hero__link,.oc-hero__link:visited{display:inline-flex;align-items:center;gap:var(--space-2);min-height:44px;min-width:44px;justify-content:center;padding:0 var(--space-2);color:var(--brand);font-size:16px;font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.oc-hero__links{display:flex;flex-wrap:wrap;gap:var(--space-1);margin:var(--space-1) 0 0;padding:0;list-style:none}
+.oc-hero__link,.oc-hero__link:visited{display:inline-flex;align-items:center;justify-content:center;min-height:44px;min-width:44px;padding:0;color:var(--brand)}
 .oc-hero__link:hover{color:var(--text)}
 .oc-hero__link-icon{width:24px;height:24px;flex:none}
 .oc-hero__link-icon--code{width:32px}
+/* END: CREDITS */
 /* Desktop: the storm fills the whole screen and the text sits on top,
    on the left, over a dark veil that guarantees AAA contrast. The ship
    sits on the right. Everything fits on one screen, with no scrolling. */
