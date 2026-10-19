@@ -547,9 +547,9 @@ const Music = (() => {
     }
   }
 
-  // Gentle entry: the volume rises from silence to full level in 1 second,
-  // on a curve that grows slowly at first (the ear perceives it as gradual).
-  const FADE_IN = 1;
+  // Quick entry: the volume rises from silence to full level in 0.15 s,
+  // just enough to avoid a click when the sound starts.
+  const FADE_IN = 0.15;
   // Volume chosen on the slider (0 to 100%). At 100% the gain is 0.35
   // (about a third of the old level: the music must stay soft, under the
   // storm, never loud). The output compressor holds back the peaks.
