@@ -1,20 +1,24 @@
-# 🚢 Offshore Simulator { Under construction } 👷
+# ♦ 🚢 Offshore Simulator { Under construction } 👷
 
-♦ ABOUT THE GAME:
+- ABOUT THE GAME:
+
 This is an educational offshore operations game, built with HTML, CSS and JavaScript. Offshore Simulator is an educational browser game set aboard the fictional FPSO Comandante Ancunín in the Santos Basin. Players explore a simplified offshore process, adjust controls and interpret instrument readings. The project brings together web development, game design and accessibility.
 
-♦ WHY I MADE IT:
+- WHY I MADE IT:
+
  This project aims to support offshore instrumentation training through an engaging, game-based learning experience that helps learners explore industry concepts and practice problem-solving in simulated scenarios. It also provides an opportunity for learners to expand their technical English vocabulary and deepen their understanding of the Oil & Gas industry, while allowing me to strengthen my web development skills, with a focus on accessibility, responsive design and user experience.
 
-♦ GAME OBJECTIVE:
+- GAME OBJECTIVE:
+
 Solve short operational challenges by bringing process variables into their target ranges and keeping them stable. Players learn through actions and feedback, with further explanations available when needed.
 
-♦  CORE GAME TASKS:
-Observe the current state, identify the priority, adjust a control, watch the trend, correct the adjustment and stabilize the system.
+-  CORE GAME TASKS:
 
----
+Observe the current state, identify the priorities and make adjustments in order to stabilize the system.
 
-## Technologies used
+<img src="assets/redmepreview.png" alt="Plataforma de petróleo à noite em meio à tempestade" width="55%"></img>
+
+## ♦ Technologies used
 
 **No frameworks.**.
 
@@ -36,9 +40,9 @@ Some features the browser itself provides, with nothing to install:
 - **`<dialog>`**: the phase menu window, which comes with the correct keyboard behavior built in.
 - **localStorage**: the browser's "drawer" where progress is saved (explained below).
 
----
 
-## How progress is saved
+
+## ♦ How progress is saved
 
 1. **Where:** in `localStorage`, a space that every browser sets aside for each website. It stores name/value pairs as text. The data stays only in that browser, on that device, and is never sent to any server.
 2. **What is saved:**
