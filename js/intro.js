@@ -195,7 +195,8 @@
     const barHeight = bar.getBoundingClientRect().height;
     document.documentElement.style.setProperty('--intro-bar-height', `${barHeight}px`);
     const viewportWidth = document.documentElement.clientWidth;
-    const viewportHeight = Math.max(1, window.innerHeight - barHeight);
+    // clientHeight (layout viewport) does not change with pinch zoom; innerHeight does on phones.
+    const viewportHeight = Math.max(1, document.documentElement.clientHeight - barHeight);
     const narrow = viewportWidth <= 700;
     const topInset = narrow ? 190 : 0;
     const sceneHeight = Math.max(180, viewportHeight - topInset - (narrow ? 230 : 180));
@@ -268,7 +269,8 @@
   }
   // END: OPENING SHOT
   if (window.ResizeObserver) new ResizeObserver(fitScene).observe(bar);
-  window.addEventListener('resize', fitScene);
+  // Pinch zoom also fires resize: ignore it while zoomed, so the drawing is not re-framed.
+  window.addEventListener('resize', () => { if (!window.visualViewport || Math.abs(visualViewport.scale - 1) < .01) fitScene(); });
   if (document.fonts) document.fonts.ready.then(fitScene);
   fitScene();
   syncMusic(); draw(); update();
