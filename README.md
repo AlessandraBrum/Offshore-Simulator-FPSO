@@ -1,14 +1,22 @@
 # 🚢 Offshore Simulator { Under construction } 👷
 
-This is the public preview: the intro, the soundtrack, the privacy notice and the phase menu. The phases open as soon as they are ready. Project currently under construction. Keep an eye out for updates!
+♦ ABOUT THE GAME:
+This is an educational offshore operations game, built with HTML, CSS and JavaScript. Offshore Simulator is an educational browser game set aboard the fictional FPSO Comandante Ancunín in the Santos Basin. Players explore a simplified offshore process, adjust controls and interpret instrument readings. The project brings together web development, game design and accessibility.
 
-• This is an educational offshore operations game, built with HTML, CSS and JavaScript.
+♦ WHY I MADE IT:
+ This project aims to support offshore instrumentation training through an engaging, game-based learning experience that helps learners explore industry concepts and practice problem-solving in simulated scenarios. It also provides an opportunity for learners to expand their technical English vocabulary and deepen their understanding of the Oil & Gas industry, while allowing me to strengthen my web development skills, with a focus on accessibility, responsive design and user experience.
 
-• My goal with this project is to improve my technical English skills, increase my web development knowledge in terms of accessibility, responsiveness and user experience and also exercise my generative AI for coding knowledge, as well as learn more about the Oil & Gas industry, considering I have worked for 9 years for technical and legal translations companies and I have always kept in touch with technical documents. I have also had the opportunity to have conversations about this topic with engineers in my private life, being so amazed about it that this subject inspired me to learn about how the oil treatment and oil platforms work.
+♦ GAME OBJECTIVE:
+Solve short operational challenges by bringing process variables into their target ranges and keeping them stable. Players learn through actions and feedback, with further explanations available when needed.
+
+♦  CORE GAME TASKS:
+Observe the current state, identify the priority, adjust a control, watch the trend, correct the adjustment and stabilize the system.
+
+---
 
 ## Technologies used
 
-**No framework.** I did not use React, Vue, npm or any external library.
+**No frameworks.**.
 
 - **HTML** for the structure: text, buttons, menus.
 - **CSS** for the appearance.
@@ -27,6 +35,8 @@ Some features the browser itself provides, with nothing to install:
 - **Web Audio**: generates the music and the thunder in code, note by note. There is no audio file at all.
 - **`<dialog>`**: the phase menu window, which comes with the correct keyboard behavior built in.
 - **localStorage**: the browser's "drawer" where progress is saved (explained below).
+
+---
 
 ## How progress is saved
 
