@@ -56,16 +56,18 @@
       const url = link ? link.href : BLOG;
       const count = entry.thr$total ? Number(entry.thr$total.$t) : 0;
       const date = niceDate(entry.published.$t);
+      const author = entry.author && entry.author[0] && entry.author[0].name ? entry.author[0].name.$t : '';
       const article = document.createElement('article');
       article.className = 'oc-about__card oc-post';
       article.setAttribute('aria-labelledby', id);
       article.innerHTML =
         `<h2 class="oc-about__heading" id="${id}"></h2>` +
-        `<p class="oc-post__date"><time datetime="${entry.published.$t.slice(0, 10)}">${date.text}<sup>${date.suffix}</sup>, ${date.year}</time></p>` +
+        `<p class="oc-post__date"><time datetime="${entry.published.$t.slice(0, 10)}">${date.text}<sup>${date.suffix}</sup>, ${date.year}</time><span class="oc-post__author"></span></p>` +
         `<div class="oc-post__body">${clean(entry.content ? entry.content.$t : (entry.summary ? entry.summary.$t : ''))}</div>` +
         `<p class="oc-post__actions"><a class="oc-btn oc-btn--link" href="${url}#comments" target="_blank" rel="noopener">` +
         `Comment${count ? ` (${count})` : ''}<span class="oc-sr"> on this post (opens Blogger in a new tab)</span></a></p>`;
       article.querySelector('h2').textContent = entry.title.$t || 'Untitled post';
+      if (author && author !== 'Unknown') article.querySelector('.oc-post__author').textContent = `By ${author}`;
       list.append(article);
     });
   }
