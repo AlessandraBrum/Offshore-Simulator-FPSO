@@ -74,3 +74,22 @@
 /* ==========================================================================
    END: PHASE PAGE
    ========================================================================== */
+
+/* ==========================================================================
+   START: BLOG POSTS (devlog.html, posts from Blogger)
+   ========================================================================== */
+.oc-posts{display:grid;gap:var(--space-4);max-width:820px}
+.oc-posts__list{display:grid;gap:var(--space-4)}
+.oc-posts__status:empty{display:none}
+.oc-posts__status,.oc-posts__more{margin:0;color:var(--text-2)}
+.oc-post__date{color:var(--text-2);font:500 15px/1.5 var(--font-mono)}
+.oc-post__body{max-width:65ch;color:var(--text)}
+.oc-post__body :is(p,ul,ol,blockquote){margin:0 0 var(--space-3)}
+.oc-post__body h3{margin:var(--space-4) 0 var(--space-2);font:600 20px/1.3 var(--font-sans);color:var(--text)}
+.oc-post__body img{display:block;max-width:100%;height:auto;margin:var(--space-3) 0;border-radius:var(--radius-sm)}
+.oc-post__body a{word-break:break-word}
+.oc-post__actions{margin-top:var(--space-4)}
+.oc-post__actions .oc-btn{min-height:44px;display:inline-flex;align-items:center}
+/* ==========================================================================
+   END: BLOG POSTS
+   ========================================================================== */

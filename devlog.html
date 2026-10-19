@@ -13,6 +13,7 @@
   <script src="js/motion-pref.js"></script>
   <script src="js/storm-page.js" defer></script>
   <script src="js/nav.js" defer></script>
+  <script src="js/devlog-feed.js" defer></script>
 </head>
 <!-- END: HEAD -->
 
@@ -90,6 +91,14 @@
       <p>Here you will find about what I have learned and what comes next.</p>
     </article>
     <!-- END: ENTRY -->
+
+    <!-- START: BLOG POSTS (loaded from Blogger by js/devlog-feed.js; write the posts on Blogger) -->
+    <section class="oc-posts" aria-label="Dev log posts">
+      <p class="oc-posts__status" id="blog-status" role="status">Loading posts…</p>
+      <div class="oc-posts__list" id="blog-posts"></div>
+      <p class="oc-posts__more"><a href="https://fpso-offshore-simulator.blogspot.com" target="_blank" rel="noopener">See all posts on the blog<span class="oc-sr"> (opens in a new tab)</span></a></p>
+    </section>
+    <!-- END: BLOG POSTS -->
 
   </main>
   <!-- END: CONTENT -->
