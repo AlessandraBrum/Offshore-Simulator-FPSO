@@ -10,7 +10,7 @@
 
   // START: SETTINGS
   const BLOG = 'https://fpso-offshore-simulator.blogspot.com';
-  const MAX_POSTS = 20;
+  const PER_PAGE = 10;                       // posts per page; older ones on devlog.html?page=2, 3…
   // END: SETTINGS
 
   const list = document.getElementById('blog-posts');
@@ -51,7 +51,7 @@
     if (!entries.length) { status.textContent = 'No posts yet.'; return; }
     status.textContent = '';
     entries.forEach((entry, i) => {
-      const id = `post-${i + 1}`;
+      const id = `post-${(page - 1) * PER_PAGE + i + 1}`;
       const link = (entry.link || []).find(l => l.rel === 'alternate');
       const url = link ? link.href : BLOG;
       const count = entry.thr$total ? Number(entry.thr$total.$t) : 0;
@@ -72,10 +72,24 @@
     });
   }
 
+  // START: PAGES (devlog.html = newest posts, devlog.html?page=2 = the next ones…)
+  const page = Math.max(1, parseInt(new URLSearchParams(location.search).get('page'), 10) || 1);
+  function pager(feed) {
+    const nav = document.getElementById('blog-pages');
+    if (!nav) return;
+    const total = Number(feed.feed && feed.feed.openSearch$totalResults ? feed.feed.openSearch$totalResults.$t : 0);
+    const links = [];
+    if (page > 1) links.push(`<a class="oc-btn oc-btn--link" href="devlog.html${page > 2 ? `?page=${page - 1}` : ''}">← Newer posts</a>`);
+    if (page * PER_PAGE < total) links.push(`<a class="oc-btn oc-btn--link" href="devlog.html?page=${page + 1}">Older posts →</a>`);
+    nav.innerHTML = links.join('');
+    nav.hidden = !links.length;
+  }
+  // END: PAGES
+
   // JSONP: Blogger calls window.ocDevlogFeed with the feed
-  window.ocDevlogFeed = render;
+  window.ocDevlogFeed = feed => { render(feed); pager(feed); };
   const script = document.createElement('script');
-  script.src = `${BLOG}/feeds/posts/default?alt=json-in-script&max-results=${MAX_POSTS}&callback=ocDevlogFeed`;
-  script.onerror = () => { status.textContent = 'The posts could not be loaded right now. You can read them on the blog.'; };
+  script.src = `${BLOG}/feeds/posts/default?alt=json-in-script&start-index=${(page - 1) * PER_PAGE + 1}&max-results=${PER_PAGE}&callback=ocDevlogFeed`;
+  script.onerror = () => { status.textContent = 'The posts could not be loaded right now. Please try again later.'; };
   document.body.append(script);
 })();

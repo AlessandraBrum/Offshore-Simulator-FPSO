@@ -81,7 +81,10 @@
 .oc-posts{display:grid;gap:var(--space-4);max-width:820px}
 .oc-posts__list{display:grid;gap:var(--space-4)}
 .oc-posts__status:empty{display:none}
-.oc-posts__status,.oc-posts__more{margin:0;color:var(--text-2)}
+.oc-posts__status{margin:0;color:var(--text-2)}
+.oc-posts__pages{display:flex;flex-wrap:wrap;justify-content:space-between;gap:var(--space-3)}
+.oc-posts__pages[hidden]{display:none}
+.oc-posts__pages .oc-btn{min-height:44px;display:inline-flex;align-items:center}
 .oc-post__date{color:var(--text-2);font:500 15px/1.5 var(--font-mono)}
 .oc-post__author{display:block;font-family:var(--font-sans)}
 .oc-post__author:empty{display:none}
