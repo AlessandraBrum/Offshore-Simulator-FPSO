@@ -1,3 +1,6 @@
+**Autoria:**  · [Alessandra Brum](https://www.alessandrabrum.com/) · 
+**Ano:** 2026
+
 # ♦ 🚢 Offshore Simulator { Under construction } 👷
 
 - ABOUT THE GAME:
@@ -16,7 +19,8 @@ Solve short operational challenges by bringing process variables into their targ
 
 Observe the current state, identify the priorities and make adjustments in order to stabilize the system.
 
-<img src="assets/Offshore simulator-readmegithub.png" alt="Notebook mostrando captura de tela do site do simulator de plataforma de petróleo" width="100%"></img>
+
+<img src="assets/preview/readmepreview.webp" alt="Plataforma de petróleo em alto mar durante tempestade à noite" width="60%"></img>
 
 ## ♦ Technologies used
 
@@ -39,7 +43,6 @@ Some features the browser itself provides, with nothing to install:
 - **Web Audio**: generates the music and the thunder in code, note by note. There is no audio file at all.
 - **`<dialog>`**: the phase menu window, which comes with the correct keyboard behavior built in.
 - **localStorage**: the browser's "drawer" where progress is saved (explained below).
-
 
 
 ## ♦ How progress is saved
