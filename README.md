@@ -1,7 +1,7 @@
 **Autoria:**  · [Alessandra Brum](https://www.alessandrabrum.com/) · 
 **Ano:** 2026
 
-# ♦ 🚢 Offshore Simulator { Under construction } 👷
+# ♦ 🚢 Offshore Simulator [ Under development ] 👷
 
 - ABOUT THE GAME:
 
